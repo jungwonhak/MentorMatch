@@ -1,4 +1,9 @@
-package com.codepath.mentormatch;
+package com.codepath.mentormatch.activities;
+
+import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.R.id;
+import com.codepath.mentormatch.R.layout;
+import com.codepath.mentormatch.R.menu;
 
 import android.app.Activity;
 import android.app.ActionBar;
