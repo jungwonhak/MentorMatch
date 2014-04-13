@@ -1,47 +1,22 @@
 package com.codepath.mentormatch.activities;
 
-import org.json.JSONObject;
-
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.core.ParseApplication;
 import com.codepath.mentormatch.helpers.LinkedInClient;
-import com.codepath.mentormatch.models.LinkedInUser;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.codepath.oauth.OAuthLoginActivity;
 
-public class HomeActivity extends Activity {
+public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
-		
-		LinkedInClient linkedInClient = ParseApplication.getRestClient();
-				
-		linkedInClient.getUserInfo(new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONObject jsonUser) {
-				LinkedInUser u = LinkedInUser.fromJson(jsonUser);
-				Log.d("DEBUG", "Got back: " + u.toString());
-			}
-			
-			@Override
-			public void onFailure(Throwable e) {
-				Log.d("DEBUG", "FAILED: " + e.getMessage());
-				e.printStackTrace();
-			}
-			
-			@Override
-			protected void handleFailureMessage(Throwable e, String responseBody) {
-				Log.d("DEBUG", "FAILED: " + responseBody);
-				e.printStackTrace();
-			}
-		});
+		setContentView(R.layout.activity_login);
 	}
 
 	@Override
@@ -63,4 +38,22 @@ public class HomeActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public void onLoginSuccess() {
+		Log.d("DEBUG", "Logged in successfully");
+	    Intent i = new Intent(this, HomeActivity.class);
+	    startActivity(i);
+		
+	}
+
+	@Override
+	public void onLoginFailure(Exception e) {
+		e.printStackTrace();
+		
+	}
+
+	  public void loginToRest(View view) {
+	      getClient().connect();
+	  }
 }
