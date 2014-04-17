@@ -41,6 +41,9 @@
             android:name="com.codepath.mentormatch.activities.HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name="com.example.mentor_practice.Profile_Builder" >
+        </activity>
     </application>
 
 </manifest>

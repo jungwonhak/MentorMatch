@@ -12,7 +12,7 @@ import com.codepath.mentormatch.helpers.LinkedInClient;
 import com.codepath.oauth.OAuthLoginActivity;
 
 public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
-
+    public static final String LOGIN_EXTRA = "foo";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,8 +42,9 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	@Override
 	public void onLoginSuccess() {
 		Log.d("DEBUG", "Logged in successfully");
-	    Intent i = new Intent(this, HomeActivity.class);
-	    startActivity(i);
+        Intent i = new Intent(this, Profile_Builder.class);
+		i.putExtra(LOGIN_EXTRA, "login");
+        startActivity(i);
 		
 	}
 
