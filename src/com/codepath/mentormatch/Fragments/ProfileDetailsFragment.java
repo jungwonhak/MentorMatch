@@ -1,21 +1,19 @@
-package com.example.mentormatch.Fragments;
-
-import com.example.mentormatch.Profile_Builder;
-import com.example.mentormatch.R;
+package com.codepath.mentormatch.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 
 public class ProfileDetailsFragment extends Fragment{
 	private Button profileNext;
@@ -51,7 +49,7 @@ public class ProfileDetailsFragment extends Fragment{
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(), String.valueOf(locationText.getSelectedItem()), Toast.LENGTH_LONG).show();
-				Intent i = new Intent(getActivity(), Profile_Builder.class);
+				Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
 				i.putExtra(PROFILE_PAGE_EXTRA, "details");
 				i.putExtra(NAME_EXTRA, nameText.getText());
 				i.putExtra(JOB_EXTRA, jobText.getText());

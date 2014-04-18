@@ -1,19 +1,17 @@
-package com.example.mentormatch;
+package com.codepath.mentormatch.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-import com.example.mentormatch.Fragments.AboutMeFragment;
-import com.example.mentormatch.Fragments.LanguageSelectionFragment;
-import com.example.mentormatch.Fragments.MentorStatusFragment;
-import com.example.mentormatch.Fragments.ProfileDetailsFragment;
+import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.fragments.AboutMeFragment;
+import com.codepath.mentormatch.fragments.LanguageSelectionFragment;
+import com.codepath.mentormatch.fragments.MentorStatusFragment;
+import com.codepath.mentormatch.fragments.ProfileDetailsFragment;
 
-public class Profile_Builder extends FragmentActivity {
+public class ProfileBuilderActivity extends FragmentActivity {
 	private String name;
 	
 	protected void onCreate(Bundle savedInstanceState) {

@@ -32,7 +32,6 @@ public class LinkedInUser {
 		return output;	
 	}
 	
-	
 	public static LinkedInUser fromJson(JSONObject jsonObject) {
 		LinkedInUser u = new LinkedInUser();
 		

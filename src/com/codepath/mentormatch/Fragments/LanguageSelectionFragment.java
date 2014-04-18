@@ -1,21 +1,18 @@
-package com.example.mentormatch.Fragments;
-
-import com.example.mentormatch.MainActivity;
-import com.example.mentormatch.Profile_Builder;
-import com.example.mentormatch.R;
+package com.codepath.mentormatch.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+
+import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 
 public class LanguageSelectionFragment extends Fragment {
 	private RadioGroup radioLanguageGroup;
@@ -46,7 +43,7 @@ public class LanguageSelectionFragment extends Fragment {
 				int selectedId = radioLanguageGroup.getCheckedRadioButtonId();
 				radioLanguageButton = (RadioButton) getActivity().findViewById(selectedId);
 				
-				Intent i = new Intent(getActivity(), Profile_Builder.class);
+				Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
 				i.putExtra(LANGUAGE_PAGE_EXTRA, "language");
 				i.putExtra(LANGUAGE_EXTRA, radioLanguageButton.getText());
 				startActivity(i);

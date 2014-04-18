@@ -42,7 +42,7 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	@Override
 	public void onLoginSuccess() {
 		Log.d("DEBUG", "Logged in successfully");
-        Intent i = new Intent(this, Profile_Builder.class);
+        Intent i = new Intent(this, ProfileBuilderActivity.class);
 		i.putExtra(LOGIN_EXTRA, "login");
         startActivity(i);
 		
