@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/etProfileDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:gravity="center"
+        android:text="@string/learningLanguageString"
+        android:textSize="20sp" />
+    
+
+  <RadioGroup
+        android:id="@+id/languageOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="100dp" >
+  
+
+  <RadioButton
+      android:id="@+id/radioAndroid"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:checked="true"
+      android:text="Android" />
+
+  <RadioButton
+      android:id="@+id/radioiOS"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="iOS" />
+
+  <RadioButton
+      android:id="@+id/radioPython"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Python" />
+
+  <RadioButton
+      android:id="@+id/radioRuby"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Ruby" />
+  </RadioGroup>
+
+  <Button
+      android:id="@+id/languageNext"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignRight="@+id/languageOptions"
+      android:layout_below="@+id/languageOptions"
+      android:layout_marginTop="69dp"
+      android:text="@string/nextBtn" />
+
+</RelativeLayout>

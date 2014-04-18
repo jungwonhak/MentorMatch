@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/etProfileDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/profileDetails" />
+
+    <ImageView
+        android:id="@+id/ivProfileDetails"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/etProfileDetails"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_profile_placeholder" />
+
+    <EditText
+        android:id="@+id/etProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="Name" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etProfileJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etProfileName"
+        android:layout_below="@+id/etProfileName"
+        android:ems="10"
+        android:hint="Job" />
+
+    <Spinner
+        android:id="@+id/spinLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etProfileJob"
+        android:layout_alignRight="@+id/etProfileJob"
+        android:layout_below="@+id/etProfileJob" 
+        android:entries="@array/city_array"
+        android:prompt="@string/city_prompt"/>
+
+    <Button
+        android:id="@+id/btnProfileNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/nextBtn" />
+
+</RelativeLayout>
