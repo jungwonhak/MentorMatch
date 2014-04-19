@@ -1,5 +1,6 @@
 package com.codepath.mentormatch.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,10 +44,10 @@ public class AboutMeFragment extends Fragment{
 			public void onClick(View v) {
 				updateBackend();
 
-				Toast.makeText(getActivity(), mentorText.getText(), Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
 				Intent i = new Intent(getActivity(), MentorMatchActivity.class);
 				i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
-				i.putExtra(TEXT_EXTRA, mentorText.getText());
+				i.putExtra(TEXT_EXTRA, etDescription.getText());
 				startActivity(i);
 				
 			}

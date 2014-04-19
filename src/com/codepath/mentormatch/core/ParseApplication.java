@@ -53,29 +53,7 @@ public class ParseApplication extends com.activeandroid.app.Application {
 				LinkedInClient.class, ParseApplication.context);
 	}
 
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Parse.initialize(this, "SPqzrixlrCnLDAmmchtr8Uz2vqVJEQG58ivlbgmN", "kB3cp9xHengwfcLT7tE4xv5jO0fFerCdCb1nynSQ");
-        ParseObject.registerSubclass(User.class);
-        ParseObject.registerSubclass(MentorRequest.class);
-        ParseObject.registerSubclass(MatchRelationship.class);
-
-        ParseApplication.context = this;
-        
-        // Create global configuration and initialize ImageLoader with this configuration
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().
-        		cacheInMemory().cacheOnDisc().build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-            .defaultDisplayImageOptions(defaultOptions)
-            .build();
-        ImageLoader.getInstance().init(config);
-    }     
     
-    public static LinkedInClient getRestClient() {
-    	return (LinkedInClient) LinkedInClient.getInstance(LinkedInClient.class, ParseApplication.context);
-    }
     
     public static void logoutUser() {
     	getRestClient().clearAccessToken();
