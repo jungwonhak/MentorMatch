@@ -9,7 +9,11 @@ import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ParseApplication extends com.activeandroid.app.Application {
 	private static Context context;
@@ -17,6 +21,7 @@ public class ParseApplication extends com.activeandroid.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Parse.initialize(this, "SPqzrixlrCnLDAmmchtr8Uz2vqVJEQG58ivlbgmN", "kB3cp9xHengwfcLT7tE4xv5jO0fFerCdCb1nynSQ");
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(MentorRequest.class);
         ParseObject.registerSubclass(MatchRelationship.class);
@@ -30,9 +35,17 @@ public class ParseApplication extends com.activeandroid.app.Application {
             .defaultDisplayImageOptions(defaultOptions)
             .build();
         ImageLoader.getInstance().init(config);
-  }     
+    }     
     
     public static LinkedInClient getRestClient() {
     	return (LinkedInClient) LinkedInClient.getInstance(LinkedInClient.class, ParseApplication.context);
+    }
+    
+    public static void logoutUser() {
+    	getRestClient().clearAccessToken();
+		User currentUser = (User) ParseUser.getCurrentUser();
+		if (currentUser != null) {
+			ParseUser.logOut();
+		}
     }
 }

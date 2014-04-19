@@ -2,13 +2,87 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <Button
-        android:id="@+id/button1"
+    <ImageView
+        android:id="@+id/ivCompanyLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="loginToRest"
-        android:text="Log In" />
+        android:contentDescription="@string/company_logo"
+        android:src="@drawable/ic_profile_placeholder" />
+
+    <TextView
+        android:id="@+id/tvCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivCompanyLogo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/company_name" />
+
+    <TextView
+        android:id="@+id/tvCompanyMotto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCompanyName"
+        android:layout_centerHorizontal="true"
+        android:text="@string/company_motto" />
+
+    <Button
+        android:id="@+id/btnConnectWithLinkedIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCompanyMotto"
+        android:layout_centerHorizontal="true"
+        android:onClick="handleLinkedInSignUp"
+        android:text="@string/linked_in_connect" />
+
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnConnectWithLinkedIn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/or" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvOr"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etEmail"
+        android:layout_below="@+id/etEmail"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword" >
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etEmail"
+        android:layout_below="@+id/etPassword"
+        android:onClick="handleRegularSignUp"
+        android:text="@string/sign_up" />
+
+    <Button
+        android:id="@+id/btnAlreadyMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSignUp"
+        android:layout_centerHorizontal="true"        
+        android:text="@string/already_a_member" />
 
 </RelativeLayout>
