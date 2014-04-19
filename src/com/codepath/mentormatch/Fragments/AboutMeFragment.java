@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.HomeActivity;
+import com.codepath.mentormatch.activities.MentorMatchActivity;
 
 public class AboutMeFragment extends Fragment{
 	private Button mentorNext;
@@ -40,7 +41,7 @@ public class AboutMeFragment extends Fragment{
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getActivity(), mentorText.getText(), Toast.LENGTH_LONG).show();
-				Intent i = new Intent(getActivity(), HomeActivity.class);
+				Intent i = new Intent(getActivity(), MentorMatchActivity.class);
 				i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
 				i.putExtra(TEXT_EXTRA, mentorText.getText());
 				startActivity(i);

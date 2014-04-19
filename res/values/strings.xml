@@ -9,12 +9,15 @@
     <string name="learningLanguageString">Most Importantly, what do you want to learn?</string>
     <string name="aboutMeHeader">Lastly, briefly describe your programming experience and goals.</string>
     <string name="profileDetails">Filling out this info will help us find the best mentors for you</string>
-	<string name="nextBtn">Next</string>
-	<string-array name="city_array">
+    <string name="nextBtn">Next</string>
+
+    <string-array name="city_array">
         <item>San Francisco</item>
         <item>New York</item>
         <item>Austin</item>
     </string-array>
+
     <string name="city_prompt">Location</string>
+    <string name="title_activity_mentor_match">MentorMatchActivity</string>
 
 </resources>

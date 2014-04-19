@@ -107,7 +107,7 @@ public class User extends ParseUser{
 	}
 
 	public void setSkills(List<String> value) {
-		put(ACCESS_TOKEN_KEY, value);
+		put(SKILLS_LIST_KEY, value);
 	}
 	
 }
