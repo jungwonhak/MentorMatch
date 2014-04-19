@@ -12,10 +12,13 @@ public class MentorRequest extends ParseObject implements Serializable {
 	private static final long serialVersionUID = -2947441978843755640L;
 
 	public static final String MENTEE_USER_ID_KEY = "menteeId";
-	public static final String MENTOR_USER_ID_KEY = "mentorId";
+//	public static final String MENTOR_USER_ID_KEY = "mentorId";
 	public static final String SKILL_KEY = "skill";
+	public static final String MESSAGE_KEY = "message";
 	public static final String STATUS_KEY = "status";
-
+	public static final String REQUESTED_MENTORS_LIST_KEY = "requestedMentors";
+	
+	
 	public MentorRequest() {
 		super();
 	}
@@ -34,11 +37,11 @@ public class MentorRequest extends ParseObject implements Serializable {
 	}
 
 	public ParseUser getMentor() {
-		return getParseUser(MENTOR_USER_ID_KEY);
+		return getParseUser(REQUESTED_MENTORS_LIST_KEY);
 	}
 
 	public void setMentor(ParseUser user) {
-		put(MENTOR_USER_ID_KEY, user);
+		put(REQUESTED_MENTORS_LIST_KEY, user);
 	}
 
 	public String getSkill() {
@@ -51,6 +54,14 @@ public class MentorRequest extends ParseObject implements Serializable {
 
 	public String getStatus() {
 		return getString(STATUS_KEY);
+	}
+	
+	public String getMessage() {
+		return getString(MESSAGE_KEY);
+	}
+	
+	public void setMessage(String message) {
+		put(MESSAGE_KEY, message);
 	}
 
 }

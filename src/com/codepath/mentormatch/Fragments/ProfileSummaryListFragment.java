@@ -57,8 +57,8 @@ public abstract class ProfileSummaryListFragment extends Fragment{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 				Log.d("TEST - Item Click Listener", "on item click: " + pos);
-				Intent i = new Intent(getActivity().getBaseContext(), ViewProfileActivity.class);
-				i.putExtra(USER_EXTRA, (User) profileAdapter.getItem(pos));
+				Intent i = new Intent(getActivity(), ViewProfileActivity.class);
+				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
 				startActivity(i);
 			}
 		});
