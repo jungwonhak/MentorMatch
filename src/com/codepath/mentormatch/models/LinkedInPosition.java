@@ -7,6 +7,14 @@ import org.json.JSONObject;
 
 public class LinkedInPosition {
 
+	public String getTitle() {
+		return title;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
 	private String positionId;
 	private boolean isCurrent;
 	private String title;

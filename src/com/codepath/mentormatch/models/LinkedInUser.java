@@ -4,13 +4,58 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.scribe.model.Token;
 
 
 public class LinkedInUser {
+	public String getProfileId() {
+		return profileId;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public String getCompany() {
+		if (currentPositions.size() > 0) {
+			return currentPositions.get(0).getCompany();
+		}
+		return null;
+	}
+
+	public String getTitle() {
+		if (currentPositions.size() > 0) {
+			return currentPositions.get(0).getTitle();
+		}
+		return null;
+	}
+	
+	public void setAccessToken(Token token) {
+		accessToken = token.getToken();
+	}
+	
+	public String getAccessToken() {
+		return accessToken;
+	}
+	
+	private String accessToken;
 	private String profileId;
 	private String emailAddress;
 	private String firstName;
 	private String lastName;
+	// https://developer.linkedin.com/forum/dictionary-locations
 	private String location;
 	private String pictureUrl;
 	private ArrayList<LinkedInSkill> skills;

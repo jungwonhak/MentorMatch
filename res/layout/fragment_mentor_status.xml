@@ -2,14 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcome" />
+
+    <TextView
+        android:id="@+id/tvMentorMenteeQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFindMentor"
+        android:layout_centerHorizontal="true"
+        android:text="@string/mentor_mentee_question" />
+
     <Button
-        android:id="@+id/btnMentorNext"
+        android:id="@+id/btnFindMentor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:text="@string/nextBtn" />
-    
+        android:text="@string/find_a_mentor" />
+
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFindMentor"
+        android:layout_centerHorizontal="true"
+        android:text="@string/or" />
+
+    <Button
+        android:id="@+id/btnBeMentor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvOr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/be_a_mentor" />
 
 </RelativeLayout>

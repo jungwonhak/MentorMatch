@@ -27,7 +27,7 @@ public class LinkedInClient extends OAuthBaseClient {
     public static final String REST_URL = "http://api.linkedin.com/v1"; 
     public static final String REST_CONSUMER_KEY = "75tao9nsgcabjl";
     public static final String REST_CONSUMER_SECRET = "bFMTB5PkqTWr67Cd";
-    public static final String REST_CALLBACK_URL = "https://mylinkedinapp"; 
+    public static final String REST_CALLBACK_URL = "oauth://mylinkedinapp"; 
         
     public LinkedInClient(Context context) {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);

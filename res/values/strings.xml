@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">MentorMatch</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
@@ -21,4 +20,19 @@
     <string name="title_activity_mentor_match">MentorMatchActivity</string>
     <string name="title_activity_view_profile">ViewProfileActivity</string>
 
+    <string name="city_prompt">Location</string>
+    <string name="company_name">code.mentor</string>
+    <string name="company_motto">The best way for would be mentors and apprentices to get connected.</string>
+    <string name="linked_in_connect">Connect with LinkedIn</string>
+    <string name="or">or</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="already_a_member">Already a member?</string>
+    <string name="find_a_mentor">Find a Mentor</string>
+    <string name="be_a_mentor">Be a Mentor</string>
+    <string name="welcome">Welcome!</string>
+    <string name="mentor_mentee_question">Do you want to find a mentor or are you interested in mentoring?</string>
+    
 </resources>

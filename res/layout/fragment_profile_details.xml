@@ -14,7 +14,7 @@
         android:text="@string/profileDetails" />
 
     <ImageView
-        android:id="@+id/ivProfileDetails"
+        android:id="@+id/ivProfileImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/etProfileDetails"
@@ -43,21 +43,29 @@
         android:ems="10"
         android:hint="Job" />
 
-    <Spinner
-        android:id="@+id/spinLocation"
+    <EditText
+        android:id="@+id/etProfileCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etProfileJob"
-        android:layout_alignRight="@+id/etProfileJob"
-        android:layout_below="@+id/etProfileJob" 
-        android:entries="@array/city_array"
-        android:prompt="@string/city_prompt"/>
+        android:layout_below="@+id/etProfileJob"
+        android:ems="10"
+        android:hint="Company" />
+
+    <EditText
+        android:id="@+id/etLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etProfileCompany"
+        android:layout_alignRight="@+id/etProfileCompany"
+        android:layout_below="@+id/etProfileCompany"
+        android:hint="Location" />
 
     <Button
         android:id="@+id/btnProfileNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinLocation"
+        android:layout_below="@+id/etLocation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
         android:text="@string/nextBtn" />

@@ -1,15 +1,20 @@
 package com.codepath.mentormatch.models;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
 
+import android.util.Log;
+
+import com.parse.LogInCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @ParseClassName("_User") 
-public class User extends ParseUser implements Serializable{
+public class User extends ParseUser {
 
 	private static final long serialVersionUID = 5903507024108975925L;
 
@@ -18,13 +23,20 @@ public class User extends ParseUser implements Serializable{
 	public static final String DESCRIPTION_KEY = "description";
 	public static final String JOB_TITLE_KEY = "jobTitle";
 	public static final String COMPANY_KEY = "company";
-	public static final String YEAR_EXP_KEY = "yearsOfExperience";
 	public static final String LINKED_IN_URL_KEY = "linkedInUrl";
 	public static final String GITHUB_URL_KEY = "githubUrl";
 	public static final String PROFILE_IMG_URL_KEY = "profileImageUrl";
 	public static final String ACCESS_TOKEN_KEY = "accessToken";
 	public static final String SKILLS_LIST_KEY = "skills";
-
+	public static final String FULL_NAME_KEY = "fullName";
+	
+	/** LinkedIn User:
+	 * 		- Username = LinkedIn ProfileId
+	 * 		- Password = Access Token
+	 * Regular User:
+	 * 		- Username = email
+	 * 		- Password =  password
+	*/
 	public User() {
 		super();
 	}
@@ -32,7 +44,7 @@ public class User extends ParseUser implements Serializable{
 	public User(JSONObject userJson) {
 		super();
 	}
-	
+		
 	public String getLocation() {
 		return getString(LOCATION_KEY);
 	}
@@ -65,14 +77,6 @@ public class User extends ParseUser implements Serializable{
 		put(COMPANY_KEY, value);
 	}
 	
-	public double getYearsExperience() {
-		return getDouble(YEAR_EXP_KEY);
-	}
-
-	public void setYearsExperience(double value) {
-		put(YEAR_EXP_KEY, value);
-	}
-
 	public String getLinkedInUrl() {
 		return getString(LINKED_IN_URL_KEY);
 	}
@@ -104,7 +108,15 @@ public class User extends ParseUser implements Serializable{
 	public void setAccessToken(String value) {
 		put(ACCESS_TOKEN_KEY, value);
 	}
-	
+
+	public String getFullName() {
+		return getString(FULL_NAME_KEY);
+	}
+
+	public void setFullName(String value) {
+		put(FULL_NAME_KEY, value);
+	}
+
 	public List<String> getSkills() {
 		return getList(SKILLS_LIST_KEY);
 	}
@@ -112,5 +124,63 @@ public class User extends ParseUser implements Serializable{
 	public void setSkills(List<String> value) {
 		put(SKILLS_LIST_KEY, value);
 	}
+		
+	// Email is the username
+	public static User fromRegularUser(String email, String password) {
+		User u = new User();
+		u.setUsername(email);
+		u.setEmail(email);
+		u.setPassword(password);
+		return u;
+	}
 	
+	// LinkedIn ProfileId is the username
+	public static User fromLinkedInUser(LinkedInUser linkedInUser) {
+		User u = new User();
+		
+		try {			
+			u.setUsername(linkedInUser.getProfileId());
+			u.setPassword(linkedInUser.getAccessToken());
+
+			u.setLocation(linkedInUser.getLocation());
+			u.setEmail(linkedInUser.getEmailAddress());
+			u.setJobTitle(linkedInUser.getTitle());
+			u.setFullName(linkedInUser.getFullName());
+			u.setProfileImage(linkedInUser.getPictureUrl());
+			u.setCompany(linkedInUser.getCompany());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return u;
+	}
+
+	public static User getUserIfExists(String userName) {
+		ParseQuery<ParseUser> query = ParseUser.getQuery();
+		List<ParseUser> results = new ArrayList<ParseUser>();
+		query.whereEqualTo("username", userName);
+		try {
+			results = query.find();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if (results.size() > 0) {
+			return (User) results.get(0);
+		}
+		return null;
+	}
+	
+    public void loginToParse(String password) {
+    	ParseUser.logInInBackground(this.getUsername(), password, new LogInCallback() {
+    		  public void done(ParseUser user, ParseException e) {
+    		    if (user != null) {
+    		      // Hooray! The user is logged in.
+    		    	Log.d("DEBUG", "User is now logged in");
+    		    } else {
+    		    	Log.d("DEBUG", "Signin failed");
+    		      // Signup failed. Look at the ParseException to see what happened.
+    		    }
+    		  }
+    		});	
+    }
 }
