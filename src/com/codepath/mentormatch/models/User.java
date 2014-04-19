@@ -1,5 +1,6 @@
 package com.codepath.mentormatch.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -8,7 +9,9 @@ import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
 @ParseClassName("_User") 
-public class User extends ParseUser{
+public class User extends ParseUser implements Serializable{
+
+	private static final long serialVersionUID = 5903507024108975925L;
 
 	public static final String NAME_KEY = "name";
 	public static final String LOCATION_KEY = "location";

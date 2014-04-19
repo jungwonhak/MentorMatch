@@ -35,9 +35,13 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 		tvJobTitle = (TextView) view.findViewById(R.id.tvJobTitle);
 		user = (User) getItem(position);
 		tvName.setText(user.getUsername());
-		tvJobTitle.setText(user.getJobTitle());
+		tvJobTitle.setText(user.getJobTitle() + " at " + user.getCompany());
 		
 		return view;
+	}
+	
+	private void getRatings() {
+		
 	}
 
 }

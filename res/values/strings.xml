@@ -19,5 +19,6 @@
 
     <string name="city_prompt">Location</string>
     <string name="title_activity_mentor_match">MentorMatchActivity</string>
+    <string name="title_activity_view_profile">ViewProfileActivity</string>
 
 </resources>

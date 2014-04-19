@@ -47,6 +47,10 @@
             android:name="com.codepath.mentormatch.activities.MentorMatchActivity"
             android:label="@string/title_activity_mentor_match" >
         </activity>
+        <activity
+            android:name="com.codepath.mentormatch.activities.ViewProfileActivity"
+            android:label="@string/title_activity_view_profile" >
+        </activity>
     </application>
 
 </manifest>
