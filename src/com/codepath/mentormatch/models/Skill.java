@@ -21,6 +21,9 @@ public enum Skill implements Serializable{
 		return description;
 	}
 	
+	public String getLogo() {
+		return toString() + "_logo.png";
+	}
 	public static Skill fromValue(String value) throws IllegalArgumentException {
         try{
         	for(Skill skill : Skill.values()) {

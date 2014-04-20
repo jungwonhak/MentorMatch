@@ -89,7 +89,7 @@ public class AboutMeFragment extends Fragment{
 			public void done(ParseException e) {
 				if(e == null) {
 				// TODO Auto-generated method stub
-					Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
+					//Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
 					Intent i = new Intent(getActivity(), MentorMatchActivity.class);
 					i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
 					i.putExtra(TEXT_EXTRA, etDescription.getText());

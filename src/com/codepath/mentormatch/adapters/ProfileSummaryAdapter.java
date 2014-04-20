@@ -13,53 +13,99 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
 
 public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 
+	private static final int SWIPE_MIN_DISTANCE = 60;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 	private User user;
-	TextView tvName;
-	TextView tvJobTitle;
-	TextView tvLocation;
-	ImageView ivProfileImage;
-
+	
+    // View lookup cache
+    private static class ViewHolder {
+    	TextView tvName;
+    	TextView tvJobTitle;
+    	TextView tvLocation;
+    	ImageView ivProfileImage;
+    	RatingBar rbRating;
+    	LinearLayout llSkillImages;
+    }
+    
 	public ProfileSummaryAdapter(Context context, List<ParseUser> objects) {
 		super(context, 0, objects);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = convertView;
-		if (view == null) {
-			LayoutInflater inflater = (LayoutInflater) getContext()
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(R.layout.profile_summary_item, null);
-		}
-
-		tvName = (TextView) view.findViewById(R.id.tvName);
-		tvJobTitle = (TextView) view.findViewById(R.id.tvJobTitle);
-		tvLocation = (TextView) view.findViewById(R.id.tvLocation);
-		ivProfileImage = (ImageView) view.findViewById(R.id.ivProfileImage);
-
 		user = (User) getItem(position);
-
+		ViewHolder viewHolder; // view lookup cache stored in tag
+		
+		if (convertView == null) {
+			viewHolder = new ViewHolder();
+			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.profile_summary_item, null);	
+			viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
+			viewHolder.tvJobTitle = (TextView) convertView.findViewById(R.id.tvJobTitle);
+			viewHolder.tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
+			viewHolder.ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
+			viewHolder.rbRating = (RatingBar) convertView.findViewById(R.id.rbRating);
+			viewHolder.llSkillImages = (LinearLayout) convertView.findViewById(R.id.llSkillImages);
+	        convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+			viewHolder.llSkillImages.removeAllViews();
+	    }
+		
 		if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
 			ImageLoader.getInstance().displayImage(user.getProfileImage(),
-					ivProfileImage);
+					viewHolder.ivProfileImage);
 		} else {
-			ivProfileImage.setImageResource(R.drawable.ic_profile_placeholder);
+			viewHolder.ivProfileImage.setImageResource(R.drawable.ic_profile_placeholder);
 		}
-		tvName.setText(user.getFullName());
-		tvJobTitle.setText(user.getJobTitle() + " @ " + user.getCompany());
-		tvLocation.setText(user.getLocation());
+		viewHolder.tvName.setText(user.getFullName());
+		viewHolder.tvJobTitle.setText(user.getJobTitle() + " @ " + user.getCompany());
+		viewHolder.tvLocation.setText(user.getLocation());
+		Log.d("DEBUG", "Name: " + user.getFullName());
+		viewHolder.rbRating.setRating(getAverageRating());
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(70, 70);
 		
-        final GestureDetector gdt = new GestureDetector(view.getContext(), new GestureListener());
-        view.setOnTouchListener(new OnTouchListener() {
+		for (String s : user.getSkills()) {
+			Log.d("DEBUG", "SKill: " + s);
+			ImageView iv = new ImageView(convertView.getContext());
+			iv.setScaleType(ScaleType.FIT_XY);
+			iv.setLayoutParams(params);
+			
+			// Needs to be fast 
+			if (s.equalsIgnoreCase(Skill.PYTHON.toString())) {
+				Log.d("DEBUG", "Adding python");
+				iv.setImageResource(R.drawable.python_logo);
+			} else if(s.equalsIgnoreCase(Skill.IOS.toString())) {
+				Log.d("DEBUG", "Adding ios");
+				iv.setImageResource(R.drawable.ios_logo);
+			} else if(s.equalsIgnoreCase(Skill.ANDROID.toString())) {
+				Log.d("DEBUG", "Adding android");
+				iv.setImageResource(R.drawable.android_logo);
+			} else if(s.equalsIgnoreCase(Skill.RUBY.toString())) {
+				Log.d("DEBUG", "Adding python");
+				iv.setImageResource(R.drawable.ruby_logo);
+			}
+			else {
+				continue;
+			}
+			viewHolder.llSkillImages.addView(iv);				
+		}
+		
+        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
+        convertView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
                 gdt.onTouchEvent(event);
@@ -67,14 +113,12 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
                 return true;
             }
         });
-		return view;
+		return convertView;
 	}
 
-	private void getRatings() {
-
+	private float getAverageRating() {
+		return (float)Math.random() * 5; 
 	}
-    private static final int SWIPE_MIN_DISTANCE = 60;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
     private class GestureListener extends SimpleOnGestureListener {
         @Override

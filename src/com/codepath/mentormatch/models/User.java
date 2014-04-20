@@ -29,6 +29,7 @@ public class User extends ParseUser {
 	public static final String ACCESS_TOKEN_KEY = "accessToken";
 	public static final String SKILLS_LIST_KEY = "skills";
 	public static final String FULL_NAME_KEY = "fullName";
+	public static final String IS_MENTOR_KEY = "isMentor";
 	
 	/** LinkedIn User:
 	 * 		- Username = LinkedIn ProfileId
@@ -125,6 +126,14 @@ public class User extends ParseUser {
 		put(SKILLS_LIST_KEY, value);
 	}
 		
+	public void setIsMentor(boolean value) {
+		put(IS_MENTOR_KEY, value);
+	}
+	
+	public boolean isMentor() {
+		return getBoolean(IS_MENTOR_KEY);
+	}
+	
 	// Email is the username
 	public static User fromRegularUser(String email, String password) {
 		User u = new User();
@@ -168,6 +177,23 @@ public class User extends ParseUser {
 			return (User) results.get(0);
 		}
 		return null;
+	}
+	
+	public static User getUserById(String parseObjectId) {
+		ParseQuery<ParseUser> query = ParseUser.getQuery();
+		List<ParseUser> results = new ArrayList<ParseUser>();
+		query.whereEqualTo("objectId", parseObjectId);
+		try {
+			results = query.find();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if (results.size() > 0) {
+			return (User) results.get(0);
+		}
+		return null;
+		
+		
 	}
 	
     public void loginToParse(String password) {

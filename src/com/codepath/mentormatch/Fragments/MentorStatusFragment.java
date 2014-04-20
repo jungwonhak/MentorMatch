@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
+import com.codepath.mentormatch.models.User;
+import com.parse.ParseUser;
 
 public class MentorStatusFragment extends Fragment {
 	private Button btnFindMentor;
@@ -35,12 +37,30 @@ public class MentorStatusFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				updateBackend(false);
 				Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
 				i.putExtra(MENTOR_STATUS_EXTRA, FIND_MENTOR);
 				startActivity(i);
 			}
 		});
+		btnBeMentor.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				updateBackend(true);
+				Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
+				i.putExtra(MENTOR_STATUS_EXTRA, FIND_MENTOR);
+				startActivity(i);
+			}
+		});
+
 		return v;
+	}
+	
+	private void updateBackend(boolean isMentor) {
+		User u = (User)ParseUser.getCurrentUser();
+		u.setIsMentor(isMentor);
+		u.saveInBackground();	
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) {

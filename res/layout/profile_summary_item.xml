@@ -72,24 +72,13 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/rbRating"
         android:text="5 Reviews" />
-
+   
     <LinearLayout
-        android:id="@+id/llProfileSkillsList"
+        android:id="@+id/llSkillImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/vwSeparator"
         android:layout_below="@+id/vwSeparator"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/ivSkill1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/python" />
-    </LinearLayout>
-
+        android:orientation="horizontal" >          
+	</LinearLayout>
 </RelativeLayout>
