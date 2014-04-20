@@ -1,5 +1,6 @@
 package com.codepath.mentormatch.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -16,12 +17,12 @@ public class MentorMatchActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mentor_match);
-		Skill skill = (Skill) getIntent().getSerializableExtra(AboutMeFragment.SKILL_EXTRA);
+		Intent intent = getIntent();
+		Skill skill = (Skill) intent.getSerializableExtra(AboutMeFragment.SKILL_EXTRA);
+		String requestId = intent.getStringExtra(AboutMeFragment.REQUEST_EXTRA);
+
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		// Replace the container with the new fragment
-		ft.replace(R.id.flMentorSearchResults, MentorSearchResultsFragment.newInstance(skill));
-		// or ft.add(R.id.your_placeholder, new FooFragment());
-		// Execute the changes specified
+		ft.replace(R.id.flMentorSearchResults, MentorSearchResultsFragment.newInstance(skill, requestId));
 		ft.commit();
 	}
 

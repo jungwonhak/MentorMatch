@@ -3,6 +3,7 @@ package com.codepath.mentormatch.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,17 +16,20 @@ import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.MentorMatchActivity;
 import com.codepath.mentormatch.models.MentorRequest;
 import com.codepath.mentormatch.models.Skill;
-import com.codepath.mentormatch.models.User;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 
 public class AboutMeFragment extends Fragment{
+	private MentorRequest request;
 	private Skill skill;
 	private Button btnFindMentor;
 	private EditText etDescription;
 	public static final String ABOUT_ME_PAGE_EXTRA = "foo";
 	public static final String TEXT_EXTRA = "about";
 	public static final String SKILL_EXTRA = "skill";
+	public static final String REQUEST_EXTRA = "requestObjectId";
 	public static final String SKILL_ARG = "skill";
 	
 	
@@ -65,12 +69,7 @@ public class AboutMeFragment extends Fragment{
 			public void onClick(View v) {
 				updateBackend();
 
-				Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
-				Intent i = new Intent(getActivity(), MentorMatchActivity.class);
-				i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
-				i.putExtra(TEXT_EXTRA, etDescription.getText());
-				i.putExtra(SKILL_EXTRA, skill);
-				startActivity(i);
+
 				
 			}
 		}); 
@@ -80,8 +79,31 @@ public class AboutMeFragment extends Fragment{
 //		User u = (User)ParseUser.getCurrentUser();
 //		u.setDescription(etDescription.getText().toString());
 //		u.saveInBackground();
-		MentorRequest request = new MentorRequest();
+		request = new MentorRequest();
 		request.setMentee(ParseUser.getCurrentUser());
+		request.setSkill(skill);
+		request.setDescription(etDescription.getText().toString());
+		request.saveInBackground(new SaveCallback() {
+
+			@Override
+			public void done(ParseException e) {
+				if(e == null) {
+				// TODO Auto-generated method stub
+					Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
+					Intent i = new Intent(getActivity(), MentorMatchActivity.class);
+					i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
+					i.putExtra(TEXT_EXTRA, etDescription.getText());
+					i.putExtra(SKILL_EXTRA, skill);
+					i.putExtra(REQUEST_EXTRA, request.getObjectId());
+					Log.d("DEBUG", "Created Mentor Request - request id: " + request.getObjectId());
+					startActivity(i);				
+				} else {
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		
 //		request.s
 	}
 }

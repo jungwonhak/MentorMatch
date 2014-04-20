@@ -1,6 +1,7 @@
 package com.codepath.mentormatch.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.parse.ParseClassName;
@@ -15,7 +16,7 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public static final String MENTEE_USER_ID_KEY = "menteeId";
 //	public static final String MENTOR_USER_ID_KEY = "mentorId";
 	public static final String SKILL_KEY = "skill";
-	public static final String MESSAGE_KEY = "message";
+	public static final String DESCRIPTION_KEY = "description";
 	public static final String STATUS_KEY = "status";
 	public static final String REQUESTED_MENTORS_LIST_KEY = "requestedMentors";
 	
@@ -24,7 +25,7 @@ public class MentorRequest extends ParseObject implements Serializable {
 		super();
 	}
 
-	public MentorRequest(ParseUser mentee, String skill) {
+	public MentorRequest(ParseUser mentee, Skill skill) {
 		setMentee(mentee);
 		setSkill(skill);
 	}
@@ -47,9 +48,13 @@ public class MentorRequest extends ParseObject implements Serializable {
 	
 	public void addMentorToList(String objId) {
 		List<String> mentorList = getMentorList();
+		if(mentorList == null) {
+			mentorList = new ArrayList<String>();
+		}
 		if(mentorList.contains(objId)) {
 			return;
 		}
+
 		mentorList.add(objId);
 		setMentorList(mentorList);
 	}
@@ -66,20 +71,20 @@ public class MentorRequest extends ParseObject implements Serializable {
 		return getString(SKILL_KEY);
 	}
 
-	public void setSkill(String skill) {
-		put(SKILL_KEY, skill);
+	public void setSkill(Skill skill) {
+		put(SKILL_KEY, skill.toString());
 	}
 
 	public String getStatus() {
 		return getString(STATUS_KEY);
 	}
 	
-	public String getMessage() {
-		return getString(MESSAGE_KEY);
+	public String getDescription() {
+		return getString(DESCRIPTION_KEY);
 	}
 	
-	public void setMessage(String message) {
-		put(MESSAGE_KEY, message);
+	public void setDescription(String message) {
+		put(DESCRIPTION_KEY, message);
 	}
 
 }
