@@ -108,6 +108,10 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 			@Override
 			public void onSuccess(JSONObject jsonUser) {
 				LinkedInUser u = LinkedInUser.fromJson(jsonUser);
+				if (u == null) {
+					userLoginOrSignupFailure("Unable to parse LinkedIn data");
+					return;
+				}
 				u.setAccessToken(linkedInClient.checkAccessToken());
 
 				User parseUser = User.getUserIfExists(u.getProfileId());

@@ -16,12 +16,11 @@ public class LinkedInPosition {
 	}
 
 	private String positionId;
-	private boolean isCurrent;
 	private String title;
 	private String company;
 		
 	public String toString() {
-		return String.format("Position id: %s, title: %s, isCurrent: %b, company: %s", positionId, title, isCurrent, company);
+		return String.format("Position id: %s, title: %s, company: %s", positionId, title, company);
 	}
 
 	public static LinkedInPosition fromJson(JSONObject jsonObject) {
@@ -29,9 +28,12 @@ public class LinkedInPosition {
 		
 		try {			
 			p.positionId = jsonObject.getString("id");
-			p.isCurrent = jsonObject.getBoolean("isCurrent");
-			p.title = jsonObject.getString("title");
-			p.company = jsonObject.getJSONObject("company").getString("name"); 
+			p.title = jsonObject.optString("title", "");
+			p.company = "";
+			JSONObject company = jsonObject.getJSONObject("company");
+			if (company != null) {
+				p.company = company.optString("name", "");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

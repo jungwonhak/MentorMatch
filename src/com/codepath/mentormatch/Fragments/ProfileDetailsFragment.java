@@ -42,7 +42,9 @@ public class ProfileDetailsFragment extends Fragment{
 		profileNext = (Button) v.findViewById(R.id.btnProfileNext);
 		User currentUser = (User) ParseUser.getCurrentUser();
 		if (currentUser != null) {
-			ImageLoader.getInstance().displayImage(currentUser.getProfileImage(), ivProfileImage);
+			if (!currentUser.getProfileImage().isEmpty()) {
+				ImageLoader.getInstance().displayImage(currentUser.getProfileImage(), ivProfileImage);
+			}
 			etLocation.setText(currentUser.getLocation());
 			etProfileName.setText(currentUser.getFullName());
 			etProfileJob.setText(currentUser.getJobTitle());

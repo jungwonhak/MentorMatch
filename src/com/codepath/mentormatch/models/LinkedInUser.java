@@ -58,17 +58,17 @@ public class LinkedInUser {
 	// https://developer.linkedin.com/forum/dictionary-locations
 	private String location;
 	private String pictureUrl;
-	private ArrayList<LinkedInSkill> skills;
+	//private ArrayList<LinkedInSkill> skills;
 	private ArrayList<LinkedInPosition> currentPositions;
-
+	
 	@Override
 	public String toString() {
 		String output = String.format("User id: %s, name: %s %s, emailAddress: %s, location: %s, picture: %s%n", 
 				profileId, firstName, lastName, emailAddress, location, pictureUrl);
 
-		for (LinkedInSkill s : skills) {
-			output += s.toString() + "\n";
-		}
+	//	for (LinkedInSkill s : skills) {
+	//		output += s.toString() + "\n";
+	//	}
 		
 		for (LinkedInPosition p : currentPositions) {
 			output += p.toString() + "\n";
@@ -76,19 +76,30 @@ public class LinkedInUser {
 		
 		return output;	
 	}
-	
+		
+	// Best effort
 	public static LinkedInUser fromJson(JSONObject jsonObject) {
 		LinkedInUser u = new LinkedInUser();
-		
 		try {			
 			u.profileId = jsonObject.getString("id");
-			u.emailAddress = jsonObject.getString("emailAddress");
-			u.firstName = jsonObject.getString("firstName");
-			u.lastName = jsonObject.getString("lastName");
-			u.pictureUrl = jsonObject.getString("pictureUrl");
-			u.location = jsonObject.getJSONObject("location").getString("name");
-			u.skills = LinkedInSkill.fromJson(jsonObject.getJSONObject("skills").getJSONArray("values"));
-			u.currentPositions = LinkedInPosition.fromJson(jsonObject.getJSONObject("threeCurrentPositions").getJSONArray("values"));
+			u.emailAddress = jsonObject.optString("emailAddress", "");
+			u.firstName = jsonObject.optString("firstName", "");
+			u.lastName = jsonObject.optString("lastName", "");
+			u.pictureUrl = jsonObject.optString("pictureUrl" , "");
+			u.location = ""; 
+			JSONObject location = jsonObject.optJSONObject("location");
+			if (location != null) {
+				u.location = location.optString("name", "");
+			}
+			//u.skills = LinkedInSkill.fromJson(jsonObject.getJSONObject("skills").getJSONArray("values"));
+			u.currentPositions = new ArrayList<LinkedInPosition>();
+			JSONObject positions = jsonObject.optJSONObject("threeCurrentPositions");
+			if (positions != null) {
+				JSONArray values = positions.optJSONArray("values");
+				if (values != null) {
+					u.currentPositions = LinkedInPosition.fromJson(values);
+				}
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
