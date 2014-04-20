@@ -11,7 +11,9 @@ import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.core.ParseApplication;
 import com.codepath.mentormatch.fragments.AboutMeFragment;
 import com.codepath.mentormatch.fragments.MentorSearchResultsFragment;
+import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
 import com.codepath.mentormatch.models.Skill;
+import com.parse.ParseUser;
 
 public class MentorMatchActivity extends FragmentActivity {
 
@@ -41,4 +43,20 @@ public class MentorMatchActivity extends FragmentActivity {
 		startActivity(i);
 	}
 
+	public void viewConnections(MenuItem item) {
+		Intent i = new Intent(this, ConnectionsActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewRequests(MenuItem item) {
+		Intent i = new Intent(this, PendingRequestActivity.class);
+		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void viewMyProfile(MenuItem item) {
+		Intent i = new Intent(this, ViewProfileActivity.class);
+		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
 }

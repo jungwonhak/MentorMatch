@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
@@ -24,6 +25,7 @@ public class ViewProfileActivity extends FragmentActivity {
 	private User user;
 	private TextView tvName;
 	private TextView tvJobInfo;
+	private Button btnContact;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class ViewProfileActivity extends FragmentActivity {
 				ProfileSummaryListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(
 				ProfileSummaryListFragment.REQUEST_ID_EXTRA);
+		btnContact = (Button) findViewById(R.id.btnRequestMentor);
+		if(requestId == null) {
+			// hide connection button
+			btnContact.setVisibility(View.GONE);
+		}
 		getUser();
 	}
 

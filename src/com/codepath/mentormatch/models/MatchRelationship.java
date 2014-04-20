@@ -17,6 +17,7 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	public static final String MENTEE_RATING_KEY = "menteeRating";
 	public static final String MENTOR_COMMENT_KEY = "commentForMentor";
 	public static final String MENTEE_COMMENT_KEY = "commentForMentee";
+	public static final String MENTOR_REQUEST_KEY = "mentorRequestId";
 	
 	public MatchRelationship() {
 		super();
@@ -25,7 +26,6 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	public MatchRelationship(MentorRequest request) {
 		super();
 		setMentee(request.getMentee());
-//		setMentor(request.getMentor());
 	}
 	
 	public ParseUser getMentee() {
@@ -74,6 +74,14 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	
 	public void setCommentForMentee(String comment) {
 		put(MENTEE_COMMENT_KEY, comment);
+	}
+	
+	public void setMentorRequestId(MentorRequest requestId) {
+		put(MENTOR_REQUEST_KEY, requestId);
+	}
+	
+	public MentorRequest getMentorRequestId() {
+		return (MentorRequest) getParseObject(MENTOR_REQUEST_KEY);
 	}
 
 }

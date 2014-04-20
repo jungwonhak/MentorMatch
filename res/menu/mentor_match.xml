@@ -1,15 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/miMyProfile"
+        android:onClick="viewMyProfile"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Profile"/>
+    <item
+        android:id="@+id/miConnections"
+        android:onClick="viewConnections"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Cons"/>
+    <item
+        android:id="@+id/miRequests"
+        android:onClick="viewRequests"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Req"/>    
     <item
         android:id="@+id/miLogout"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
         android:onClick="handleLogout"
-        android:title="Logout"/>
-    
-    <item
-        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
-
+        android:showAsAction="always"
+        android:title="Logout"/>
 </menu>

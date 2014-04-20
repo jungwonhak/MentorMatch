@@ -18,7 +18,6 @@
 
     <string name="title_activity_mentor_match">MentorMatchActivity</string>
     <string name="title_activity_view_profile">ViewProfileActivity</string>
-
     <string name="city_prompt">Location</string>
     <string name="company_name">code.mentor</string>
     <string name="company_motto">The best way for would be mentors and apprentices to get connected.</string>
@@ -33,5 +32,8 @@
     <string name="be_a_mentor">Be a Mentor</string>
     <string name="welcome">Welcome!</string>
     <string name="mentor_mentee_question">Do you want to find a mentor or are you interested in mentoring?</string>
-    
+    <string name="title_activity_connections">ConnectionsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_pending_request">PendingRequestActivity</string>
+
 </resources>
