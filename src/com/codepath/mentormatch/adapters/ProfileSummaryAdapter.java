@@ -76,7 +76,7 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 		viewHolder.tvLocation.setText(user.getLocation());
 		Log.d("DEBUG", "Name: " + user.getFullName());
 		viewHolder.rbRating.setRating(getAverageRating());
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(70, 70);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 		
 		for (String s : user.getSkills()) {
 			Log.d("DEBUG", "SKill: " + s);

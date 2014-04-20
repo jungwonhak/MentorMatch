@@ -3,14 +3,12 @@ package com.codepath.mentormatch.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.MentorMatchActivity;
@@ -91,11 +89,11 @@ public class AboutMeFragment extends Fragment{
 				// TODO Auto-generated method stub
 					//Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
 					Intent i = new Intent(getActivity(), MentorMatchActivity.class);
-					i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
-					i.putExtra(TEXT_EXTRA, etDescription.getText());
-					i.putExtra(SKILL_EXTRA, skill);
-					i.putExtra(REQUEST_EXTRA, request.getObjectId());
-					Log.d("DEBUG", "Created Mentor Request - request id: " + request.getObjectId());
+					//i.putExtra(ABOUT_ME_PAGE_EXTRA, "about_me");
+					//i.putExtra(TEXT_EXTRA, etDescription.getText());
+					//i.putExtra(SKILL_EXTRA, skill);
+					//i.putExtra(REQUEST_EXTRA, request.getObjectId());
+					//Log.d("DEBUG", "Created Mentor Request - request id: " + request.getObjectId());
 					startActivity(i);				
 				} else {
 					e.printStackTrace();

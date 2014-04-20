@@ -16,7 +16,9 @@ import com.codepath.mentormatch.models.LinkedInUser;
 import com.codepath.mentormatch.models.User;
 import com.codepath.oauth.OAuthLoginActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
@@ -48,10 +50,10 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	
 	// Once we have a successful login
 	private void userLoginSuccess() {
-		final Intent i = new Intent(this, ProfileBuilderActivity.class);
+		final Intent i = new Intent(this, MentorMatchActivity.class);
 		// Temporary - Need to decide where to drop user on log in.  Thinking of going to mentorMatch activity, but would need to
 		// pull skill from request in parse
-		i.putExtra(LOGIN_EXTRA, "details");
+		//i.putExtra(LOGIN_EXTRA, "details");
 		startActivity(i);
 	}
 
@@ -127,8 +129,17 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 
 				// Existing LinkedIn user - log in
 				if (parseUser != null) {
-					parseUser.loginToParse(u.getAccessToken());	
-					userLoginSuccess();
+					ParseUser.logInInBackground(u.getProfileId(), u.getAccessToken(), new LogInCallback() {
+						  public void done(ParseUser user, ParseException e) {
+						    if (user != null) {
+								userLoginSuccess();
+						    } else {
+						    	e.printStackTrace();
+						    	userLoginOrSignupFailure("Unable to log in existing LinkedIn user");
+						    }
+						  }
+						});
+					
 				} else { // New LinkedIn user
 					parseUser = User.fromLinkedInUser(u);
 					parseUser.signUpInBackground(new SignUpCallback() {
