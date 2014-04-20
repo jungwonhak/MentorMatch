@@ -46,13 +46,19 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 	
-	// Once we have a successful login or sign-up
-	private void userLoginOrSignupSuccess() {
-		final Intent i = new Intent(this, ProfileBuilderActivity.class);
-		i.putExtra(LOGIN_EXTRA, "login");
+	// Once we have a successful login
+	private void userLoginSuccess() {
+		final Intent i = new Intent(this, MentorMatchActivity.class);
 		startActivity(i);
 	}
 
+	// Once we have a successful initial signup
+	private void userSignupSuccess() {
+		final Intent i = new Intent(this, ProfileBuilderActivity.class);
+		i.putExtra(LOGIN_EXTRA, "login");
+		startActivity(i);		
+	}
+	
 	// Basic check for now
 	private boolean validateUserNameAndPassword(String userName, String password) {
 		if(userName.length() > 0 && password.length() > 0) {
@@ -81,7 +87,7 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 			public void done(ParseException e) {
 				if (e == null) {
 					Log.d("DEBUG", "SUCCESS!!!!");
-					userLoginOrSignupSuccess();
+					userSignupSuccess();
 				} else {
 					e.printStackTrace();
 					Log.d("DEBUG", "Failed");
@@ -119,13 +125,13 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 				// Existing LinkedIn user - log in
 				if (parseUser != null) {
 					parseUser.loginToParse(u.getAccessToken());	
-					userLoginOrSignupSuccess();
+					userLoginSuccess();
 				} else { // New LinkedIn user
 					parseUser = User.fromLinkedInUser(u);
 					parseUser.signUpInBackground(new SignUpCallback() {
 						public void done(ParseException e) {
 							if (e == null) {
-								userLoginOrSignupSuccess();
+								userSignupSuccess();
 							} else {
 								e.printStackTrace();
 								userLoginOrSignupFailure("Unable to sign up LinkedIn parse user");

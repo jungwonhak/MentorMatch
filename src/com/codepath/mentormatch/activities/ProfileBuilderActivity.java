@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.core.ParseApplication;
@@ -14,8 +13,6 @@ import com.codepath.mentormatch.fragments.AboutMeFragment;
 import com.codepath.mentormatch.fragments.LanguageSelectionFragment;
 import com.codepath.mentormatch.fragments.MentorStatusFragment;
 import com.codepath.mentormatch.fragments.ProfileDetailsFragment;
-import com.codepath.mentormatch.models.User;
-import com.parse.ParseUser;
 
 public class ProfileBuilderActivity extends FragmentActivity {
 	private String name;
@@ -30,20 +27,20 @@ public class ProfileBuilderActivity extends FragmentActivity {
 		android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
 		if (name.equals("login")) {
 			fts.replace(R.id.profileItemContainer, new MentorStatusFragment());
-			Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();
 		} 
 		
 		else if(name.equals("FIND_MENTOR")) {
 			fts.replace(R.id.profileItemContainer, new ProfileDetailsFragment());
-			Toast.makeText(this, name, Toast.LENGTH_LONG).show();	
+			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();	
 		}
 		else if (name.equals("details")) {
 			fts.replace(R.id.profileItemContainer, new LanguageSelectionFragment());
-			Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();
 		} 
 		else if (name.equals("language")) {
 			fts.replace(R.id.profileItemContainer, new AboutMeFragment());
-			Toast.makeText(this, name, Toast.LENGTH_LONG).show();		
+			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();		
 		} 
 		
 		fts.commit();
@@ -57,9 +54,4 @@ public class ProfileBuilderActivity extends FragmentActivity {
 		return true;
 	}
 
-	public void handleLogout(MenuItem item){
-		ParseApplication.logoutUser();
-		Intent i = new Intent(this, LoginActivity.class);
-		startActivity(i);
-	}
 }

@@ -20,9 +20,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.codepath.mentormatch.activities.LoginActivity"
-            android:theme="@style/AppTheme.NoTitleBar"
-            
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,10 +39,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.codepath.mentormatch.activities.HomeActivity"
-            android:label="@string/title_activity_home" >
-        </activity>
-        <activity android:name="com.codepath.mentormatch.activities.ProfileBuilderActivity" >
+            android:name="com.codepath.mentormatch.activities.ProfileBuilderActivity"
+            android:theme="@style/AppTheme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.codepath.mentormatch.activities.MentorMatchActivity"
