@@ -14,8 +14,7 @@ import com.codepath.mentormatch.fragments.AboutMeFragment;
 import com.codepath.mentormatch.fragments.LanguageSelectionFragment;
 import com.codepath.mentormatch.fragments.MentorStatusFragment;
 import com.codepath.mentormatch.fragments.ProfileDetailsFragment;
-import com.codepath.mentormatch.models.User;
-import com.parse.ParseUser;
+import com.codepath.mentormatch.models.Skill;
 
 public class ProfileBuilderActivity extends FragmentActivity {
 	private String name;
@@ -23,8 +22,10 @@ public class ProfileBuilderActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile_builder);
+		Intent intent = getIntent();
 		
-		name = getIntent().getStringExtra("foo").toString();
+		
+		name = intent.getStringExtra("foo").toString();
 		
 		FragmentManager manager = getSupportFragmentManager();
 		android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
@@ -42,7 +43,9 @@ public class ProfileBuilderActivity extends FragmentActivity {
 			Toast.makeText(this, name, Toast.LENGTH_LONG).show();
 		} 
 		else if (name.equals("language")) {
-			fts.replace(R.id.profileItemContainer, new AboutMeFragment());
+			Skill skill = (Skill) intent.getSerializableExtra(LanguageSelectionFragment.LANGUAGE_EXTRA);
+			fts.replace(R.id.profileItemContainer, AboutMeFragment.newInstance(skill));
+			
 			Toast.makeText(this, name, Toast.LENGTH_LONG).show();		
 		} 
 		

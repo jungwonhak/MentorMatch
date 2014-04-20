@@ -1,6 +1,7 @@
 package com.codepath.mentormatch.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -36,6 +37,23 @@ public class MentorRequest extends ParseObject implements Serializable {
 		put(MENTEE_USER_ID_KEY, user);
 	}
 
+	public List<String> getMentorList() {
+		return getList(REQUESTED_MENTORS_LIST_KEY);
+	}
+
+	public void setMentorList(List<String> value) {
+		put(REQUESTED_MENTORS_LIST_KEY, value);
+	}
+	
+	public void addMentorToList(String objId) {
+		List<String> mentorList = getMentorList();
+		if(mentorList.contains(objId)) {
+			return;
+		}
+		mentorList.add(objId);
+		setMentorList(mentorList);
+	}
+/*
 	public ParseUser getMentor() {
 		return getParseUser(REQUESTED_MENTORS_LIST_KEY);
 	}
@@ -43,7 +61,7 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public void setMentor(ParseUser user) {
 		put(REQUESTED_MENTORS_LIST_KEY, user);
 	}
-
+*/
 	public String getSkill() {
 		return getString(SKILL_KEY);
 	}

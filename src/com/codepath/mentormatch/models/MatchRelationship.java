@@ -25,7 +25,7 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	public MatchRelationship(MentorRequest request) {
 		super();
 		setMentee(request.getMentee());
-		setMentor(request.getMentor());
+//		setMentor(request.getMentor());
 	}
 	
 	public ParseUser getMentee() {

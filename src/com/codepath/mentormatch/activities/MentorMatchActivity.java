@@ -6,7 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.fragments.AboutMeFragment;
 import com.codepath.mentormatch.fragments.MentorSearchResultsFragment;
+import com.codepath.mentormatch.models.Skill;
 
 public class MentorMatchActivity extends FragmentActivity {
 
@@ -14,9 +16,10 @@ public class MentorMatchActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mentor_match);
+		Skill skill = (Skill) getIntent().getSerializableExtra(AboutMeFragment.SKILL_EXTRA);
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
-		ft.replace(R.id.flMentorSearchResults, new MentorSearchResultsFragment());
+		ft.replace(R.id.flMentorSearchResults, MentorSearchResultsFragment.newInstance(skill));
 		// or ft.add(R.id.your_placeholder, new FooFragment());
 		// Execute the changes specified
 		ft.commit();

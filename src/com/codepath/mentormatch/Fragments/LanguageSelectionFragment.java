@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
+import com.codepath.mentormatch.models.Skill;
 
 public class LanguageSelectionFragment extends Fragment {
 	private RadioGroup radioLanguageGroup;
@@ -45,7 +46,7 @@ public class LanguageSelectionFragment extends Fragment {
 				
 				Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
 				i.putExtra(LANGUAGE_PAGE_EXTRA, "language");
-				i.putExtra(LANGUAGE_EXTRA, radioLanguageButton.getText());
+				i.putExtra(LANGUAGE_EXTRA, Skill.fromValue(radioLanguageButton.getText().toString()));
 				startActivity(i);
 				
 			}
