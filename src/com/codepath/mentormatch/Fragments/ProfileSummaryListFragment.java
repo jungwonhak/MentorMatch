@@ -24,8 +24,10 @@ public abstract class ProfileSummaryListFragment extends Fragment{
 	protected ProfileSummaryAdapter profileAdapter;
 	protected List<ParseUser> usersList;
 	protected ListView lvProfileSummaries;
+	protected String requestId;
 	
 	public static final String USER_EXTRA = "user";
+	public static final String REQUEST_ID_EXTRA = "requestId";
 	
 	public abstract void fetchProfiles();
 	
@@ -59,6 +61,7 @@ public abstract class ProfileSummaryListFragment extends Fragment{
 				Log.d("TEST - Item Click Listener", "on item click: " + pos);
 				Intent i = new Intent(getActivity(), ViewProfileActivity.class);
 				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
+				i.putExtra(REQUEST_ID_EXTRA, requestId);
 				startActivity(i);
 			}
 		});

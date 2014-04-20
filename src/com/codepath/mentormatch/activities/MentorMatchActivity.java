@@ -9,7 +9,9 @@ import android.view.MenuItem;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.core.ParseApplication;
+import com.codepath.mentormatch.fragments.AboutMeFragment;
 import com.codepath.mentormatch.fragments.MentorSearchResultsFragment;
+import com.codepath.mentormatch.models.Skill;
 
 public class MentorMatchActivity extends FragmentActivity {
 
@@ -17,11 +19,12 @@ public class MentorMatchActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mentor_match);
+		Intent intent = getIntent();
+		Skill skill = (Skill) intent.getSerializableExtra(AboutMeFragment.SKILL_EXTRA);
+		String requestId = intent.getStringExtra(AboutMeFragment.REQUEST_EXTRA);
+
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		// Replace the container with the new fragment
-		ft.replace(R.id.flMentorSearchResults, new MentorSearchResultsFragment());
-		// or ft.add(R.id.your_placeholder, new FooFragment());
-		// Execute the changes specified
+		ft.replace(R.id.flMentorSearchResults, MentorSearchResultsFragment.newInstance(skill, requestId));
 		ft.commit();
 	}
 

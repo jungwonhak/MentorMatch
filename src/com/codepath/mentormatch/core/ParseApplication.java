@@ -1,24 +1,15 @@
 package com.codepath.mentormatch.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
-import android.util.Log;
 
 import com.codepath.mentormatch.helpers.LinkedInClient;
 import com.codepath.mentormatch.models.MatchRelationship;
 import com.codepath.mentormatch.models.MentorRequest;
-import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import com.parse.SignUpCallback;
-import com.parse.LogInCallback;
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 

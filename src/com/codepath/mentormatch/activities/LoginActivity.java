@@ -48,7 +48,10 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	
 	// Once we have a successful login
 	private void userLoginSuccess() {
-		final Intent i = new Intent(this, MentorMatchActivity.class);
+		final Intent i = new Intent(this, ProfileBuilderActivity.class);
+		// Temporary - Need to decide where to drop user on log in.  Thinking of going to mentorMatch activity, but would need to
+		// pull skill from request in parse
+		i.putExtra(LOGIN_EXTRA, "details");
 		startActivity(i);
 	}
 
