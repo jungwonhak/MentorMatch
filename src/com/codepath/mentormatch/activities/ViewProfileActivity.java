@@ -63,7 +63,7 @@ public class ViewProfileActivity extends FragmentActivity {
 
 	private void setViews() {
 		tvName = (TextView) findViewById(R.id.tvName);
-		tvName.setText(user.getUsername());
+		tvName.setText(user.getFullName());
 
 		tvJobInfo = (TextView) findViewById(R.id.tvJobInfo);
 		tvJobInfo.setText(user.getJobTitle() + " at " + user.getCompany());

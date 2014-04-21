@@ -9,8 +9,37 @@
     tools:context=".RatingActivity" >
 
     <TextView
+        android:id="@+id/tvHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="How am I doing?" />
+
+    <EditText
+        android:id="@+id/etReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rbRating"
+        android:layout_alignRight="@+id/rbRating"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etReview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="59dp" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etReview"
+        android:layout_centerHorizontal="true"
+        android:onClick="saveRating"
+        android:layout_marginTop="42dp"
+        android:text="Save" />
 
 </RelativeLayout>

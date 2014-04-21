@@ -47,7 +47,7 @@ public class ConnectionsActivity extends Activity {
     		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
     			MentorRequest requestId = requestAdapter.getItem(pos);
 				Intent i = new Intent(getBaseContext(), RatingActivity.class);
-				i.putExtra(RatingActivity.RELATIONSHIP_ID_EXTRA, requestId);
+				i.putExtra(RatingActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
 				startActivity(i);
     		}
     	});
@@ -62,26 +62,6 @@ public class ConnectionsActivity extends Activity {
 	}
 	
 	private void retrieveConnections() {
-		/*
-		String [] mentorList = {ParseUser.getCurrentUser().getObjectId()};
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("MatchRelationship");
-		query.whereContainedIn(MentorRequest.REQUESTED_MENTORS_LIST_KEY, Arrays.asList(mentorList));
-		query.include(MentorRequest.MENTEE_USER_ID_KEY);
-		query.findInBackground(new FindCallback<ParseObject>() {
-		    public void done(List<ParseObject> requestList, ParseException e) {
-		        if (e == null) {
-		            Log.d("DEBUG", "Retrieved " + requestList.size() + " REQUESTS");
-		            for(ParseObject obj : requestList) {
-		            	requestAdapter.add((MentorRequest)obj);
-		            }
-		            requestAdapter.notifyDataSetChanged();
-		        } else {
-		            Log.d("DEBUG", "Error: " + e.getMessage());
-		        }
-		    }
-		});
-*/		
-		// Assume ParseObject myPost was previously created.
 		ParseQuery<MatchRelationship> query = ParseQuery.getQuery("MatchRelationship");
 		query.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY, ParseUser.getCurrentUser());
 		query.include(MatchRelationship.MENTOR_REQUEST_KEY);
