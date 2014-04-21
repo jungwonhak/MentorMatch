@@ -5,23 +5,26 @@
         android:onClick="viewMyProfile"
         android:orderInCategory="100"
         android:showAsAction="always"
+        android:icon="@drawable/ic_action_profile"
         android:title="Profile"/>
     <item
         android:id="@+id/miConnections"
         android:onClick="viewConnections"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_action_connections"
         android:showAsAction="always"
         android:title="Cons"/>
     <item
         android:id="@+id/miRequests"
         android:onClick="viewRequests"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_action_search"
         android:showAsAction="always"
         android:title="Req"/>    
     <item
         android:id="@+id/miLogout"
         android:onClick="handleLogout"
         android:orderInCategory="100"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="Logout"/>
 </menu>

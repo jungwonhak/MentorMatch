@@ -16,7 +16,7 @@
         <item>Austin</item>
     </string-array>
 
-    <string name="title_activity_mentor_match">MentorMatchActivity</string>
+    <string name="title_activity_mentor_match"></string>
     <string name="title_activity_view_profile">ViewProfileActivity</string>
     <string name="city_prompt">Location</string>
     <string name="company_name">code.mentor</string>
