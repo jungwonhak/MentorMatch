@@ -58,6 +58,10 @@
             android:name="com.codepath.mentormatch.activities.PendingRequestActivity"
             android:label="@string/title_activity_pending_request" >
         </activity>
+        <activity
+            android:name="com.codepath.mentormatch.activities.RatingActivity"
+            android:label="@string/title_activity_rating" >
+        </activity>
     </application>
 
 </manifest>

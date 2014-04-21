@@ -14,13 +14,12 @@ public class MentorRequest extends ParseObject implements Serializable {
 	private static final long serialVersionUID = -2947441978843755640L;
 
 	public static final String MENTEE_USER_ID_KEY = "menteeId";
-//	public static final String MENTOR_USER_ID_KEY = "mentorId";
+	// public static final String MENTOR_USER_ID_KEY = "mentorId";
 	public static final String SKILL_KEY = "skill";
 	public static final String DESCRIPTION_KEY = "description";
 	public static final String STATUS_KEY = "status";
 	public static final String REQUESTED_MENTORS_LIST_KEY = "requestedMentors";
-	
-	
+
 	public MentorRequest() {
 		super();
 	}
@@ -31,6 +30,11 @@ public class MentorRequest extends ParseObject implements Serializable {
 	}
 
 	public ParseUser getMentee() {
+		try {
+			return getParseUser(MENTEE_USER_ID_KEY).fetchIfNeeded();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return getParseUser(MENTEE_USER_ID_KEY);
 	}
 
@@ -45,28 +49,27 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public void setMentorList(List<String> value) {
 		put(REQUESTED_MENTORS_LIST_KEY, value);
 	}
-	
+
 	public void addMentorToList(String objId) {
 		List<String> mentorList = getMentorList();
-		if(mentorList == null) {
+		if (mentorList == null) {
 			mentorList = new ArrayList<String>();
 		}
-		if(mentorList.contains(objId)) {
+		if (mentorList.contains(objId)) {
 			return;
 		}
 
 		mentorList.add(objId);
 		setMentorList(mentorList);
 	}
-/*
-	public ParseUser getMentor() {
-		return getParseUser(REQUESTED_MENTORS_LIST_KEY);
-	}
 
-	public void setMentor(ParseUser user) {
-		put(REQUESTED_MENTORS_LIST_KEY, user);
-	}
-*/
+	/*
+	 * public ParseUser getMentor() { return
+	 * getParseUser(REQUESTED_MENTORS_LIST_KEY); }
+	 * 
+	 * public void setMentor(ParseUser user) { put(REQUESTED_MENTORS_LIST_KEY,
+	 * user); }
+	 */
 	public String getSkill() {
 		return getString(SKILL_KEY);
 	}
@@ -78,11 +81,11 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public String getStatus() {
 		return getString(STATUS_KEY);
 	}
-	
+
 	public String getDescription() {
 		return getString(DESCRIPTION_KEY);
 	}
-	
+
 	public void setDescription(String message) {
 		put(DESCRIPTION_KEY, message);
 	}

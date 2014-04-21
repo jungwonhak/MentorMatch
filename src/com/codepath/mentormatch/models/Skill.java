@@ -2,23 +2,31 @@ package com.codepath.mentormatch.models;
 
 import java.io.Serializable;
 
+import com.codepath.mentormatch.R;
+
 public enum Skill implements Serializable{
-	JAVA ("Java"), 
-	RUBY ("Ruby"), 
-	PYTHON ("Python"),
-	IOS ("ios"),
-	PHP ("php"),
-	ANDROID ("Android");
+	JAVA ("Java", R.drawable.ic_launcher), 
+	RUBY ("Ruby", R.drawable.ruby_logo), 
+	PYTHON ("Python", R.drawable.python_logo),
+	IOS ("ios", R.drawable.ios_logo),
+	PHP ("php", R.drawable.ic_launcher),
+	ANDROID ("Android", R.drawable.android_logo);
 	
 	private String description;
-
-	Skill(String value) {
+	private int resourceId;
+	
+	Skill(String value, int resource) {
 		this.description = value;
+		this.resourceId = resource;
 	}
 	
 	@Override
 	public String toString() {
 		return description;
+	}
+	
+	public int getResourceId() {
+		return resourceId;
 	}
 	
 	public String getLogo() {
