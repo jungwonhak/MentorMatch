@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -52,23 +53,7 @@ public class PendingRequestActivity extends Activity {
 				relationship.setMentor(ParseUser.getCurrentUser());
 				relationship.setMentorRequestId(requestId);
 				relationship.saveInBackground();
-/*
-    			ParseQuery<MentorRequest> query = ParseQuery.getQuery("MentorRequest");
-    			query.getInBackground(requestId, new GetCallback<MentorRequest>() {
-    				public void done(MentorRequest object, ParseException e) {
-    					if (e == null) {
-
-//    						((MentorRequest) object).addMentorToList(userObjId);
-//    						object.saveInBackground();
-    						Log.d("DEBUG", "ADDING MENTOR TO relationship: " + object.getObjectId());
-    					} else {
-    						Log.d("DEBUG", "ERROR IN ADDING MENTOR TO REQUEST: "
-    								+ object);
-    						e.printStackTrace();
-    					}
-    				}
-    			});
-    			*/
+				Toast.makeText(getBaseContext(), "You are now a mentor", Toast.LENGTH_SHORT).show();
     		}
     	});
 	}

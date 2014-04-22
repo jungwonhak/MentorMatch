@@ -81,5 +81,7 @@ public class RatingActivity extends Activity {
 			relationship.setCommentForMentee(etReview.getText().toString());
 		}
 		relationship.saveInBackground();
+		setResult(RESULT_OK); // set result code and bundle data for response
+		finish();
 	}
 }

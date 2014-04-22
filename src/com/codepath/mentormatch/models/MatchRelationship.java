@@ -29,6 +29,11 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	}
 	
 	public ParseUser getMentee() {
+		try {
+			return getParseUser(MENTEE_USER_ID_KEY).fetchIfNeeded();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return getParseUser(MENTEE_USER_ID_KEY);
 	}
 
@@ -37,6 +42,11 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	}
 
 	public ParseUser getMentor() {
+		try {
+			return getParseUser(MENTOR_USER_ID_KEY).fetchIfNeeded();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return getParseUser(MENTOR_USER_ID_KEY);
 	}
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.RequestInfoAdapter;
@@ -23,7 +24,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class ConnectionsActivity extends Activity {
-
+	public static final int RATING_REQUEST_CODE = 100;
+	
 	ListView lvConnections;
 	ArrayList<MentorRequest> requestList;
 	RequestInfoAdapter requestAdapter;
@@ -48,12 +50,19 @@ public class ConnectionsActivity extends Activity {
     			MentorRequest requestId = requestAdapter.getItem(pos);
 				Intent i = new Intent(getBaseContext(), RatingActivity.class);
 				i.putExtra(RatingActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
-				startActivity(i);
+				startActivityForResult(i, RATING_REQUEST_CODE);
     		}
     	});
 	}
 
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  if (resultCode == RESULT_OK && requestCode == RATING_REQUEST_CODE) {
+		  Toast.makeText(this, "Rating has been saved.", Toast.LENGTH_SHORT).show();
+	  }
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

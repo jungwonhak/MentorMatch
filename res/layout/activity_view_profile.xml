@@ -20,16 +20,6 @@
         android:src="@drawable/ic_profile_placeholder" />
 
     <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProfileImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="Full Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/tvJobInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,14 +28,40 @@
         android:layout_marginTop="15dp"
         android:text="Job Title @ Company" />
 
-    <Button
-        android:id="@+id/btnRequestMentor"
+    <TextView
+        android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvJobInfo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:text="Location" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Full Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnRequestMentor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
         android:onClick="createMentorRequest"
         android:text="Contact" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRequestMentor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
