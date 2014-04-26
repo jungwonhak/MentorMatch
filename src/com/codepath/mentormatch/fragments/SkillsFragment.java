@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.fragments;
+package com.codepath.mentormatch.Fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;

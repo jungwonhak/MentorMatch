@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.fragments;
+package com.codepath.mentormatch.Fragments;
 
 public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 

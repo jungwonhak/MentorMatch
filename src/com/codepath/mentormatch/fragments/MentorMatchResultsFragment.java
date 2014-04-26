@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.fragments;
+package com.codepath.mentormatch.Fragments;
 
 import java.util.Arrays;
 import java.util.List;

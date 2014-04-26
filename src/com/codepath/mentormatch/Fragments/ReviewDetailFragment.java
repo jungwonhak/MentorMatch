@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.fragments;
+package com.codepath.mentormatch.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

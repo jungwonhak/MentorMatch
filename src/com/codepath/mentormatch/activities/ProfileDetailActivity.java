@@ -24,8 +24,8 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
-import com.codepath.mentormatch.fragments.MatchResultsListFragment;
-import com.codepath.mentormatch.fragments.ReviewDetailFragment;
+import com.codepath.mentormatch.Fragments.MatchResultsListFragment;
+import com.codepath.mentormatch.Fragments.ReviewDetailFragment;
 import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
