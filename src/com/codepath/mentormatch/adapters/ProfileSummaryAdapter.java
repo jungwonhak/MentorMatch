@@ -83,7 +83,11 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 			ImageView iv = new ImageView(convertView.getContext());
 			iv.setScaleType(ScaleType.FIT_XY);
 			iv.setLayoutParams(params);
-			
+			Skill skill = Skill.fromValue(s);
+			iv.setMaxHeight(15);
+			iv.setMaxWidth(15);
+			iv.setImageResource(skill.getResourceId());
+			/*
 			// Needs to be fast 
 			if (s.equalsIgnoreCase(Skill.PYTHON.toString())) {
 				Log.d("DEBUG", "Adding python");
@@ -101,6 +105,7 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 			else {
 				continue;
 			}
+			*/
 			viewHolder.llSkillImages.addView(iv);				
 		}
 		
