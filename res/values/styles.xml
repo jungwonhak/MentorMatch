@@ -22,8 +22,14 @@
         <item name="android:windowNoTitle">true</item>
     </style>
     
-    <style name="AppTheme.ListBackground">
+    <style name="AppTheme.ActivityBackground">
         <item name="android:background">#4d4d4d</item>
     </style>
-
+    <style name="MediumText">
+        <item name="android:textSize">25sp</item>
+    </style>
+    <style name="TitleText">
+        <item name="android:textSize">20sp</item>
+    </style>
+    
 </resources>

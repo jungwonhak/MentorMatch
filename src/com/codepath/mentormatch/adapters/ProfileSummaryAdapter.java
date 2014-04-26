@@ -3,13 +3,11 @@ package com.codepath.mentormatch.adapters;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -19,6 +17,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.activities.ViewProfileActivity;
+import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -104,7 +104,16 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 			viewHolder.llSkillImages.addView(iv);				
 		}
 		
-        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
+/*		convertView.setOnClickListener(new OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(v.getContext(), ViewProfileActivity.class);
+				i.putExtra(ProfileSummaryListFragment.USER_EXTRA, user.getObjectId());
+				v.getContext().startActivity(i);
+			}
+		});
+	*/	
+/*        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
         convertView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {
@@ -112,14 +121,14 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
                 Log.d("DEBUG", "Touch");
                 return true;
             }
-        });
+        });*/
 		return convertView;
 	}
 
 	private float getAverageRating() {
 		return (float)Math.random() * 5; 
 	}
-
+/*
     private class GestureListener extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -128,7 +137,6 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
             }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                 Log.d("DEBUG", "SWIPE RIGHT!!!");
                 
-
                 return false; // Left to right
             }
 
@@ -140,4 +148,5 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
             return false;
         }
     }
+   */
 }

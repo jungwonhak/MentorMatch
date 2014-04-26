@@ -3,61 +3,172 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:orientation="vertical" >
+    android:paddingRight="10dp" >
 
     <TextView
-        android:id="@+id/etProfileDetails"
+        android:id="@+id/tvProfileDetails"
+        style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="41dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/learningLanguageString"
-        android:textSize="20sp" />
-    
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/learningLanguageString" />
 
-  <RadioGroup
-        android:id="@+id/languageOptions"
+    <GridLayout
+        android:id="@+id/languageGrid"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="100dp" >
-  
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProfileDetails"
+        android:layout_centerHorizontal="true"
+        android:columnCount="2"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp"
+        android:rowCount="2" >
 
-  <RadioButton
-      android:id="@+id/radioAndroid"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:checked="true"
-      android:text="Android" />
+        <LinearLayout
+            android:id="@+id/llPython"
+            android:layout_width="140dp"
+            android:layout_height="150dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:background="@drawable/skill_border"
+            android:orientation="vertical" >
 
-  <RadioButton
-      android:id="@+id/radioiOS"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="iOS" />
+            <ImageView
+                android:id="@+id/ivPython"
+                android:layout_width="125dp"
+                android:layout_height="105dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/python_logo" />
 
-  <RadioButton
-      android:id="@+id/radioPython"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Python" />
+            <TextView
+                android:id="@+id/tvPython"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="Python" />
+        </LinearLayout>
 
-  <RadioButton
-      android:id="@+id/radioRuby"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Ruby" />
-  </RadioGroup>
+        <LinearLayout
+            android:id="@+id/llRuby"
+            android:layout_width="140dp"
+            android:layout_height="150dp"
+            android:layout_column="1"
+            android:layout_marginLeft="-2dp"
+            android:layout_row="0"
+            android:background="@drawable/skill_border"
+            android:orientation="vertical" >
 
-  <Button
-      android:id="@+id/languageNext"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignRight="@+id/languageOptions"
-      android:layout_below="@+id/languageOptions"
-      android:layout_marginTop="69dp"
-      android:text="@string/nextBtn" />
+            <ImageView
+                android:id="@+id/ivRuby"
+                android:layout_width="115dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="25dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ruby_logo" />
+
+            <TextView
+                android:id="@+id/tvRuby"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="13dp"
+                android:text="Ruby" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llIos"
+            android:layout_width="140dp"
+            android:layout_height="150dp"
+            android:layout_column="0"
+            android:layout_marginTop="-2dp"
+            android:layout_row="1"
+            android:background="@drawable/skill_border"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/ivIos"
+                android:layout_width="125dp"
+                android:layout_height="105dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ios_logo" />
+
+            <TextView
+                android:id="@+id/tvIos"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="iOS" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAndroid"
+            android:layout_width="140dp"
+            android:layout_height="150dp"
+            android:layout_column="1"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginTop="-2dp"
+            android:layout_row="1"
+            android:background="@drawable/skill_border"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/ivAndroid"
+                android:layout_width="115dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="25dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/android_logo" />
+
+            <TextView
+                android:id="@+id/tvAndroid"
+                style="@style/MediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="13dp"
+                android:text="Android" />
+        </LinearLayout>
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btnSkillNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/languageGrid"
+        android:layout_alignRight="@+id/languageGrid"
+        android:layout_below="@+id/languageGrid"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/nextBtn" />
 
 </RelativeLayout>

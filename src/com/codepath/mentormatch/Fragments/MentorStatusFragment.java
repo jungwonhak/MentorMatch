@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
+import com.codepath.mentormatch.core.ParseApplication;
 import com.codepath.mentormatch.models.User;
 import com.parse.ParseUser;
 

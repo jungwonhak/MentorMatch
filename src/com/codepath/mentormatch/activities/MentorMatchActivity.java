@@ -49,8 +49,10 @@ public class MentorMatchActivity extends FragmentActivity {
 	}
 	
 	public void viewRequests(MenuItem item) {
-		Intent i = new Intent(this, PendingRequestActivity.class);
-		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		//Intent i = new Intent(this, PendingRequestActivity.class);
+		Intent i = new Intent(this, ProfileBuilderActivity.class);
+		i.putExtra("foo", "details");
+		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
 		startActivity(i);
 	}
 	

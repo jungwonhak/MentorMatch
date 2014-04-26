@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
@@ -20,6 +21,7 @@ import com.parse.ParseUser;
 
 public class ProfileDetailsFragment extends Fragment{
 	private Button profileNext;
+	private TextView tvProfileDetails;
 	private EditText etProfileName;
 	private EditText etProfileJob;
 	private EditText etProfileCompany;
@@ -34,6 +36,7 @@ public class ProfileDetailsFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inf, ViewGroup parent, Bundle savedInstanceState) {
 		View v = inf.inflate(R.layout.fragment_profile_details, parent,  false);
+		tvProfileDetails = (TextView) v.findViewById(R.id.tvProfileDetails);
 		ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
 		etProfileName = (EditText) v.findViewById(R.id.etProfileName);
 		etProfileJob = (EditText) v.findViewById(R.id.etProfileJob);
@@ -47,7 +50,9 @@ public class ProfileDetailsFragment extends Fragment{
 			etProfileName.setText(currentUser.getFullName());
 			etProfileJob.setText(currentUser.getJobTitle());
 			etProfileCompany.setText(currentUser.getCompany());
-			
+			if (currentUser.isMentor()) {
+				tvProfileDetails.setText(R.string.mentor_profile_details_title);
+			}
 		} else {
 			Log.d("DEBUG", "No current parse user");
 		}
@@ -62,8 +67,6 @@ public class ProfileDetailsFragment extends Fragment{
 	}
 	
 	public void addListenerOnButton() {
-
-
 	    profileNext.setOnClickListener(new OnClickListener() {
 			
 			@Override

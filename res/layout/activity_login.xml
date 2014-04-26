@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <ImageView
         android:id="@+id/ivCompanyLogo"
@@ -27,15 +27,18 @@
         android:layout_centerHorizontal="true"
         android:text="@string/company_motto" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnConnectWithLinkedIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCompanyMotto"
+        android:layout_marginTop="10dp"  
+        android:layout_below="@+id/tvCompanyMotto"      
         android:layout_centerHorizontal="true"
+        android:background="@null"
         android:onClick="handleLinkedInSignUp"
-        android:text="@string/linked_in_connect" />
-
+        android:contentDescription="@string/linkedin_desc"
+        android:src="@drawable/linkedin_connect" />
+    
     <TextView
         android:id="@+id/tvOr"
         android:layout_width="wrap_content"
@@ -49,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvOr"
+        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
+        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Email"
@@ -62,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etEmail"
+        android:layout_alignRight="@+id/etEmail"
         android:layout_below="@+id/etEmail"
         android:ems="10"
         android:hint="@string/password"
@@ -73,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etEmail"
+        android:layout_alignRight="@+id/etEmail"
         android:layout_below="@+id/etPassword"
         android:onClick="handleRegularSignUp"
         android:text="@string/sign_up" />
@@ -81,8 +88,8 @@
         android:id="@+id/btnAlreadyMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSignUp"
-        android:layout_centerHorizontal="true"        
+        android:layout_centerHorizontal="true" 
+        android:layout_below="@+id/btnSignUp"       
         android:text="@string/already_a_member" />
 
 </RelativeLayout>

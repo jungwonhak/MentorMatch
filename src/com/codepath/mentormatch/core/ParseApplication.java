@@ -1,6 +1,7 @@
 package com.codepath.mentormatch.core;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 
 import com.codepath.mentormatch.helpers.LinkedInClient;
 import com.codepath.mentormatch.models.MatchRelationship;
@@ -52,6 +53,5 @@ public class ParseApplication extends com.activeandroid.app.Application {
 		if (currentUser != null) {
 			ParseUser.logOut();
 		}
-    }
-
+    }    
 }
