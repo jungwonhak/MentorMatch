@@ -17,7 +17,7 @@ import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class RequestInfoAdapter extends  ArrayAdapter<MentorRequest>{
+public class RequestInfoAdapter extends ArrayAdapter<MentorRequest>{
 
 	private MentorRequest mentorRequest;
 	private User mentee;

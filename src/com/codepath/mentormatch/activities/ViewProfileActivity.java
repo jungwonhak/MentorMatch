@@ -4,19 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
 import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
+import com.codepath.mentormatch.fragments.ReviewDetailFragment;
 import com.codepath.mentormatch.models.MatchRelationship;
 import com.codepath.mentormatch.models.MentorRequest;
+import com.codepath.mentormatch.models.Review;
+import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.User;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -34,6 +50,11 @@ public class ViewProfileActivity extends FragmentActivity {
 	private TextView tvLocation;
 	private Button btnContact;
 	private RatingBar rbRating;
+	private ImageView ivProfileImage;
+	private LinearLayout llSkillImages;
+	private ViewPager vpPager;
+	private MyPagerAdapter adapterViewPager;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +63,14 @@ public class ViewProfileActivity extends FragmentActivity {
 		userObjId = getIntent().getStringExtra(ProfileSummaryListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(ProfileSummaryListFragment.REQUEST_ID_EXTRA);
 		btnContact = (Button) findViewById(R.id.btnRequestMentor);
+		rbRating = (RatingBar) findViewById(R.id.rbRating);
+		rbRating.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
+		rbRating.setFocusable(false);
+
 		if (requestId == null) {
 			// hide connection button
 			btnContact.setVisibility(View.GONE);
@@ -76,8 +105,28 @@ public class ViewProfileActivity extends FragmentActivity {
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvLocation.setText(user.getLocation());
-		
-		rbRating = (RatingBar) findViewById(R.id.rbRating);
+
+		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
+
+		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
+
+		for (String s : user.getSkills()) {
+			Log.d("DEBUG", "SKill: " + s);
+			ImageView iv = new ImageView(this);
+			iv.setScaleType(ScaleType.FIT_XY);
+			iv.setLayoutParams(params);
+			Skill skill = Skill.fromValue(s);
+			iv.setMaxHeight(15);
+			iv.setMaxWidth(15);
+			iv.setImageResource(skill.getResourceId());
+			llSkillImages.addView(iv);
+		}
+
+		if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
+			ImageLoader.getInstance().displayImage(user.getProfileImage(),
+					ivProfileImage);
+		}
 		retrieveReviews();
 	}
 
@@ -127,18 +176,89 @@ public class ViewProfileActivity extends FragmentActivity {
 		mainQuery.findInBackground(new FindCallback<MatchRelationship>() {
 			public void done(List<MatchRelationship> results, ParseException e) {
 				double totalRating = 0.0;
+				List<Review> reviews = new ArrayList<Review>();
 				// int count;
 				for (MatchRelationship relation : results) {
+					Review newReview;
 					if (relation.getMentee().equals(ParseUser.getCurrentUser())) {
 						totalRating += relation.getMenteeRating();
+						User mentor = (User) relation.getMentor();
+						newReview = new Review(mentor.getFullName(), relation.getCreatedAt(), relation.getCommentForMentee(), relation.getMenteeRating());
+						reviews.add(newReview);
 					} else {
 						totalRating += relation.getMentorRating();
+						User mentee = (User) relation.getMentor();
+						newReview = new Review(mentee.getFullName(), relation.getCreatedAt(), relation.getCommentForMentor(), relation.getMentorRating());
 					}
+					reviews.add(newReview);
 				}
 				double avgRating = totalRating / results.size();
-				rbRating.setRating((float)avgRating);
+				rbRating.setRating((float) avgRating);
+				setupReviewView(reviews);
 			}
 		});
+	}
+
+	
+	private void setupReviewView(List<Review> reviews) {
+		vpPager = (ViewPager) findViewById(R.id.vpPager);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), reviews);
+        vpPager.setAdapter(adapterViewPager);
+        vpPager.setOnPageChangeListener(new OnPageChangeListener() {
+
+        	
+            // This method will be invoked when a new page becomes selected.
+            @Override
+            public void onPageSelected(int position) {
+            	Toast.makeText(getBaseContext(), "page selected: " + position, Toast.LENGTH_SHORT).show();
+//                getSupportActionBar().setSelectedNavigationItem(position);
+            }
+
+            // This method will be invoked when the current page is scrolled
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Code goes here
+            	Log.d("TEST", "onPageScrolled");
+            }
+
+            // Called when the scroll state changes: 
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            	Log.d("TEST", "state changed");
+            }
+        });		
+	}
+	
+	public static class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
+		private List<Review> reviewList;
+		public MyPagerAdapter(FragmentManager fragmentManager, List<Review> list) {
+
+			super(fragmentManager);
+			reviewList = list;
+		}
+
+		// Returns total number of pages
+		@Override
+		public int getCount() {
+			return reviewList.size();
+		}
+
+		// Returns the fragment to display for that page
+		@Override
+		public Fragment getItem(int position) {
+			Log.d("DEBUG", "view profile: review adapter: " + position);
+			return ReviewDetailFragment.newInstance(reviewList.get(position));
+		}
+
+		// Returns the page title for the top indicator
+/*
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return "Page " + position;
+		}
+*/
 	}
 
 }

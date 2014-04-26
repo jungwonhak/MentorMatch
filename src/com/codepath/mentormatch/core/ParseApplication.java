@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.codepath.mentormatch.helpers.LinkedInClient;
 import com.codepath.mentormatch.models.MatchRelationship;
 import com.codepath.mentormatch.models.MentorRequest;
+import com.codepath.mentormatch.models.Task;
 import com.codepath.mentormatch.models.User;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,6 +24,7 @@ public class ParseApplication extends com.activeandroid.app.Application {
 		ParseObject.registerSubclass(User.class);
 		ParseObject.registerSubclass(MentorRequest.class);
 		ParseObject.registerSubclass(MatchRelationship.class);
+		ParseObject.registerSubclass(Task.class);
 
 		ParseApplication.context = this;
 
