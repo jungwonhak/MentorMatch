@@ -13,14 +13,14 @@ import android.widget.TextView;
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.models.Review;
 
-public class ReviewAdapter extends ArrayAdapter<Review>{
+public class ReviewsAdapter extends ArrayAdapter<Review>{
 	private Review review;
 	private RatingBar rbRating;
 	private TextView tvReviewContent;
 	private TextView tvReviewer;
 	private TextView tvReviewDate;
 	
-	public ReviewAdapter(Context context, List<Review> reviews) {
+	public ReviewsAdapter(Context context, List<Review> reviews) {
 		super(context, 0, reviews);
 		// TODO Auto-generated constructor stub
 	}

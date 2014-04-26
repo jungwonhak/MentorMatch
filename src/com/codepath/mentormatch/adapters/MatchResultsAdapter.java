@@ -3,11 +3,9 @@ package com.codepath.mentormatch.adapters;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -17,17 +15,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.activities.ViewProfileActivity;
-import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
 import com.codepath.mentormatch.models.Skill;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
 
-public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
+public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
 
-	private static final int SWIPE_MIN_DISTANCE = 60;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+	//private static final int SWIPE_MIN_DISTANCE = 60;
+    //private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 	private User user;
 	
     // View lookup cache
@@ -40,7 +36,7 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
     	LinearLayout llSkillImages;
     }
     
-	public ProfileSummaryAdapter(Context context, List<ParseUser> objects) {
+	public MatchResultsAdapter(Context context, List<ParseUser> objects) {
 		super(context, 0, objects);
 	}
 
@@ -52,7 +48,7 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ParseUser> {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.profile_summary_item, null);	
+			convertView = inflater.inflate(R.layout.match_result_item, null);	
 			viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
 			viewHolder.tvJobTitle = (TextView) convertView.findViewById(R.id.tvJobTitle);
 			viewHolder.tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);

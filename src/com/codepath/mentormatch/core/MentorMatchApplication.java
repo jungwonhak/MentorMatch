@@ -1,13 +1,12 @@
 package com.codepath.mentormatch.core;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 
 import com.codepath.mentormatch.helpers.LinkedInClient;
-import com.codepath.mentormatch.models.MatchRelationship;
-import com.codepath.mentormatch.models.MentorRequest;
-import com.codepath.mentormatch.models.Task;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.Task;
+import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -15,7 +14,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-public class ParseApplication extends com.activeandroid.app.Application {
+public class MentorMatchApplication extends com.activeandroid.app.Application {
 	private static Context context;
 
 	@Override
@@ -26,7 +25,7 @@ public class ParseApplication extends com.activeandroid.app.Application {
 		ParseObject.registerSubclass(MatchRelationship.class);
 		ParseObject.registerSubclass(Task.class);
 
-		ParseApplication.context = this;
+		MentorMatchApplication.context = this;
 
 		Parse.initialize(this, "SPqzrixlrCnLDAmmchtr8Uz2vqVJEQG58ivlbgmN",
 				"kB3cp9xHengwfcLT7tE4xv5jO0fFerCdCb1nynSQ");
@@ -44,7 +43,7 @@ public class ParseApplication extends com.activeandroid.app.Application {
 
 	public static LinkedInClient getRestClient() {
 		return (LinkedInClient) LinkedInClient.getInstance(
-				LinkedInClient.class, ParseApplication.context);
+				LinkedInClient.class, MentorMatchApplication.context);
 	}
 
     

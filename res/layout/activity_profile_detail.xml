@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ViewProfileActivity" >
+    tools:context=".ProfileDetailActivity" >
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnRequestMentor"
+        android:id="@+id/btnContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llSkillImages"

@@ -1,9 +1,10 @@
-package com.codepath.mentormatch.models;
+package com.codepath.mentormatch.models.parse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codepath.mentormatch.models.Skill;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;

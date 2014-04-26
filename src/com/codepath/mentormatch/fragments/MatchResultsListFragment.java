@@ -15,13 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.activities.ViewProfileActivity;
-import com.codepath.mentormatch.adapters.ProfileSummaryAdapter;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.activities.ProfileDetailActivity;
+import com.codepath.mentormatch.adapters.MatchResultsAdapter;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.ParseUser;
 
-public abstract class ProfileSummaryListFragment extends Fragment{
-	protected ProfileSummaryAdapter profileAdapter;
+public abstract class MatchResultsListFragment extends Fragment{
+	protected MatchResultsAdapter profileAdapter;
 	protected List<ParseUser> usersList;
 	protected ListView lvProfileSummaries;
 	protected String requestId;
@@ -36,14 +36,14 @@ public abstract class ProfileSummaryListFragment extends Fragment{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		usersList = new ArrayList<ParseUser>();
-		profileAdapter = new ProfileSummaryAdapter(getActivity(), usersList);
+		profileAdapter = new MatchResultsAdapter(getActivity(), usersList);
 		fetchProfiles();		
 
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inf, ViewGroup parent, Bundle savedInstanceState) {
-		View view = inf.inflate(R.layout.fragment_profile_summary_list, parent,  false);
+		View view = inf.inflate(R.layout.fragment_match_results_list, parent,  false);
 		lvProfileSummaries = (ListView) view.findViewById(R.id.lvProfileSummaries);
 		lvProfileSummaries.setAdapter(profileAdapter);
 		setListViewListeners();
@@ -59,7 +59,7 @@ public abstract class ProfileSummaryListFragment extends Fragment{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 				Log.d("TEST - Item Click Listener", "on item click: " + pos);
-				Intent i = new Intent(getActivity(), ViewProfileActivity.class);
+				Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
 				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
 				i.putExtra(REQUEST_ID_EXTRA, requestId);
 				startActivity(i);

@@ -6,7 +6,7 @@ import java.util.List;
 
 import android.util.Log;
 
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

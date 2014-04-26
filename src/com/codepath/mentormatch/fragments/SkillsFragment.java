@@ -19,7 +19,7 @@ import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 import com.codepath.mentormatch.models.Skill;
 
-public class LanguageSelectionFragment extends Fragment implements
+public class SkillsFragment extends Fragment implements
 		OnClickListener {
 	public static final String LANGUAGE_PAGE_EXTRA = "foo";
 	public static final String LANGUAGE_EXTRA = "language";
@@ -36,7 +36,7 @@ public class LanguageSelectionFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inf, ViewGroup parent,
 			Bundle savedInstanceState) {
 
-		View v = inf.inflate(R.layout.fragment_language_selection, parent,
+		View v = inf.inflate(R.layout.fragment_skills, parent,
 				false);
 		llPython = (LinearLayout) v.findViewById(R.id.llPython);
 		llPython.setOnClickListener(this);
@@ -52,6 +52,7 @@ public class LanguageSelectionFragment extends Fragment implements
 		// Set up the checkmark on the first skill
 		ivFirstSkill = (ImageView) v.findViewById(R.id.ivPython);
 		ivFirstSkill.setImageDrawable(createBmp(ivFirstSkill));
+		skill = Skill.PYTHON;
 		return v;
 	}
 

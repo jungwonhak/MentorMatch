@@ -15,9 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.adapters.RequestInfoAdapter;
-import com.codepath.mentormatch.models.MatchRelationship;
-import com.codepath.mentormatch.models.MentorRequest;
+import com.codepath.mentormatch.adapters.ConnectionsAdapter;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -28,7 +28,7 @@ public class ConnectionsActivity extends Activity {
 	
 	ListView lvConnections;
 	ArrayList<MentorRequest> requestList;
-	RequestInfoAdapter requestAdapter;
+	ConnectionsAdapter requestAdapter;
 
 	
 	@Override
@@ -37,7 +37,7 @@ public class ConnectionsActivity extends Activity {
 		setContentView(R.layout.activity_connections);
 		lvConnections = (ListView) findViewById(R.id.lvConnections);
 		requestList = new ArrayList<MentorRequest>();
-		requestAdapter = new RequestInfoAdapter(this, requestList);
+		requestAdapter = new ConnectionsAdapter(this, requestList);
 		lvConnections.setAdapter(requestAdapter);
 		setupListeners();
 		retrieveConnections();
@@ -48,8 +48,8 @@ public class ConnectionsActivity extends Activity {
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
     			MentorRequest requestId = requestAdapter.getItem(pos);
-				Intent i = new Intent(getBaseContext(), RatingActivity.class);
-				i.putExtra(RatingActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
+				Intent i = new Intent(getBaseContext(), RatingsActivity.class);
+				i.putExtra(RatingsActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
 				startActivityForResult(i, RATING_REQUEST_CODE);
     		}
     	});
@@ -66,7 +66,7 @@ public class ConnectionsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.connections, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	

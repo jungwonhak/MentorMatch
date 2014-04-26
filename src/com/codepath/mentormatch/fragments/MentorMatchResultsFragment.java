@@ -6,9 +6,9 @@ import java.util.List;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.codepath.mentormatch.models.MentorRequest;
 import com.codepath.mentormatch.models.Skill;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -16,13 +16,13 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class MentorSearchResultsFragment extends ProfileSummaryListFragment {
+public class MentorMatchResultsFragment extends MatchResultsListFragment {
 
 	//private static final String SKILL_ARG = "skill";
 	//private static final String REQUEST_ID_ARG = "requestId";
 
-	public static MentorSearchResultsFragment newInstance(Skill skill, String requestId) {
-		MentorSearchResultsFragment fragment = new MentorSearchResultsFragment();
+	public static MentorMatchResultsFragment newInstance(Skill skill, String requestId) {
+		MentorMatchResultsFragment fragment = new MentorMatchResultsFragment();
 		//Bundle args = new Bundle();
 		//args.putSerializable(SKILL_ARG, skill);
 		//args.putString(REQUEST_ID_ARG, requestId);
@@ -37,7 +37,7 @@ public class MentorSearchResultsFragment extends ProfileSummaryListFragment {
 		//requestId = getArguments().getString(REQUEST_ID_ARG);
 	}
 
-	public MentorSearchResultsFragment() {
+	public MentorMatchResultsFragment() {
 		super();
 	}
 

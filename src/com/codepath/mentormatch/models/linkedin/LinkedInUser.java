@@ -1,10 +1,11 @@
-package com.codepath.mentormatch.models;
+package com.codepath.mentormatch.models.linkedin;
 
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.scribe.model.Token;
+
 
 
 public class LinkedInUser {

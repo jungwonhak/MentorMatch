@@ -8,37 +8,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.core.ParseApplication;
-import com.codepath.mentormatch.fragments.AboutMeFragment;
-import com.codepath.mentormatch.fragments.MentorSearchResultsFragment;
-import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
+import com.codepath.mentormatch.core.MentorMatchApplication;
+import com.codepath.mentormatch.fragments.DetailsFragment;
+import com.codepath.mentormatch.fragments.MentorMatchResultsFragment;
+import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.models.Skill;
 import com.parse.ParseUser;
 
-public class MentorMatchActivity extends FragmentActivity {
+public class MatchResultsActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_mentor_match);
+		setContentView(R.layout.activity_match_results);
 		Intent intent = getIntent();
-		Skill skill = (Skill) intent.getSerializableExtra(AboutMeFragment.SKILL_EXTRA);
-		String requestId = intent.getStringExtra(AboutMeFragment.REQUEST_EXTRA);
+		Skill skill = (Skill) intent.getSerializableExtra(DetailsFragment.SKILL_EXTRA);
+		String requestId = intent.getStringExtra(DetailsFragment.REQUEST_EXTRA);
 
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.flMentorSearchResults, MentorSearchResultsFragment.newInstance(skill, requestId));
+		ft.replace(R.id.flMentorSearchResults, MentorMatchResultsFragment.newInstance(skill, requestId));
 		ft.commit();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.mentor_match, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	public void handleLogout(MenuItem item){
-		ParseApplication.logoutUser();
+		MentorMatchApplication.logoutUser();
 		Intent i = new Intent(this, LoginActivity.class);
 		startActivity(i);
 	}
@@ -57,8 +57,8 @@ public class MentorMatchActivity extends FragmentActivity {
 	}
 	
 	public void viewMyProfile(MenuItem item) {
-		Intent i = new Intent(this, ViewProfileActivity.class);
-		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		Intent i = new Intent(this, ProfileDetailActivity.class);
+		i.putExtra(MatchResultsListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
 		startActivity(i);
 	}
 }

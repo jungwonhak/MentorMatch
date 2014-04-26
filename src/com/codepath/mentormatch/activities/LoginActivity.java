@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.core.ParseApplication;
+import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.helpers.LinkedInClient;
-import com.codepath.mentormatch.models.LinkedInUser;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.linkedin.LinkedInUser;
+import com.codepath.mentormatch.models.parse.User;
 import com.codepath.oauth.OAuthLoginActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.parse.LogInCallback;
@@ -50,7 +50,7 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	
 	// Once we have a successful login
 	private void userLoginSuccess() {
-		final Intent i = new Intent(this, MentorMatchActivity.class);
+		final Intent i = new Intent(this, MatchResultsActivity.class);
 		// Temporary - Need to decide where to drop user on log in.  Thinking of going to mentorMatch activity, but would need to
 		// pull skill from request in parse
 		//i.putExtra(LOGIN_EXTRA, "details");
@@ -113,7 +113,7 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 	// LinkedIn auth success - fetch profile data
 	@Override
 	public void onLoginSuccess() {
-		final LinkedInClient linkedInClient = ParseApplication.getRestClient();
+		final LinkedInClient linkedInClient = MentorMatchApplication.getRestClient();
 
 		linkedInClient.getUserInfo(new JsonHttpResponseHandler() {
 			@Override

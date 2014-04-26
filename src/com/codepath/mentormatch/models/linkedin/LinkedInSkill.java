@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.models;
+package com.codepath.mentormatch.models.linkedin;
 
 import java.util.ArrayList;
 

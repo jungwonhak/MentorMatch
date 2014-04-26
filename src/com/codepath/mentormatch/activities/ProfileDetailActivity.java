@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -25,13 +24,13 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
-import com.codepath.mentormatch.fragments.ProfileSummaryListFragment;
+import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.ReviewDetailFragment;
-import com.codepath.mentormatch.models.MatchRelationship;
-import com.codepath.mentormatch.models.MentorRequest;
 import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -40,7 +39,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class ViewProfileActivity extends FragmentActivity {
+public class ProfileDetailActivity extends FragmentActivity {
 
 	private String userObjId;
 	private String requestId;
@@ -59,9 +58,9 @@ public class ViewProfileActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_profile);
-		userObjId = getIntent().getStringExtra(ProfileSummaryListFragment.USER_EXTRA);
-		requestId = getIntent().getStringExtra(ProfileSummaryListFragment.REQUEST_ID_EXTRA);
+		setContentView(R.layout.activity_profile_detail);
+		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
+		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
 		btnContact = (Button) findViewById(R.id.btnRequestMentor);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);
 		rbRating.setOnTouchListener(new OnTouchListener() {
@@ -71,10 +70,10 @@ public class ViewProfileActivity extends FragmentActivity {
 		});
 		rbRating.setFocusable(false);
 
-		if (requestId == null) {
+		//if (requestId == null) {
 			// hide connection button
-			btnContact.setVisibility(View.GONE);
-		}
+		//	btnContact.setVisibility(View.GONE);
+		//}
 		getUser();
 	}
 
@@ -133,7 +132,7 @@ public class ViewProfileActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.view_profile, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 

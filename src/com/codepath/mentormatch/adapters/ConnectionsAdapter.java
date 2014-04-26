@@ -12,12 +12,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.models.MentorRequest;
 import com.codepath.mentormatch.models.Skill;
-import com.codepath.mentormatch.models.User;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 
-public class RequestInfoAdapter extends ArrayAdapter<MentorRequest>{
+public class ConnectionsAdapter extends ArrayAdapter<MentorRequest>{
 
 	private MentorRequest mentorRequest;
 	private User mentee;
@@ -29,7 +28,7 @@ public class RequestInfoAdapter extends ArrayAdapter<MentorRequest>{
 	RatingBar rbRating;
 	ImageView ivSkill;
 	
-	public RequestInfoAdapter(Context context, List<MentorRequest> mentorRequests) {
+	public ConnectionsAdapter(Context context, List<MentorRequest> mentorRequests) {
 		super(context, 0, mentorRequests);
 	}
 
@@ -39,7 +38,7 @@ public class RequestInfoAdapter extends ArrayAdapter<MentorRequest>{
 		
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.mentor_request_item, null);	
+			convertView = inflater.inflate(R.layout.connection_item, null);	
 		}
 
 		tvName = (TextView) convertView.findViewById(R.id.tvName);

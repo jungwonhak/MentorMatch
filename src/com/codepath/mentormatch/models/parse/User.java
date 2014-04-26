@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.models;
+package com.codepath.mentormatch.models.parse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.codepath.mentormatch.models.linkedin.LinkedInUser;
 import com.parse.LogInCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;

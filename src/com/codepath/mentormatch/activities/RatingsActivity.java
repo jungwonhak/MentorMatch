@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.models.MatchRelationship;
-import com.codepath.mentormatch.models.Task;
-import com.codepath.mentormatch.models.User;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.Task;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -24,7 +24,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class RatingActivity extends Activity {
+public class RatingsActivity extends Activity {
 	public static final String RELATIONSHIP_ID_EXTRA = "relationshipId";
 
 	private MatchRelationship relationship;
@@ -40,7 +40,7 @@ public class RatingActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rating);
+		setContentView(R.layout.activity_ratings);
 		etReview = (EditText) findViewById(R.id.etReview);
 		btnSave = (Button) findViewById(R.id.btnSave);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);
@@ -94,7 +94,7 @@ public class RatingActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.rating, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
