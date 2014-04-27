@@ -3,6 +3,7 @@ package com.codepath.mentormatch.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -138,13 +139,16 @@ public class ProfileDetailActivity extends FragmentActivity {
 
 	public void createMentorRequest(View view) {
 		Log.d("DEBUG", "Requesting Mentor");
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("MentorRequest");
-		query.getInBackground(requestId, new GetCallback<ParseObject>() {
-			public void done(ParseObject object, ParseException e) {
+		ParseQuery<MentorRequest> query = ParseQuery.getQuery("MentorRequest");
+		query.getInBackground(requestId, new GetCallback<MentorRequest>() {
+			public void done(MentorRequest object, ParseException e) {
 				if (e == null) {
-					((MentorRequest) object).addMentorToList(userObjId);
+//					object.addMentorToRelation(user);
+					object.addMentorToList(userObjId);
 					object.saveInBackground();
 					Log.d("DEBUG", "ADDING MENTOR TO REQUEST: " + requestId);
+					Intent i = new Intent(getBaseContext(), ConnectionsActivity.class);
+					startActivity(i);
 				} else {
 					Log.d("DEBUG", "ERROR IN ADDING MENTOR TO REQUEST: "
 							+ requestId);

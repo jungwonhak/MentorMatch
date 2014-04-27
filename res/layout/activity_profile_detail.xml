@@ -41,6 +41,26 @@
         android:text="Full Name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <LinearLayout
+        android:id="@+id/llSkillImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSkillImages"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="createMentorRequest"
+        android:text="Contact" />
+    
     <TextView
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"

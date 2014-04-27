@@ -39,7 +39,7 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	}
 
 	private void getProfilesBySkill(String skill) {
-		ParseQueries.findMentorsWithSkill(skill, new FindMentorsWithSkillCallback());
+		ParseQueries.findMentorsWithSkill(skill, request, new FindMentorsWithSkillCallback());
 	}
 
 	// Get the most recently created mentor request to find skill and then

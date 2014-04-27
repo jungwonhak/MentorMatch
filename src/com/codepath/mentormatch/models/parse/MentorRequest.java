@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.codepath.mentormatch.models.Skill;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 @ParseClassName("MentorRequest")
@@ -47,7 +51,6 @@ public class MentorRequest extends ParseObject implements Serializable {
 		return getList(REQUESTED_MENTORS_RELATION_KEY);
 	}
 
-	
 	public void setMentorList(List<String> value) {
 		put(REQUESTED_MENTORS_RELATION_KEY, value);
 	}
@@ -63,6 +66,29 @@ public class MentorRequest extends ParseObject implements Serializable {
 
 		mentorList.add(objId);
 		setMentorList(mentorList);
+	}
+
+	public ParseRelation<ParseUser> getMentorRelation() {
+		return getRelation(REQUESTED_MENTORS_RELATION_KEY);
+	}
+
+	public void addMentorToRelation(ParseUser objId) {
+		// List<String> mentorList = getMentorList();
+		try {
+			ParseRelation<ParseUser> relation = getMentorRelation();
+			ParseQuery<ParseUser> query = relation.getQuery();
+			for (ParseUser user : query.find()) {
+				if (user.equals(objId)) {
+					return;
+				}
+			}
+
+			relation.add(objId);
+			this.save();
+		} catch (Exception e) {
+			Log.d("DEBUG", "ERROR - getting Requested Mentors List");
+			e.printStackTrace();
+		}
 	}
 
 	/*

@@ -21,8 +21,6 @@ import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 public class ConnectionsActivity extends Activity {
 	public static final int RATING_REQUEST_CODE = 100;
@@ -73,28 +71,7 @@ public class ConnectionsActivity extends Activity {
 	
 	private void retrieveConnections() {
 		ParseQueries.retrieveConnections(new FindCallbackClass());
-		/*
-		ParseQuery<MatchRelationship> query = ParseQuery.getQuery("MatchRelationship");
-		query.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY, ParseUser.getCurrentUser());
-		query.include(MatchRelationship.MENTOR_REQUEST_KEY);
-		query.include(MatchRelationship.MENTEE_USER_ID_KEY);
-		query.findInBackground(new FindCallbackClass());
-*/		
-		/*
-		new FindCallback<MatchRelationship>() {
-		  public void done(List<MatchRelationship> relationsList, ParseException e) {
-		        if (e == null) {
-		            Log.d("DEBUG", "Retrieved " + relationsList.size() + " REQUESTS");
-		            for(MatchRelationship obj : relationsList) {
-		            	requestAdapter.add(obj.getMentorRequestId());
-		            }
-		            requestAdapter.notifyDataSetChanged();
-		        } else {
-		            Log.d("DEBUG", "Error: " + e.getMessage());
-		        }
-		  }
-		});
-		*/
+
 	}
 	
 	private class FindCallbackClass extends FindCallback<MatchRelationship> {
