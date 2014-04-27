@@ -83,25 +83,6 @@ public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
 			iv.setMaxHeight(15);
 			iv.setMaxWidth(15);
 			iv.setImageResource(skill.getResourceId());
-			/*
-			// Needs to be fast 
-			if (s.equalsIgnoreCase(Skill.PYTHON.toString())) {
-				Log.d("DEBUG", "Adding python");
-				iv.setImageResource(R.drawable.python_logo);
-			} else if(s.equalsIgnoreCase(Skill.IOS.toString())) {
-				Log.d("DEBUG", "Adding ios");
-				iv.setImageResource(R.drawable.ios_logo);
-			} else if(s.equalsIgnoreCase(Skill.ANDROID.toString())) {
-				Log.d("DEBUG", "Adding android");
-				iv.setImageResource(R.drawable.android_logo);
-			} else if(s.equalsIgnoreCase(Skill.RUBY.toString())) {
-				Log.d("DEBUG", "Adding python");
-				iv.setImageResource(R.drawable.ruby_logo);
-			}
-			else {
-				continue;
-			}
-			*/
 			viewHolder.llSkillImages.addView(iv);				
 		}
 		
