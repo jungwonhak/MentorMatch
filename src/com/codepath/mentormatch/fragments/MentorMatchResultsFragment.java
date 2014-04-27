@@ -23,8 +23,6 @@ import com.parse.ParseUser;
 public class MentorMatchResultsFragment extends MatchResultsListFragment {
 	// Results that a mentor should see - This retrieves the mentees that have requested this person as a mentor
 	
-	//private static final String SKILL_ARG = "skill";
-	//private static final String REQUEST_ID_ARG = "requestId";
 	private boolean firstUse;
 
 	public static MentorMatchResultsFragment newInstance(Skill skill, String requestId, boolean isFirstUse) {
@@ -90,10 +88,7 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 		public void done(List<MentorRequest> requestList, ParseException e) {
 			if(e == null) {
 				profileAdapter.addAll(requestList);
-				/*
-				for(MentorRequest aReq : requestList) {
-					profileAdapter.add(aReq);
-				}*/
+
 			} else {
 				Log.d("DEBUG", "Error - trying to find requests for mentor");
 				e.printStackTrace();

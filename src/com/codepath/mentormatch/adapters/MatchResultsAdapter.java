@@ -15,16 +15,23 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.helpers.ParseQueries;
+import com.codepath.mentormatch.helpers.ReviewsUtil;
+import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 
 public class MatchResultsAdapter extends ArrayAdapter {
 
 	//private static final int SWIPE_MIN_DISTANCE = 60;
     //private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 	private User user;
+	private ViewHolder viewHolder;
 	
     // View lookup cache
     private static class ViewHolder {
@@ -34,6 +41,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
     	ImageView ivProfileImage;
     	RatingBar rbRating;
     	LinearLayout llSkillImages;
+    	TextView tvNumReviews;    	
     }
     
 	public MatchResultsAdapter(Context context, List objects) {
@@ -52,7 +60,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		initializeUser(position);
-		ViewHolder viewHolder; // view lookup cache stored in tag
+//		ViewHolder viewHolder; // view lookup cache stored in tag
 		Log.d("DEBUG", "Match results adapter: get view position: " + position + " user - " + user);
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
@@ -63,6 +71,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
 			viewHolder.tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
 			viewHolder.ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
 			viewHolder.rbRating = (RatingBar) convertView.findViewById(R.id.rbRating);
+			viewHolder.tvNumReviews = (TextView) convertView.findViewById(R.id.tvNumReviews);
 			viewHolder.llSkillImages = (LinearLayout) convertView.findViewById(R.id.llSkillImages);
 	        convertView.setTag(viewHolder);
 		} else {
@@ -80,7 +89,8 @@ public class MatchResultsAdapter extends ArrayAdapter {
 		viewHolder.tvJobTitle.setText(user.getJobTitle() + " @ " + user.getCompany());
 		viewHolder.tvLocation.setText(user.getLocation());
 		Log.d("DEBUG", "Name: " + user.getFullName());
-		viewHolder.rbRating.setRating(getAverageRating());
+//		viewHolder.rbRating.setRating(getAverageRating());
+		retrieveReviews();
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 		
 		if(user.getSkills() != null) {
@@ -117,6 +127,29 @@ public class MatchResultsAdapter extends ArrayAdapter {
         });*/
 		return convertView;
 	}
+	
+	private void retrieveReviews() {
+		Log.d("DEBUG", "Match Results Reviews: Retrieving Reviews for: " + user);
+		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
+	}
+	
+	private class FindReviewsCallback extends FindCallback<MatchRelationship> {
+		@Override
+		public void done(List<MatchRelationship> relationshipList, ParseException e) {
+			if(e == null) {
+				Log.d("DEBUG", "relationship list: " + relationshipList.size());
+				ReviewsUtil reviewHelper = new ReviewsUtil(relationshipList);
+				List<Review> reviews = reviewHelper.getReviews(user.isMentor());
+				double avgRating = reviewHelper.getAverageRating();
+				viewHolder.rbRating.setRating((float) avgRating);
+				viewHolder.tvNumReviews.setText(reviewHelper.getTotalReviews() + " Reviews");
+			} else {
+				Log.d("DEBUG", "Error retrieving views for user: " + user.getObjectId());
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 	private float getAverageRating() {
 		return (float)Math.random() * 5; 

@@ -23,7 +23,7 @@ import com.codepath.mentormatch.models.parse.User;
 
 public abstract class MatchResultsListFragment extends Fragment{
 //	protected MatchResultsAdapter profileAdapter;
-	protected ArrayAdapter profileAdapter;
+	protected MatchResultsAdapter profileAdapter;
 //	protected List<ParseUser> usersList;
 	protected List usersList;
 	protected ListView lvProfileSummaries;

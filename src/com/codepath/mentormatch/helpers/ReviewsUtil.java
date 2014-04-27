@@ -55,6 +55,10 @@ public class ReviewsUtil {
 		}
 	}
 
+	public int getTotalReviews() {
+		return reviews.size();
+	}
+	
 	public double getAverageRating() {
 		return ratingValueTotal/totalReviews;
 	}
