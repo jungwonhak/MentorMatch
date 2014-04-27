@@ -95,8 +95,6 @@ public class ParseQueries {
 		queries.add(menteeRating);
 
 		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
-		mainQuery.include(MatchRelationship.MENTOR_USER_ID_KEY);
-		mainQuery.include(MatchRelationship.MENTEE_USER_ID_KEY);
 		mainQuery.findInBackground(callBack);
 	}
 
@@ -119,8 +117,6 @@ public class ParseQueries {
 		queries.add(mentorRelationship);
 
 		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
-//		mainQuery.include(MatchRelationship.MENTOR_USER_ID_KEY);
-//		mainQuery.include(MatchRelationship.MENTEE_USER_ID_KEY);
 		mainQuery.orderByDescending(MatchRelationship.CREATED_AT_KEY);
 		mainQuery.findInBackground(callBack);
 	}

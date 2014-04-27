@@ -27,6 +27,8 @@ import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.ReviewDetailFragment;
+import com.codepath.mentormatch.helpers.ParseQueries;
+import com.codepath.mentormatch.helpers.ReviewsUtil;
 import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.Status;
@@ -37,7 +39,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -63,20 +64,45 @@ public class ProfileDetailActivity extends FragmentActivity {
 		setContentView(R.layout.activity_profile_detail);
 		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
-		btnContact = (Button) findViewById(R.id.btnContact);
-		rbRating = (RatingBar) findViewById(R.id.rbRating);
+		setupViews();
+		getUser();
+		ParseQueries.getUserById(userObjId, new GetUserCallback());
+	}
+	
+	private void setupViews() {
+		tvName = (TextView) findViewById(R.id.tvName);
+		tvJobInfo = (TextView) findViewById(R.id.tvJobInfo);
+		tvLocation = (TextView) findViewById(R.id.tvLocation);
+		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
+		
+//		btnContact = (Button) findViewById(R.id.btnContact);
+		rbRating = (RatingBar) findViewById(R.id.rbRating);		
 		rbRating.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				return true;
 			}
 		});
 		rbRating.setFocusable(false);
-
 		//if (requestId == null) {
-			// hide connection button
+		// hide connection button
 		//	btnContact.setVisibility(View.GONE);
 		//}
-		getUser();
+	}
+	
+	private class GetUserCallback extends GetCallback<ParseUser> {
+		@Override
+		public void done(ParseUser object, ParseException e) {
+			if (e == null) {
+				Log.d("DEBUG", "found user");
+				user = (User) object;
+				setViewValues();
+				retrieveReviews();
+			} else {
+				Log.d("DEBUG", "ERROR - PROFILE ACTIVITY - COULD NOT FIND USER");
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void getUser() {
@@ -86,7 +112,8 @@ public class ProfileDetailActivity extends FragmentActivity {
 				if (e == null) {
 					Log.d("DEBUG", "found user");
 					user = (User) object;
-					setViews();
+					setViewValues();
+					retrieveReviews();
 				} else {
 					// something went wrong
 					Log.d("DEBUG",
@@ -97,39 +124,31 @@ public class ProfileDetailActivity extends FragmentActivity {
 		});
 	}
 
-	private void setViews() {
-		tvName = (TextView) findViewById(R.id.tvName);
+	private void setViewValues() {
 		tvName.setText(user.getFullName());
-
-		tvJobInfo = (TextView) findViewById(R.id.tvJobInfo);
 		tvJobInfo.setText(user.getJobTitle() + " at " + user.getCompany());
-
-		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvLocation.setText(user.getLocation());
 
-		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 
-		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
 		if(user.getSkills() != null) {
-		for (String s : user.getSkills()) {
-			Log.d("DEBUG", "SKill: " + s);
-			ImageView iv = new ImageView(this);
-			iv.setScaleType(ScaleType.FIT_XY);
-			iv.setLayoutParams(params);
-			Skill skill = Skill.fromValue(s);
-			iv.setMaxHeight(15);
-			iv.setMaxWidth(15);
-			iv.setImageResource(skill.getResourceId());
-			llSkillImages.addView(iv);
-		}
+			llSkillImages.removeAllViews();
+			for (String s : user.getSkills()) {
+				Log.d("DEBUG", "SKill: " + s);
+				ImageView iv = new ImageView(this);
+				iv.setScaleType(ScaleType.FIT_XY);
+				iv.setLayoutParams(params);
+				Skill skill = Skill.fromValue(s);
+				iv.setImageResource(skill.getResourceId());
+				llSkillImages.addView(iv);
+			}
 		}
 
 		if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
 			ImageLoader.getInstance().displayImage(user.getProfileImage(),
 					ivProfileImage);
 		}
-		retrieveReviews();
+
 	}
 
 	@Override
@@ -169,61 +188,35 @@ public class ProfileDetailActivity extends FragmentActivity {
 	}
 
 	private void retrieveReviews() {
-		ParseQuery<MatchRelationship> mentorRating = ParseQuery
-				.getQuery("MatchRelationship");
-		mentorRating.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY,
-				ParseUser.getCurrentUser());
+		ParseQueries.getReviewsForUser(user.getObjectId(), new FindReviewsCallback());
 
-		ParseQuery<MatchRelationship> menteeRating = ParseQuery
-				.getQuery("MatchRelationship");
-		menteeRating.whereEqualTo(MatchRelationship.MENTEE_USER_ID_KEY,
-				ParseUser.getCurrentUser());
-		List<ParseQuery<MatchRelationship>> queries = new ArrayList<ParseQuery<MatchRelationship>>();
-		queries.add(mentorRating);
-		queries.add(menteeRating);
-
-		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
-		mainQuery.include(MatchRelationship.MENTOR_USER_ID_KEY);
-		mainQuery.include(MatchRelationship.MENTEE_USER_ID_KEY);
-		mainQuery.findInBackground(new FindCallback<MatchRelationship>() {
-			public void done(List<MatchRelationship> results, ParseException e) {
-				double totalRating = 0.0;
-				List<Review> reviews = new ArrayList<Review>();
-				// int count;
-				for (MatchRelationship relation : results) {
-					Review newReview;
-					if (relation.getMentee().equals(ParseUser.getCurrentUser())) {
-						totalRating += relation.getMenteeRating();
-						User mentor = (User) relation.getMentor();
-						newReview = new Review(mentor.getFullName(), relation.getCreatedAt(), relation.getCommentForMentee(), relation.getMenteeRating());
-						reviews.add(newReview);
-					} else {
-						totalRating += relation.getMentorRating();
-						User mentee = (User) relation.getMentor();
-						newReview = new Review(mentee.getFullName(), relation.getCreatedAt(), relation.getCommentForMentor(), relation.getMentorRating());
-					}
-					reviews.add(newReview);
-				}
-				double avgRating = totalRating / results.size();
-				rbRating.setRating((float) avgRating);
-				setupReviewView(reviews);
-			}
-		});
 	}
 
+	private class FindReviewsCallback extends FindCallback<MatchRelationship> {
+		@Override
+		public void done(List<MatchRelationship> relationshipList, ParseException e) {
+			if(e == null) {
+				ReviewsUtil reviewHelper = new ReviewsUtil(relationshipList);
+				List<Review> reviews = reviewHelper.getReviews(user.isMentor());
+				double avgRating = reviewHelper.getAverageRating();
+				rbRating.setRating((float) avgRating);
+				setupReviewView(reviews);
+			} else {
+				Log.d("DEBUG", "Error retrieving views for user: " + user.getObjectId());
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	private void setupReviewView(List<Review> reviews) {
 		vpPager = (ViewPager) findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), reviews);
         vpPager.setAdapter(adapterViewPager);
         vpPager.setOnPageChangeListener(new OnPageChangeListener() {
-
-        	
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
             	Toast.makeText(getBaseContext(), "page selected: " + position, Toast.LENGTH_SHORT).show();
-//                getSupportActionBar().setSelectedNavigationItem(position);
             }
 
             // This method will be invoked when the current page is scrolled
@@ -237,7 +230,6 @@ public class ProfileDetailActivity extends FragmentActivity {
             // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
             @Override
             public void onPageScrollStateChanged(int state) {
-                // Code goes here
             	Log.d("TEST", "state changed");
             }
         });		
