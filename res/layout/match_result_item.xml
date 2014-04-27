@@ -20,15 +20,8 @@
             android:maxHeight="50dp"
             android:maxWidth="50dp"
             android:scaleType="fitXY"
+            android:background="@drawable/profileimage"
             android:src="@drawable/ic_profile_placeholder" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivProfileImage"
-            android:text="Name" />
 
         <TextView
             android:id="@+id/tvJobTitle"
@@ -36,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvName"
             android:layout_below="@+id/tvName"
+            android:paddingLeft="8dp"
             android:text="Job Title" />
 
         <TextView
@@ -44,7 +38,19 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvName"
             android:layout_below="@+id/tvJobTitle"
+            android:paddingLeft="8dp"
             android:text="Location" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivProfileImage"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/ivProfileImage"
+            android:paddingLeft="8dp"
+            android:text="Name" />
+
     </RelativeLayout>
 
     <View
@@ -52,7 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/rlUserInfo"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/darker_gray" />
 
     <RatingBar
@@ -69,14 +75,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/rbRating"
         android:text="5 Reviews" />
    
     <LinearLayout
         android:id="@+id/llSkillImages"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignRight="@+id/vwSeparator"
         android:layout_below="@+id/vwSeparator"
         android:orientation="horizontal" >          
