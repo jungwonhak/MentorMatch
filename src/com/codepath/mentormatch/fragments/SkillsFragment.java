@@ -37,30 +37,20 @@ public class SkillsFragment extends Fragment implements OnClickListener {
 	private LinearLayout llIos;
 	private LinearLayout llRuby;
 	private LinearLayout llAndroid;
-
-	private ImageView ivPython;
-	private ImageView ivRuby;
-	private ImageView ivIos;
-	private ImageView ivAndroid;
-
-	private ImageView ivFirstSkill;
+	
+	private ImageView ivPythonCheckmark;
+	private ImageView ivRubyCheckmark;
+	private ImageView ivIosCheckmark;
+	private ImageView ivAndroidCheckmark;
+	
 	private Button btnSkillNext;
 	private TextView tvProfileDetails;
 	private ArrayList<Skill> skills;
-	private Hashtable<Skill, SkillDrawable> potentialSkills;
+
+	// Skill => Skill Checkmark hashtable
+	private Hashtable<Skill, ImageView> potentialSkills;
 	private User user;
 	private boolean canSelectMultipleLanguages = false;
-
-	private class SkillDrawable {
-		public SkillDrawable(Drawable o, LayerDrawable dwc, ImageView iv) {
-			original = o;
-			drawableWithCheckmark = dwc;
-			imageView = iv;
-		}
-		public Drawable original;
-		public LayerDrawable drawableWithCheckmark;
-		public ImageView imageView;
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inf, ViewGroup parent,
@@ -80,19 +70,27 @@ public class SkillsFragment extends Fragment implements OnClickListener {
 		tvProfileDetails = (TextView) v.findViewById(R.id.tvProfileDetails);
 
 		skills = new ArrayList<Skill>();
-		potentialSkills = new Hashtable<Skill, SkillDrawable>();
-		ivPython = (ImageView) v.findViewById(R.id.ivPython);
-		potentialSkills.put(Skill.PYTHON, new SkillDrawable(ivPython.getDrawable(), createBmp(ivPython), ivPython));
-		ivRuby = (ImageView) v.findViewById(R.id.ivRuby);
-		potentialSkills.put(Skill.RUBY, new SkillDrawable(ivRuby.getDrawable(), createBmp(ivRuby), ivRuby));
-		ivIos = (ImageView) v.findViewById(R.id.ivIos);
-		potentialSkills.put(Skill.IOS, new SkillDrawable(ivIos.getDrawable(), createBmp(ivIos), ivIos));
-		ivAndroid = (ImageView) v.findViewById(R.id.ivAndroid);
-		potentialSkills.put(Skill.ANDROID, new SkillDrawable(ivAndroid.getDrawable(), createBmp(ivAndroid), ivAndroid));
+		potentialSkills = new Hashtable<Skill, ImageView>();
+		
+		ivPythonCheckmark = (ImageView) v.findViewById(R.id.ivPythonCheckmark);
+		potentialSkills.put(Skill.PYTHON, ivPythonCheckmark);
+		
+		ivRubyCheckmark = (ImageView) v.findViewById(R.id.ivRubyCheckmark);
+		ivRubyCheckmark.setVisibility(View.INVISIBLE);
+		potentialSkills.put(Skill.RUBY, ivRubyCheckmark);
+		
+		ivIosCheckmark = (ImageView) v.findViewById(R.id.ivIosCheckmark);
+		ivIosCheckmark.setVisibility(View.INVISIBLE);
+		potentialSkills.put(Skill.IOS, ivIosCheckmark);
+		
+		ivAndroidCheckmark = (ImageView) v.findViewById(R.id.ivAndroidCheckmark);
+		ivAndroidCheckmark.setVisibility(View.INVISIBLE);
+		potentialSkills.put(Skill.ANDROID, ivAndroidCheckmark);
 
 		// Set up the checkmark on the first skill
-		ivPython.setImageDrawable(potentialSkills.get(Skill.PYTHON).drawableWithCheckmark);
+		ivPythonCheckmark.setVisibility(View.VISIBLE);		
 		skills.add(Skill.PYTHON);
+		
 		user = (User) ParseUser.getCurrentUser();
 		if (user.isMentor()) {
 			tvProfileDetails.setText(R.string.teachingLanguageString);
@@ -101,26 +99,11 @@ public class SkillsFragment extends Fragment implements OnClickListener {
 		return v;
 	}
 
-	private LayerDrawable createBmp(ImageView iv) {
-		Drawable d1 = iv.getDrawable();
-		BitmapDrawable d2 = (BitmapDrawable) getResources().getDrawable(
-				R.drawable.checkmark);
-
-		Drawable drawableArray[] = new Drawable[] { d1, d2 };
-		LayerDrawable layerDraw = new LayerDrawable(drawableArray);
-		// Need to find a way to overlay the checkmark on the image properly.
-		// layerDraw.setLayerInset(1, 150, -100, 0, 0);
-		// d2.setBounds(100, 100, 50, 50);
-
-		return layerDraw;
-	}
-
 	private void updateBackend() {
 		if (skills.size() == 0) {
 			Log.d("DEBUG", "Trying to send empty list of skills");
 			return;
-		}
-		
+		}	
 		ArrayList<String> skillsToSend = new ArrayList<String>();
 		for (Skill s : skills) {
 			skillsToSend.add(s.toString());
@@ -134,42 +117,34 @@ public class SkillsFragment extends Fragment implements OnClickListener {
 			request.setMentee(ParseUser.getCurrentUser());
 			request.setSkill(skills.get(0));
 			request.saveInBackground(new SaveCallback() {
-
 				@Override
 				public void done(ParseException e) {
 					if(e == null) {
-					// TODO Auto-generated method stub
-						//Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
 						goToNextPage();
 					} else {
 						e.printStackTrace();
 					}
 				}
-				
 			});
 
 		}
 	}
 
 	private void toggleSkill(Skill s) {
-		SkillDrawable sd = potentialSkills.get(s);
+		ImageView ivCheckmark = potentialSkills.get(s);
 		if (skills.contains(s)) {
 			skills.remove(s);
-			sd.imageView.setImageDrawable(sd.original);
+			ivCheckmark.setVisibility(View.INVISIBLE);
 		} else {
-			if (canSelectMultipleLanguages) {
-				skills.add(s);
-				sd.imageView.setImageDrawable(sd.drawableWithCheckmark);
-			}
-			else { // Only one language can be selected
-				while (skills.size() > 0) { // remove old one
+			if (!canSelectMultipleLanguages) { 		 // Only one language can be selected
+				while (skills.size() > 0) { // remove old ones
 					Skill skillToRemove = skills.remove(0);
-					SkillDrawable sdToRemove = potentialSkills.get(skillToRemove);
-					sdToRemove.imageView.setImageDrawable(sdToRemove.original);
+					ImageView checkmarkToRemove = potentialSkills.get(skillToRemove);
+					checkmarkToRemove.setVisibility(View.INVISIBLE);
 				}
-				skills.add(s);
-				sd.imageView.setImageDrawable(sd.drawableWithCheckmark);
 			}
+			skills.add(s);				
+			ivCheckmark.setVisibility(View.VISIBLE);
 		}
 	}
 
