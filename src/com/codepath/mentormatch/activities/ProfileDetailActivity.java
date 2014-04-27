@@ -65,7 +65,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
 		setupViews();
-		getUser();
+//		getUser();
 		ParseQueries.getUserById(userObjId, new GetUserCallback());
 	}
 	
@@ -104,7 +104,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 			}
 		}
 	}
-
+/*
 	private void getUser() {
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
 		query.getInBackground(userObjId, new GetCallback<ParseUser>() {
@@ -123,7 +123,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 			}
 		});
 	}
-
+*/
 	private void setViewValues() {
 		tvName.setText(user.getFullName());
 		tvJobInfo.setText(user.getJobTitle() + " at " + user.getCompany());
