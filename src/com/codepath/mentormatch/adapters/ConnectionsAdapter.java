@@ -16,6 +16,7 @@ import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
+import com.parse.ParseUser;
 
 public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 
@@ -25,6 +26,7 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 	TextView tvJobTitle;
 	TextView tvLocation;
 	TextView tvMessage;
+	TextView tvBlurb;
 	ImageView ivProfileImage;
 	RatingBar rbRating;
 	ImageView ivSkill;
@@ -48,16 +50,33 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
 		ivSkill = (ImageView) convertView.findViewById(R.id.ivSkill);
 		tvMessage = (TextView) convertView.findViewById(R.id.tvMessage);
-		
-		mentee = (User) matchRelationship.getMentee();
+		tvBlurb = (TextView) convertView.findViewById(R.id.tvBlurb);
+		User currentUser = (User) ParseUser.getCurrentUser();
+		String name = "", jobTitle = "", location = "", description = "", blurb = "";
+		if(currentUser.isMentor()) {
+			mentee = (User) matchRelationship.getMentee();
+			name = mentee.getFullName();
+			jobTitle = mentee.getJobTitle() + " @ " + mentee.getCompany();
+			location = mentee.getLocation();
+			description = matchRelationship.getMentorRequestId().getDescription();
+			blurb = "needs your help with ";
+		} else {
+			User mentor = (User) matchRelationship.getMentor();
+			name = mentor.getFullName();
+			jobTitle = mentor.getJobTitle() + " @ " + mentor.getCompany();
+			location = mentor.getLocation();
+			description = mentor.getDescription();
+			blurb = " is helping you with ";
+		}
 
 		
-		tvName.setText(mentee.getFullName());
-		tvJobTitle.setText(mentee.getJobTitle() + " @ " + mentee.getCompany());
-		tvLocation.setText(mentee.getLocation());
-		MentorRequest req = matchRelationship.getMentorRequestId();
-		tvMessage.setText(req.getDescription());
-		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
+		
+		tvName.setText(name);
+		tvJobTitle.setText(jobTitle);
+		tvLocation.setText(location);
+		tvMessage.setText(description);
+		tvBlurb.setText(blurb);
+//		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
 		return convertView;
 	}
 	

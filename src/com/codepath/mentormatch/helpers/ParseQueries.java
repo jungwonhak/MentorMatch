@@ -109,7 +109,7 @@ public class ParseQueries {
 
 		ParseQuery<MatchRelationship> mentorRelationship = ParseQuery
 				.getQuery("MatchRelationship");
-		mentorRelationship.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY,
+		mentorRelationship.whereEqualTo(MatchRelationship.MENTEE_USER_ID_KEY,
 				ParseUser.getCurrentUser());
 
 		List<ParseQuery<MatchRelationship>> queries = new ArrayList<ParseQuery<MatchRelationship>>();

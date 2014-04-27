@@ -53,14 +53,15 @@ public class RatingsActivity extends Activity {
 	}
 	
 	private void populateExistingData() {
-		if(ParseUser.getCurrentUser().equals(mentee)) {
-			tvName.setText(mentor.getFullName());
-			rbRating.setRating((float) relationship.getMentorRating());
-			etReview.setText(relationship.getCommentForMentor());
-		} else {
+		if(((User) ParseUser.getCurrentUser()).isMentor()) {
 			tvName.setText(mentee.getFullName());
 			rbRating.setRating((float) relationship.getMenteeRating());
 			etReview.setText(relationship.getCommentForMentee());
+			
+		} else {			
+			tvName.setText(mentor.getFullName());
+			rbRating.setRating((float) relationship.getMentorRating());
+			etReview.setText(relationship.getCommentForMentor());
 		}
 	}
 	
@@ -72,12 +73,14 @@ public class RatingsActivity extends Activity {
 	}
 
 	public void saveRating(View view) {
-		if(ParseUser.getCurrentUser().equals(mentee)) {
-			relationship.setMentorRating(rbRating.getRating());
-			relationship.setCommentForMentor(etReview.getText().toString());
-		} else {
+		if(((User)ParseUser.getCurrentUser()).isMentor()) {
 			relationship.setMenteeRating(rbRating.getRating());
 			relationship.setCommentForMentee(etReview.getText().toString());
+
+		} else {
+			relationship.setMentorRating(rbRating.getRating());
+			relationship.setCommentForMentor(etReview.getText().toString());
+
 		}
 		relationship.saveInBackground();
 		setResult(RESULT_OK); // set result code and bundle data for response
