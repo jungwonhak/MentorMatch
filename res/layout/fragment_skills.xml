@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:paddingRight="10dp" 
+    android:background="#f9f5f0" >
 
     <TextView
         android:id="@+id/tvProfileDetails"
@@ -16,7 +17,7 @@
         android:gravity="center"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="@string/learningLanguageString" />
+        android:text="What are you most excited to learn?" />
 
     <GridLayout
         android:id="@+id/languageGrid"
@@ -27,7 +28,7 @@
         android:columnCount="2"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:rowCount="2" >
 
         <LinearLayout
@@ -220,12 +221,12 @@
         android:id="@+id/btnSkillNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/languageGrid"
-        android:layout_alignRight="@+id/languageGrid"
+        android:layout_alignLeft="@+id/tvProfileDetails"
+        android:layout_alignRight="@+id/tvProfileDetails"
         android:layout_below="@+id/languageGrid"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="20dp"
-        android:text="@string/nextBtn" />
+        android:layout_marginTop="25dp"
+        android:background="@drawable/connectbtn"
+        android:text="@string/capNext"
+        android:textColor="#fff" />
 
 </RelativeLayout>

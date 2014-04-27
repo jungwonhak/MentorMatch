@@ -8,6 +8,7 @@
         android:id="@+id/backgroundBox"
         android:layout_width="300dp"
         android:layout_height="225dp"
+        android:layout_marginBottom="25dp"
         android:layout_above="@+id/btnProfileNext"
         android:layout_centerHorizontal="true"
         android:background="@drawable/signupbackbox" />
@@ -21,6 +22,7 @@
         android:background="@drawable/signupboxes"
         android:ems="10"
         android:paddingLeft="5dp"
+        android:typeface="monospace"
         android:hint="Name" />
     
     <EditText
@@ -28,22 +30,26 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignLeft="@+id/etProfileName"
+        android:layout_alignRight="@+id/etProfileName"
         android:layout_below="@+id/etProfileName"
         android:background="@drawable/signupboxes"
-        android:paddingLeft="5dp"
+        android:typeface="monospace"
         android:ems="10"
-        android:hint="Job" />
+        android:hint="Job"
+        android:paddingLeft="5dp" />
 
     <EditText
         android:id="@+id/etProfileCompany"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignLeft="@+id/etProfileJob"
+        android:layout_alignRight="@+id/etProfileJob"
         android:layout_below="@+id/etProfileJob"
         android:background="@drawable/signupboxes"
-        android:paddingLeft="5dp"
+        android:typeface="monospace"
         android:ems="10"
-        android:hint="Company" />
+        android:hint="Company"
+        android:paddingLeft="5dp" />
 
     <EditText
         android:id="@+id/etLocation"
@@ -53,6 +59,7 @@
         android:layout_alignRight="@+id/etProfileCompany"
         android:layout_below="@+id/etProfileCompany"
         android:background="@drawable/signupboxes"
+        android:typeface="monospace"
         android:paddingLeft="5dp"
         android:hint="Location" />
 
@@ -70,11 +77,14 @@
         android:id="@+id/tvProfileDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etProfileName"
+        android:layout_alignLeft="@+id/backgroundBox"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/backgroundBox"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="@string/mentorshipJourney" />
+        android:text="@string/mentorshipJourney"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnProfileNext"
@@ -83,8 +93,8 @@
         android:layout_alignLeft="@+id/ivProfileImage"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/ivProfileImage"
-        android:layout_marginBottom="46dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/connectbtn"
         android:text="@string/capNext"
         android:textColor="#fff" />
