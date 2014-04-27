@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.codepath.mentormatch.R;
 
-public enum Skill implements Serializable{
+public enum Skill implements Serializable {
 	JAVA ("Java", R.drawable.ic_launcher), 
 	RUBY ("Ruby", R.drawable.ruby_logo), 
 	PYTHON ("Python", R.drawable.python_logo),
@@ -14,7 +14,7 @@ public enum Skill implements Serializable{
 	
 	private String description;
 	private int resourceId;
-	
+
 	Skill(String value, int resource) {
 		this.description = value;
 		this.resourceId = resource;
@@ -32,6 +32,7 @@ public enum Skill implements Serializable{
 	public String getLogo() {
 		return toString() + "_logo.png";
 	}
+	
 	public static Skill fromValue(String value) throws IllegalArgumentException {
         try{
         	for(Skill skill : Skill.values()) {

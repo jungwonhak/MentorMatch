@@ -1,5 +1,8 @@
 package com.codepath.mentormatch.fragments;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,13 +17,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.activities.MatchResultsActivity;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
-public class SkillsFragment extends Fragment implements
-		OnClickListener {
+public class SkillsFragment extends Fragment implements OnClickListener {
 	public static final String LANGUAGE_PAGE_EXTRA = "foo";
 	public static final String LANGUAGE_EXTRA = "language";
 
@@ -28,16 +37,36 @@ public class SkillsFragment extends Fragment implements
 	private LinearLayout llIos;
 	private LinearLayout llRuby;
 	private LinearLayout llAndroid;
+
+	private ImageView ivPython;
+	private ImageView ivRuby;
+	private ImageView ivIos;
+	private ImageView ivAndroid;
+
 	private ImageView ivFirstSkill;
 	private Button btnSkillNext;
-	private Skill skill;
+	private TextView tvProfileDetails;
+	private ArrayList<Skill> skills;
+	private Hashtable<Skill, SkillDrawable> potentialSkills;
+	private User user;
+	private boolean canSelectMultipleLanguages = false;
 
+	private class SkillDrawable {
+		public SkillDrawable(Drawable o, LayerDrawable dwc, ImageView iv) {
+			original = o;
+			drawableWithCheckmark = dwc;
+			imageView = iv;
+		}
+		public Drawable original;
+		public LayerDrawable drawableWithCheckmark;
+		public ImageView imageView;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inf, ViewGroup parent,
 			Bundle savedInstanceState) {
 
-		View v = inf.inflate(R.layout.fragment_skills, parent,
-				false);
+		View v = inf.inflate(R.layout.fragment_skills, parent, false);
 		llPython = (LinearLayout) v.findViewById(R.id.llPython);
 		llPython.setOnClickListener(this);
 		llIos = (LinearLayout) v.findViewById(R.id.llIos);
@@ -48,11 +77,27 @@ public class SkillsFragment extends Fragment implements
 		llAndroid.setOnClickListener(this);
 		btnSkillNext = (Button) v.findViewById(R.id.btnSkillNext);
 		btnSkillNext.setOnClickListener(this);
+		tvProfileDetails = (TextView) v.findViewById(R.id.tvProfileDetails);
+
+		skills = new ArrayList<Skill>();
+		potentialSkills = new Hashtable<Skill, SkillDrawable>();
+		ivPython = (ImageView) v.findViewById(R.id.ivPython);
+		potentialSkills.put(Skill.PYTHON, new SkillDrawable(ivPython.getDrawable(), createBmp(ivPython), ivPython));
+		ivRuby = (ImageView) v.findViewById(R.id.ivRuby);
+		potentialSkills.put(Skill.RUBY, new SkillDrawable(ivRuby.getDrawable(), createBmp(ivRuby), ivRuby));
+		ivIos = (ImageView) v.findViewById(R.id.ivIos);
+		potentialSkills.put(Skill.IOS, new SkillDrawable(ivIos.getDrawable(), createBmp(ivIos), ivIos));
+		ivAndroid = (ImageView) v.findViewById(R.id.ivAndroid);
+		potentialSkills.put(Skill.ANDROID, new SkillDrawable(ivAndroid.getDrawable(), createBmp(ivAndroid), ivAndroid));
 
 		// Set up the checkmark on the first skill
-		ivFirstSkill = (ImageView) v.findViewById(R.id.ivPython);
-		ivFirstSkill.setImageDrawable(createBmp(ivFirstSkill));
-		skill = Skill.PYTHON;
+		ivPython.setImageDrawable(potentialSkills.get(Skill.PYTHON).drawableWithCheckmark);
+		skills.add(Skill.PYTHON);
+		user = (User) ParseUser.getCurrentUser();
+		if (user.isMentor()) {
+			tvProfileDetails.setText(R.string.teachingLanguageString);
+			canSelectMultipleLanguages = true;
+		}
 		return v;
 	}
 
@@ -70,43 +115,95 @@ public class SkillsFragment extends Fragment implements
 		return layerDraw;
 	}
 
+	private void updateBackend() {
+		if (skills.size() == 0) {
+			Log.d("DEBUG", "Trying to send empty list of skills");
+			return;
+		}
+		
+		ArrayList<String> skillsToSend = new ArrayList<String>();
+		for (Skill s : skills) {
+			skillsToSend.add(s.toString());
+		}
+		if (user.isMentor()) {
+			user.setSkills(skillsToSend);
+			goToNextPage();
+		}
+		else {
+			MentorRequest request = new MentorRequest();
+			request.setMentee(ParseUser.getCurrentUser());
+			request.setSkill(skills.get(0));
+			request.saveInBackground(new SaveCallback() {
+
+				@Override
+				public void done(ParseException e) {
+					if(e == null) {
+					// TODO Auto-generated method stub
+						//Toast.makeText(getActivity(), etDescription.getText(), Toast.LENGTH_LONG).show();
+						goToNextPage();
+					} else {
+						e.printStackTrace();
+					}
+				}
+				
+			});
+
+		}
+	}
+
+	private void toggleSkill(Skill s) {
+		SkillDrawable sd = potentialSkills.get(s);
+		if (skills.contains(s)) {
+			skills.remove(s);
+			sd.imageView.setImageDrawable(sd.original);
+		} else {
+			if (canSelectMultipleLanguages) {
+				skills.add(s);
+				sd.imageView.setImageDrawable(sd.drawableWithCheckmark);
+			}
+			else { // Only one language can be selected
+				while (skills.size() > 0) { // remove old one
+					Skill skillToRemove = skills.remove(0);
+					SkillDrawable sdToRemove = potentialSkills.get(skillToRemove);
+					sdToRemove.imageView.setImageDrawable(sdToRemove.original);
+				}
+				skills.add(s);
+				sd.imageView.setImageDrawable(sd.drawableWithCheckmark);
+			}
+		}
+	}
+
 	@Override
 	public void onClick(View v) {
-		ImageView iv = null;
 		switch (v.getId()) {
 		case R.id.llPython:
 			Log.d("DEBUG", "Python");
-			skill = Skill.PYTHON;
-			iv = (ImageView) v.findViewById(R.id.ivPython);
-			iv.setImageDrawable(createBmp(iv));
+			toggleSkill(Skill.PYTHON);
 			break;
 		case R.id.llIos:
 			Log.d("DEBUG", "iOS");
-			skill = Skill.IOS;
-			iv = (ImageView) v.findViewById(R.id.ivIos);
-			iv.setImageDrawable(createBmp(iv));
+			toggleSkill(Skill.IOS);
 			break;
 		case R.id.llRuby:
 			Log.d("DEBUG", "Ruby");
-			skill = Skill.RUBY;
-			iv = (ImageView) v.findViewById(R.id.ivRuby);
-			iv.setImageDrawable(createBmp(iv));
+			toggleSkill(Skill.RUBY);
 			break;
 		case R.id.llAndroid:
 			Log.d("DEBUG", "Android");
-			skill = Skill.ANDROID;
-			iv = (ImageView) v.findViewById(R.id.ivAndroid);
-			iv.setImageDrawable(createBmp(iv));
+			toggleSkill(Skill.ANDROID);
 			break;
 		case R.id.btnSkillNext:
-			Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
-			i.putExtra(LANGUAGE_PAGE_EXTRA, "language");
-			i.putExtra(LANGUAGE_EXTRA, skill);
-			startActivity(i);
+			updateBackend();
+			break;
 		default:
 			Log.d("DEBUG", "Unrecognized click");
 			return;
 		}
 	}
 
+	private void goToNextPage() {
+		Intent i = new Intent(getActivity(), ProfileBuilderActivity.class);
+		i.putExtra(LANGUAGE_PAGE_EXTRA, "language");
+		startActivity(i);		
+	}
 }

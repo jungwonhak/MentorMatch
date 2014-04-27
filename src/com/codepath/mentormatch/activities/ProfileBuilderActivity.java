@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.fragments.DetailsFragment;
-import com.codepath.mentormatch.fragments.SkillsFragment;
 import com.codepath.mentormatch.fragments.AccountSelectionFragment;
+import com.codepath.mentormatch.fragments.DetailsFragment;
 import com.codepath.mentormatch.fragments.ProfileDetailsFragment;
+import com.codepath.mentormatch.fragments.SkillsFragment;
 import com.codepath.mentormatch.models.Skill;
 
 public class ProfileBuilderActivity extends FragmentActivity {
@@ -41,7 +41,7 @@ public class ProfileBuilderActivity extends FragmentActivity {
 		} 
 		else if (name.equals("language")) {
 			Skill skill = (Skill) intent.getSerializableExtra(SkillsFragment.LANGUAGE_EXTRA);
-			fts.replace(R.id.profileItemContainer, DetailsFragment.newInstance(skill));
+			fts.replace(R.id.profileItemContainer, new DetailsFragment());
 			
 			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();		
 		} 

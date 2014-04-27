@@ -1,31 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="#f9f5f0">
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/ivCompanyLogo"
+        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
+        android:layout_below="@+id/tvOr"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/loginfield"
+        android:ems="10"
+        android:inputType="textEmailAddress" >
 
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/etEmail"
+        android:layout_alignRight="@+id/etEmail"
+        android:layout_below="@+id/etEmail"
+        android:background="@drawable/loginfield"
+        android:ems="10"
+        android:inputType="textPassword" >
+    </EditText>
+    
     <ImageView
         android:id="@+id/ivCompanyLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/company_logo"
         android:src="@drawable/ic_profile_placeholder" />
-
-    <TextView
-        android:id="@+id/tvCompanyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivCompanyLogo"
-        android:layout_centerHorizontal="true"
-        android:text="@string/company_name" />
-
-    <TextView
-        android:id="@+id/tvCompanyMotto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCompanyName"
-        android:layout_centerHorizontal="true"
-        android:text="@string/company_motto" />
 
     <ImageButton
         android:id="@+id/btnConnectWithLinkedIn"
@@ -47,49 +58,74 @@
         android:layout_centerHorizontal="true"
         android:text="@string/or" />
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvCompanyName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvOr"
-        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
-        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
+        android:layout_alignBottom="@+id/ivCompanyLogo"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" >
+        android:text="@string/company_name" />
 
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvCompanyMotto"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etEmail"
-        android:layout_alignRight="@+id/etEmail"
-        android:layout_below="@+id/etEmail"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword" >
-    </EditText>
-
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etEmail"
-        android:layout_alignRight="@+id/etEmail"
-        android:layout_below="@+id/etPassword"
-        android:onClick="handleRegularSignUp"
-        android:text="@string/sign_up" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ivCompanyLogo"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:text="@string/company_motto" />
 
     <Button
         android:id="@+id/btnAlreadyMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" 
-        android:layout_below="@+id/btnSignUp"       
+        android:layout_alignLeft="@+id/btnSignUp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btnSignUp"
+        android:textColor="#fff"
         android:text="@string/already_a_member" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAlreadyMember"
+        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
+        android:layout_alignRight="@+id/etPassword"
+        android:layout_toLeftOf="@+id/etEmail"
+        android:onClick="handleRegularSignUp"
+        android:textColor="#fff"
+        android:text="@string/sign_up" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_alignBottom="@+id/etEmail"
+        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
+        android:layout_below="@+id/tvOr"
+        android:layout_toLeftOf="@+id/etEmail"
+        android:background="@drawable/loginitems"
+        android:drawableLeft="@drawable/ic_email"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etPassword"
+        android:layout_alignLeft="@+id/btnSignUp"
+        android:layout_below="@+id/etEmail"
+        android:layout_toLeftOf="@+id/etEmail"
+        android:background="@drawable/loginitems"
+        android:drawableLeft="@drawable/ic_lock"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#fff" />
 
 </RelativeLayout>

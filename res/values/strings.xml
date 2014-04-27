@@ -6,7 +6,10 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="learningLanguageString">"Most importantly,\nwhat do you want to learn?"</string>
+    <string name="teachingLanguageString">"What languages do you know?"</string>   
     <string name="aboutMeHeader">Lastly, briefly describe your programming experience and goals.</string>
+    <string name="details_mentor_header">Lastly, tell us a little bit about why you\'d like to be a mentor.</string>
+    <string name="details_mentor_button">Be a mentor!</string>
     <string name="profileDetails">Filling out this info will help us find the best mentors for you</string>
     <string name="nextBtn">Next</string>
 

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#f9f5f0" >
     
      <TextView
          android:id="@+id/tvAboutMe"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_alignParentRight="true"
+         android:layout_alignLeft="@+id/etAboutMe"
          android:layout_alignParentTop="true"
+         android:layout_alignRight="@+id/etAboutMe"
          android:layout_marginTop="41dp"
          android:gravity="center"
          android:text="@string/aboutMeHeader"
@@ -16,23 +18,29 @@
 
      <EditText
          android:id="@+id/etAboutMe"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
+         android:layout_width="275dp"
+         android:layout_height="175dp"
          android:layout_below="@+id/tvAboutMe"
          android:layout_centerHorizontal="true"
-         android:layout_marginTop="49dp"
+         android:layout_marginTop="15dp"
+         android:background="@drawable/editabout"
          android:ems="10"
+         android:ellipsize="start"
+         android:gravity="center"
          android:hint="Tell me about yourself!"
          android:inputType="textMultiLine"
          android:maxLength="256" />
 
      <Button
-         android:id="@+id/btnAboutMeNext"
+         android:id="@+id/btnDetailsNext"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/etAboutMe"
+         android:layout_alignRight="@+id/etAboutMe"
          android:layout_below="@+id/etAboutMe"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="66dp"
-         android:text="Find a Mentor!" />
+         android:layout_marginTop="35dp"
+         android:background="@drawable/connectbtn"
+         android:text="Find a Mentor!"
+         android:textColor="#fff" />
 
 </RelativeLayout>
