@@ -30,6 +30,7 @@
             android:layout_alignLeft="@+id/tvName"
             android:layout_below="@+id/tvName"
             android:paddingLeft="8dp"
+            android:typeface="monospace"
             android:text="Job Title" />
 
         <TextView
@@ -39,6 +40,7 @@
             android:layout_alignLeft="@+id/tvName"
             android:layout_below="@+id/tvJobTitle"
             android:paddingLeft="8dp"
+            android:typeface="monospace"
             android:text="Location" />
 
         <TextView
@@ -49,6 +51,7 @@
             android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/ivProfileImage"
             android:paddingLeft="8dp"
+            android:typeface="monospace"
             android:text="Name" />
 
     </RelativeLayout>
@@ -77,12 +80,13 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/rbRating"
+        android:typeface="monospace"
         android:text="5 Reviews" />
    
     <LinearLayout
         android:id="@+id/llSkillImages"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignRight="@+id/vwSeparator"
         android:layout_below="@+id/vwSeparator"
         android:orientation="horizontal" >          
