@@ -61,7 +61,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 		setContentView(R.layout.activity_profile_detail);
 		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
-		btnContact = (Button) findViewById(R.id.btnRequestMentor);
+		btnContact = (Button) findViewById(R.id.btnContact);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);
 		rbRating.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
