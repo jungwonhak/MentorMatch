@@ -26,6 +26,7 @@
     <string name="company_motto">The best way for would be mentors and apprentices to get connected.</string>
     <string name="linked_in_connect">Connect with LinkedIn</string>
     <string name="or">or</string>
+    <string name="ok">OK</string>
     <string name="company_logo">Company Logo</string>
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
@@ -41,7 +42,8 @@
     <string name="title_activity_rating">RatingActivity</string>
     <string name="linkedin_desc">LinkedIn Connect</string>
     <string name="mentor_profile_details_title">Thank you for being a mentor!</string>
+    <string name="sign_up_success_title">Welcome to the club!</string>
+    <string name="sign_up_success_body">, thank you for signing up to be a mentor.  We\'ll show you a list of people looking for mentors just like you.  Check back later to see your matches.</string>
     <string name="mentorshipJourney">Let\'s begin our mentorship journey!</string>
     <string name="capNext">NEXT</string>
-
 </resources>

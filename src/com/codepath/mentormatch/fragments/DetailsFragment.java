@@ -83,6 +83,7 @@ public class DetailsFragment extends Fragment{
 	}
 	private void goToNextPage() {
 		Intent i = new Intent(getActivity(), MatchResultsActivity.class);
+		i.putExtra(MatchResultsActivity.FIRST_USE_EXTRA, true);
 		startActivity(i);		
 	}
 	

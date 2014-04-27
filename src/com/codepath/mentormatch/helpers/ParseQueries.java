@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.util.Log;
 
+import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.Status;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
@@ -38,6 +39,15 @@ public class ParseQueries {
 
 	}
 
+	public static void getMenteesLookingForMySkills(List<String> mentorSkills,
+			FindCallback<MentorRequest> callBack) {
+
+		ParseQuery<MentorRequest> query = ParseQuery.getQuery("MentorRequest");
+		query.whereContainedIn(MentorRequest.SKILL_KEY, mentorSkills);
+		query.whereNotEqualTo(MentorRequest.STATUS_KEY, Status.CLOSED.toString());
+		query.findInBackground(callBack);
+	}
+	
 	public static void getRequestsForMentor(String mentorId,
 			FindCallback<MentorRequest> callBack) {
 		String[] mentorList = { mentorId };
