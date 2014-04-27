@@ -41,7 +41,7 @@ public class ProfileBuilderActivity extends FragmentActivity {
 		} 
 		else if (name.equals("language")) {
 			Skill skill = (Skill) intent.getSerializableExtra(SkillsFragment.LANGUAGE_EXTRA);
-			fts.replace(R.id.profileItemContainer, DetailsFragment.newInstance(skill));
+			fts.replace(R.id.profileItemContainer, new DetailsFragment());
 			
 			//Toast.makeText(this, name, Toast.LENGTH_LONG).show();		
 		} 

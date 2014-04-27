@@ -27,7 +27,7 @@
          android:maxLength="256" />
 
      <Button
-         android:id="@+id/btnAboutMeNext"
+         android:id="@+id/btnDetailsNext"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@+id/etAboutMe"
