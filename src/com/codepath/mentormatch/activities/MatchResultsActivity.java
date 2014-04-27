@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,8 @@ import com.parse.ParseUser;
 
 public class MatchResultsActivity extends FragmentActivity {
 
+	public static final String FIRST_USE_EXTRA = "first_use";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,10 +29,12 @@ public class MatchResultsActivity extends FragmentActivity {
 		Intent intent = getIntent();
 		Skill skill = (Skill) intent.getSerializableExtra(DetailsFragment.SKILL_EXTRA);
 		String requestId = intent.getStringExtra(DetailsFragment.REQUEST_EXTRA);
-
+		boolean isFirstUse = intent.getBooleanExtra(FIRST_USE_EXTRA, false);
+		Log.d("DEBUG", "In MatchResultsActivity, first use is: " + isFirstUse);
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		if(((User) ParseUser.getCurrentUser()).isMentor()) {
-			ft.replace(R.id.flMentorSearchResults, MentorMatchResultsFragment.newInstance(skill, requestId));
+			Log.d("DEBUG", "Replacing with mentor fragment");
+			ft.replace(R.id.flMentorSearchResults, MentorMatchResultsFragment.newInstance(skill, requestId, isFirstUse));
 		} else {
 			ft.replace(R.id.flMentorSearchResults, MenteeMatchResultsFragment.newInstance(skill, requestId));
 		}
