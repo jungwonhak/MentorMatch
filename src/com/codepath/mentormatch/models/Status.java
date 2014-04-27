@@ -1,8 +1,8 @@
 package com.codepath.mentormatch.models;
 
 public enum Status {
-	OPEN ("Java"), 
-	CLOSED ("Ruby");
+	OPEN ("Open"), 
+	CLOSED ("Closed");
 	
 	private String description;
 	

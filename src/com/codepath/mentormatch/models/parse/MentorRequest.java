@@ -7,6 +7,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.Status;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -104,6 +105,10 @@ public class MentorRequest extends ParseObject implements Serializable {
 
 	public void setSkill(Skill skill) {
 		put(SKILL_KEY, skill.toString());
+	}
+	
+	public void setStatus(Status status) {
+		put(STATUS_KEY, status.toString());
 	}
 
 	public String getStatus() {

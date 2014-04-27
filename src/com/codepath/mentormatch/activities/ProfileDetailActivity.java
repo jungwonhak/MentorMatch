@@ -29,6 +29,7 @@ import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.ReviewDetailFragment;
 import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.Status;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
@@ -139,7 +140,6 @@ public class ProfileDetailActivity extends FragmentActivity {
 	}
 
 	public void createMentorRequest(View view) {
-		Log.d("DEBUG", "Requesting Mentor");
 		ParseQuery<MentorRequest> query = ParseQuery.getQuery("MentorRequest");
 		query.getInBackground(requestId, new GetCallback<MentorRequest>() {
 			public void done(MentorRequest object, ParseException e) {
@@ -149,7 +149,8 @@ public class ProfileDetailActivity extends FragmentActivity {
 						MatchRelationship relationship = new MatchRelationship(object);
 						relationship.setMentor(currentUser);
 						relationship.saveInBackground();
-						
+						object.setStatus(Status.CLOSED);
+						object.saveInBackground();
 					} else {
 						object.addMentorToList(userObjId);
 						object.saveInBackground();
