@@ -19,7 +19,7 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public static final String SKILL_KEY = "skill";
 	public static final String DESCRIPTION_KEY = "description";
 	public static final String STATUS_KEY = "status";
-	public static final String REQUESTED_MENTORS_LIST_KEY = "requestedMentors";
+	public static final String REQUESTED_MENTORS_RELATION_KEY = "requestedMentors";
 
 	public MentorRequest() {
 		super();
@@ -44,11 +44,12 @@ public class MentorRequest extends ParseObject implements Serializable {
 	}
 
 	public List<String> getMentorList() {
-		return getList(REQUESTED_MENTORS_LIST_KEY);
+		return getList(REQUESTED_MENTORS_RELATION_KEY);
 	}
 
+	
 	public void setMentorList(List<String> value) {
-		put(REQUESTED_MENTORS_LIST_KEY, value);
+		put(REQUESTED_MENTORS_RELATION_KEY, value);
 	}
 
 	public void addMentorToList(String objId) {

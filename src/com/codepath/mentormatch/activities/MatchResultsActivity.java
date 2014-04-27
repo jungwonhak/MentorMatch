@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.fragments.DetailsFragment;
-import com.codepath.mentormatch.fragments.MentorMatchResultsFragment;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
+import com.codepath.mentormatch.fragments.MenteeMatchResultsFragment;
+import com.codepath.mentormatch.fragments.MentorMatchResultsFragment;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.ParseUser;
 
 public class MatchResultsActivity extends FragmentActivity {
@@ -26,7 +28,11 @@ public class MatchResultsActivity extends FragmentActivity {
 		String requestId = intent.getStringExtra(DetailsFragment.REQUEST_EXTRA);
 
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.flMentorSearchResults, MentorMatchResultsFragment.newInstance(skill, requestId));
+		if(((User) ParseUser.getCurrentUser()).isMentor()) {
+			ft.replace(R.id.flMentorSearchResults, MentorMatchResultsFragment.newInstance(skill, requestId));
+		} else {
+			ft.replace(R.id.flMentorSearchResults, MenteeMatchResultsFragment.newInstance(skill, requestId));
+		}
 		ft.commit();
 	}
 

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.ConnectionsAdapter;
+import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.parse.FindCallback;
@@ -71,11 +72,16 @@ public class ConnectionsActivity extends Activity {
 	}
 	
 	private void retrieveConnections() {
+		ParseQueries.retrieveConnections(new FindCallbackClass());
+		/*
 		ParseQuery<MatchRelationship> query = ParseQuery.getQuery("MatchRelationship");
 		query.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY, ParseUser.getCurrentUser());
 		query.include(MatchRelationship.MENTOR_REQUEST_KEY);
 		query.include(MatchRelationship.MENTEE_USER_ID_KEY);
-		query.findInBackground(new FindCallback<MatchRelationship>() {
+		query.findInBackground(new FindCallbackClass());
+*/		
+		/*
+		new FindCallback<MatchRelationship>() {
 		  public void done(List<MatchRelationship> relationsList, ParseException e) {
 		        if (e == null) {
 		            Log.d("DEBUG", "Retrieved " + relationsList.size() + " REQUESTS");
@@ -88,6 +94,26 @@ public class ConnectionsActivity extends Activity {
 		        }
 		  }
 		});
+		*/
+	}
+	
+	private class FindCallbackClass extends FindCallback<MatchRelationship> {
+
+		@Override
+		public void done(List<MatchRelationship> relationsList, ParseException e) {
+			// TODO Auto-generated method stub
+	        if (e == null) {
+	            Log.d("DEBUG", "Retrieved " + relationsList.size() + " REQUESTS");
+	            for(MatchRelationship obj : relationsList) {
+	            	requestAdapter.add(obj.getMentorRequestId());
+	            }
+	            requestAdapter.notifyDataSetChanged();
+	        } else {
+	            Log.d("DEBUG", "Error: " + e.getMessage());
+	        }
+			
+		}
+		
 	}
 
 }

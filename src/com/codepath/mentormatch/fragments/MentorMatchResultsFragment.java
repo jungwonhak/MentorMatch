@@ -6,18 +6,18 @@ import java.util.List;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MentorMatchResultsFragment extends MatchResultsListFragment {
-
+	// Results that a mentor should see - This retrieves the mentees that have requested this person as a mentor
+	
 	//private static final String SKILL_ARG = "skill";
 	//private static final String REQUEST_ID_ARG = "requestId";
 
@@ -41,7 +41,8 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 		super();
 	}
 
-	private void getProfilesBySkill(String skill) {
+	/*
+	private void getRequestsForMentor() {
 		String[] skillsList = { skill.toString() };
 
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -61,14 +62,17 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 			}
 		});		
 	}
+	*/
 
 	// Get the most recently created mentor request to find skill and then
 	// find all mentors that have that skill.  Look at consolidating this
 	// into a single parse query later
 	@Override
 	public void fetchProfiles() {
-		ParseUser user = ParseUser.getCurrentUser();
+		ParseUser user = ParseUser.getCurrentUser();		
+		ParseQueries.getRequestsForMentor(user.getObjectId(), new FindRequestsForMentorCallback());
 		
+		/*
 		ParseQuery<ParseObject> q = ParseQuery.getQuery("MentorRequest");
 		q.whereEqualTo(MentorRequest.MENTEE_USER_ID_KEY, user);
 		q.addDescendingOrder("createdAt");
@@ -80,10 +84,26 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 			    } else {
 			    	MentorRequest mr = (MentorRequest)object;
 			    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
-			    	getProfilesBySkill(mr.getSkill());	
+			    	getRequestsForMentor(mr.getSkill());	
 			    }
 			  }
 		});				
-		//Skill skill = (Skill)getArguments().getSerializable(SKILL_ARG);
+		*/
+	}
+	
+	private class FindRequestsForMentorCallback extends FindCallback<MentorRequest> {
+		@Override
+		public void done(List<MentorRequest> requestList, ParseException e) {
+			if(e != null) {
+				for(MentorRequest aReq : requestList) {
+					profileAdapter.add(aReq.getMentee());
+				}
+			} else {
+				// TODO: Handle no search results
+				Log.d("DEBUG", "Error - trying to find requests for mentor");
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

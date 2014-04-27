@@ -18,6 +18,7 @@ public class MatchRelationship extends ParseObject implements Serializable{
 	public static final String MENTOR_COMMENT_KEY = "commentForMentor";
 	public static final String MENTEE_COMMENT_KEY = "commentForMentee";
 	public static final String MENTOR_REQUEST_KEY = "mentorRequestId";
+	public static final String CREATED_AT_KEY = "createdAt";
 	
 	public MatchRelationship() {
 		super();

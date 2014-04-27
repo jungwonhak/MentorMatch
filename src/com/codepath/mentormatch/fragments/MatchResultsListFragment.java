@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.adapters.MatchResultsAdapter;
+import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.ParseUser;
 
@@ -24,7 +25,7 @@ public abstract class MatchResultsListFragment extends Fragment{
 	protected MatchResultsAdapter profileAdapter;
 	protected List<ParseUser> usersList;
 	protected ListView lvProfileSummaries;
-	protected String requestId;
+	protected MentorRequest request;
 	
 	public static final String USER_EXTRA = "user";
 	public static final String REQUEST_ID_EXTRA = "requestId";
@@ -61,7 +62,7 @@ public abstract class MatchResultsListFragment extends Fragment{
 				Log.d("TEST - Item Click Listener", "on item click: " + pos);
 				Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
 				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
-				i.putExtra(REQUEST_ID_EXTRA, requestId);
+				i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
 				startActivity(i);
 			}
 		});
