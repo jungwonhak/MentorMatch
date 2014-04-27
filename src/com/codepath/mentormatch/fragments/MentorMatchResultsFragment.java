@@ -1,6 +1,5 @@
 package com.codepath.mentormatch.fragments;
 
-import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
@@ -9,10 +8,8 @@ import android.util.Log;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MentorRequest;
-import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MentorMatchResultsFragment extends MatchResultsListFragment {
@@ -23,10 +20,7 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 
 	public static MentorMatchResultsFragment newInstance(Skill skill, String requestId) {
 		MentorMatchResultsFragment fragment = new MentorMatchResultsFragment();
-		//Bundle args = new Bundle();
-		//args.putSerializable(SKILL_ARG, skill);
-		//args.putString(REQUEST_ID_ARG, requestId);
-		//fragment.setArguments(args);
+
 		return fragment;
 	}
 
@@ -71,30 +65,12 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 	public void fetchProfiles() {
 		ParseUser user = ParseUser.getCurrentUser();		
 		ParseQueries.getRequestsForMentor(user.getObjectId(), new FindRequestsForMentorCallback());
-		
-		/*
-		ParseQuery<ParseObject> q = ParseQuery.getQuery("MentorRequest");
-		q.whereEqualTo(MentorRequest.MENTEE_USER_ID_KEY, user);
-		q.addDescendingOrder("createdAt");
-		q.getFirstInBackground(new GetCallback<ParseObject>() {
-			@Override  
-			public void done(ParseObject object, ParseException e) {
-			    if (object == null) {
-			    	Log.d("DEBUG", "Could not find mentor request in backend");
-			    } else {
-			    	MentorRequest mr = (MentorRequest)object;
-			    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
-			    	getRequestsForMentor(mr.getSkill());	
-			    }
-			  }
-		});				
-		*/
 	}
 	
 	private class FindRequestsForMentorCallback extends FindCallback<MentorRequest> {
 		@Override
 		public void done(List<MentorRequest> requestList, ParseException e) {
-			if(e != null) {
+			if(e == null) {
 				for(MentorRequest aReq : requestList) {
 					profileAdapter.add(aReq.getMentee());
 				}
@@ -104,6 +80,5 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }

@@ -74,6 +74,7 @@ public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
 		viewHolder.rbRating.setRating(getAverageRating());
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 		
+		if(user.getSkills() != null) {
 		for (String s : user.getSkills()) {
 			Log.d("DEBUG", "SKill: " + s);
 			ImageView iv = new ImageView(convertView.getContext());
@@ -83,27 +84,9 @@ public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
 			iv.setMaxHeight(15);
 			iv.setMaxWidth(15);
 			iv.setImageResource(skill.getResourceId());
-			/*
-			// Needs to be fast 
-			if (s.equalsIgnoreCase(Skill.PYTHON.toString())) {
-				Log.d("DEBUG", "Adding python");
-				iv.setImageResource(R.drawable.python_logo);
-			} else if(s.equalsIgnoreCase(Skill.IOS.toString())) {
-				Log.d("DEBUG", "Adding ios");
-				iv.setImageResource(R.drawable.ios_logo);
-			} else if(s.equalsIgnoreCase(Skill.ANDROID.toString())) {
-				Log.d("DEBUG", "Adding android");
-				iv.setImageResource(R.drawable.android_logo);
-			} else if(s.equalsIgnoreCase(Skill.RUBY.toString())) {
-				Log.d("DEBUG", "Adding python");
-				iv.setImageResource(R.drawable.ruby_logo);
-			}
-			else {
-				continue;
-			}
-			*/
 			viewHolder.llSkillImages.addView(iv);				
 		}
+	}
 		
 /*		convertView.setOnClickListener(new OnClickListener() {		
 			@Override
