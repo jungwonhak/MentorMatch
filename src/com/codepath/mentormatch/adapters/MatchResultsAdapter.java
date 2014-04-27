@@ -53,7 +53,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		initializeUser(position);
 		ViewHolder viewHolder; // view lookup cache stored in tag
-		
+		Log.d("DEBUG", "Match results adapter: get view position: " + position + " user - " + user);
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -89,17 +89,17 @@ public class ParseQueries {
 		}
 	}
 
-	public static void getReviewsForUser(String userId,
+	public static void getReviewsForUser(User user,
 			FindCallback<MatchRelationship> callBack) {
 		ParseQuery<MatchRelationship> mentorRating = ParseQuery
 				.getQuery("MatchRelationship");
 		mentorRating.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY,
-				ParseUser.getCurrentUser());
+				user);
 
 		ParseQuery<MatchRelationship> menteeRating = ParseQuery
 				.getQuery("MatchRelationship");
 		menteeRating.whereEqualTo(MatchRelationship.MENTEE_USER_ID_KEY,
-				ParseUser.getCurrentUser());
+				user);
 		List<ParseQuery<MatchRelationship>> queries = new ArrayList<ParseQuery<MatchRelationship>>();
 		queries.add(mentorRating);
 		queries.add(menteeRating);

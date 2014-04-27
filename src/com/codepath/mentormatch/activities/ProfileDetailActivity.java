@@ -188,7 +188,8 @@ public class ProfileDetailActivity extends FragmentActivity {
 	}
 
 	private void retrieveReviews() {
-		ParseQueries.getReviewsForUser(user.getObjectId(), new FindReviewsCallback());
+		Log.d("DEBUG", "Profile Detail: Retrieving Reviews for: " + user + " objid: " + userObjId);
+		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
 
 	}
 
@@ -196,6 +197,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 		@Override
 		public void done(List<MatchRelationship> relationshipList, ParseException e) {
 			if(e == null) {
+				Log.d("DEBUG", "relationship list: " + relationshipList.size());
 				ReviewsUtil reviewHelper = new ReviewsUtil(relationshipList);
 				List<Review> reviews = reviewHelper.getReviews(user.isMentor());
 				double avgRating = reviewHelper.getAverageRating();
