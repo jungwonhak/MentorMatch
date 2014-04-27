@@ -26,7 +26,7 @@ public class ConnectionsActivity extends Activity {
 	public static final int RATING_REQUEST_CODE = 100;
 	
 	ListView lvConnections;
-	ArrayList<MentorRequest> requestList;
+	ArrayList<MatchRelationship> requestList;
 	ConnectionsAdapter requestAdapter;
 
 	
@@ -35,7 +35,7 @@ public class ConnectionsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connections);
 		lvConnections = (ListView) findViewById(R.id.lvConnections);
-		requestList = new ArrayList<MentorRequest>();
+		requestList = new ArrayList<MatchRelationship>();
 		requestAdapter = new ConnectionsAdapter(this, requestList);
 		lvConnections.setAdapter(requestAdapter);
 		setupListeners();
@@ -46,7 +46,7 @@ public class ConnectionsActivity extends Activity {
 		lvConnections.setOnItemClickListener(new OnItemClickListener() {
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-    			MentorRequest requestId = requestAdapter.getItem(pos);
+    			MatchRelationship requestId = requestAdapter.getItem(pos);
 				Intent i = new Intent(getBaseContext(), RatingsActivity.class);
 				i.putExtra(RatingsActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
 				startActivityForResult(i, RATING_REQUEST_CODE);
@@ -70,8 +70,8 @@ public class ConnectionsActivity extends Activity {
 	}
 	
 	private void retrieveConnections() {
-		ParseQueries.retrieveConnections(new FindCallbackClass());
-
+//		ParseQueries.findRelationshipsForUser(new FindCallbackClass());
+		ParseQueries.findConnectionsForCurrentUser(new FindCallbackClass());
 	}
 	
 	private class FindCallbackClass extends FindCallback<MatchRelationship> {
@@ -80,9 +80,9 @@ public class ConnectionsActivity extends Activity {
 		public void done(List<MatchRelationship> relationsList, ParseException e) {
 			// TODO Auto-generated method stub
 	        if (e == null) {
-	            Log.d("DEBUG", "Retrieved " + relationsList.size() + " REQUESTS");
+	            Log.d("DEBUG", "Retrieved " + relationsList.size() + " relationships");
 	            for(MatchRelationship obj : relationsList) {
-	            	requestAdapter.add(obj.getMentorRequestId());
+	            	requestAdapter.add(obj);
 	            }
 	            requestAdapter.notifyDataSetChanged();
 	        } else {

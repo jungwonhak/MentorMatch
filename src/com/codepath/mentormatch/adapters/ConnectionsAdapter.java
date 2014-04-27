@@ -13,12 +13,13 @@ import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 
-public class ConnectionsAdapter extends ArrayAdapter<MentorRequest>{
+public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 
-	private MentorRequest mentorRequest;
+	private MatchRelationship matchRelationship;
 	private User mentee;
 	TextView tvName;
 	TextView tvJobTitle;
@@ -28,13 +29,13 @@ public class ConnectionsAdapter extends ArrayAdapter<MentorRequest>{
 	RatingBar rbRating;
 	ImageView ivSkill;
 	
-	public ConnectionsAdapter(Context context, List<MentorRequest> mentorRequests) {
+	public ConnectionsAdapter(Context context, List<MatchRelationship> mentorRequests) {
 		super(context, 0, mentorRequests);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		mentorRequest = (MentorRequest) getItem(position);
+		matchRelationship = (MatchRelationship) getItem(position);
 		
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,14 +49,15 @@ public class ConnectionsAdapter extends ArrayAdapter<MentorRequest>{
 		ivSkill = (ImageView) convertView.findViewById(R.id.ivSkill);
 		tvMessage = (TextView) convertView.findViewById(R.id.tvMessage);
 		
-		mentee = (User) mentorRequest.getMentee();
+		mentee = (User) matchRelationship.getMentee();
 
 		
 		tvName.setText(mentee.getFullName());
 		tvJobTitle.setText(mentee.getJobTitle() + " @ " + mentee.getCompany());
 		tvLocation.setText(mentee.getLocation());
-		tvMessage.setText(mentorRequest.getDescription());
-		ivSkill.setImageResource(Skill.fromValue(mentorRequest.getSkill()).getResourceId());
+		MentorRequest req = matchRelationship.getMentorRequestId();
+		tvMessage.setText(req.getDescription());
+		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
 		return convertView;
 	}
 	

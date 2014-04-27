@@ -40,8 +40,9 @@ public class MentorRequest extends ParseObject implements Serializable {
 			return getParseUser(MENTEE_USER_ID_KEY).fetchIfNeeded();
 		} catch (Exception e) {
 			e.printStackTrace();
+//			return getParseUser(MENTEE_USER_ID_KEY).fetchIfNeeded();
 		}
-		return getParseUser(MENTEE_USER_ID_KEY);
+		return null;
 	}
 
 	public void setMentee(ParseUser user) {

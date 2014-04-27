@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.Task;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -30,7 +31,7 @@ public class RatingsActivity extends Activity {
 	private MatchRelationship relationship;
 	private User mentee;
 	private User mentor;
-	private String requestId;
+//	private String requestId;
 	
 	private Button btnSave;
 	private EditText etReview;
@@ -45,39 +46,12 @@ public class RatingsActivity extends Activity {
 		btnSave = (Button) findViewById(R.id.btnSave);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);
 		tvName = (TextView) findViewById(R.id.tvName);
-		requestId = getIntent().getStringExtra(RELATIONSHIP_ID_EXTRA);
+		String objId = getIntent().getStringExtra(RELATIONSHIP_ID_EXTRA);
 		btnSave.setEnabled(false);
-		retrieveRelationship();
-		setupTask();
+		ParseQueries.getRelationshipById(objId, new RetrieveRelationshipCallback());
+//		setupTask();
 	}
 	
-	private void retrieveRelationship(){
-		ParseObject mentorReq = ParseObject.create("MentorRequest");
-		mentorReq.setObjectId(requestId);
-		ParseQuery<MatchRelationship> query = ParseQuery.getQuery("MatchRelationship");
-		query.whereEqualTo(MatchRelationship.MENTOR_REQUEST_KEY, mentorReq);
-		query.include(MatchRelationship.MENTEE_USER_ID_KEY);
-		query.include(MatchRelationship.MENTOR_USER_ID_KEY);
-		query.getFirstInBackground(new GetCallback<MatchRelationship>() {
-			
-			@Override
-			public void done(MatchRelationship arg0, ParseException e) {
-				if(e == null) {
-					relationship = arg0;
-					mentee = (User) relationship.getMentee();
-					mentor = (User) relationship.getMentor();
-					populateExistingData();
-					btnSave.setEnabled(true);
-					
-					retrieveTasks();
-				} else {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-	}
-
 	private void populateExistingData() {
 		if(ParseUser.getCurrentUser().equals(mentee)) {
 			tvName.setText(mentor.getFullName());
@@ -88,7 +62,6 @@ public class RatingsActivity extends Activity {
 			rbRating.setRating((float) relationship.getMenteeRating());
 			etReview.setText(relationship.getCommentForMentee());
 		}
-		
 	}
 	
 	@Override
@@ -99,8 +72,6 @@ public class RatingsActivity extends Activity {
 	}
 
 	public void saveRating(View view) {
-//		User mentee = (User) relationship.getMentee();
-//		User mentor = (User) relationship.getMentor();
 		if(ParseUser.getCurrentUser().equals(mentee)) {
 			relationship.setMentorRating(rbRating.getRating());
 			relationship.setCommentForMentor(etReview.getText().toString());
@@ -111,6 +82,22 @@ public class RatingsActivity extends Activity {
 		relationship.saveInBackground();
 		setResult(RESULT_OK); // set result code and bundle data for response
 		finish();
+	}
+	
+	private class RetrieveRelationshipCallback extends GetCallback<MatchRelationship> {
+		@Override
+		public void done(MatchRelationship obj, ParseException e) {
+			if(e == null) {
+				relationship = obj;
+				mentee = (User) relationship.getMentee();
+				mentor = (User) relationship.getMentor();
+				populateExistingData();
+				btnSave.setEnabled(true);				
+			} else {
+				Log.d("DEBUG", "Error getting relationship");
+				e.printStackTrace();
+			}
+		}		
 	}
 	
 	
