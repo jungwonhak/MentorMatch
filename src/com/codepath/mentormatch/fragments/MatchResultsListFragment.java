@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.codepath.mentormatch.R;
@@ -19,27 +20,28 @@ import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.adapters.MatchResultsAdapter;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
-import com.parse.ParseUser;
 
 public abstract class MatchResultsListFragment extends Fragment{
-	protected MatchResultsAdapter profileAdapter;
-	protected List<ParseUser> usersList;
+//	protected MatchResultsAdapter profileAdapter;
+	protected ArrayAdapter profileAdapter;
+//	protected List<ParseUser> usersList;
+	protected List usersList;
 	protected ListView lvProfileSummaries;
-	protected MentorRequest request;
+
 	
 	public static final String USER_EXTRA = "user";
 	public static final String REQUEST_ID_EXTRA = "requestId";
 	
 	public abstract void fetchProfiles();
-	
+	public abstract void setListViewListeners();
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		usersList = new ArrayList<ParseUser>();
+		usersList = new ArrayList();
 		profileAdapter = new MatchResultsAdapter(getActivity(), usersList);
 		fetchProfiles();		
-
 	}
 
 	@Override
@@ -55,18 +57,8 @@ public abstract class MatchResultsListFragment extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 	}
 	
-	private void setListViewListeners() {
-		lvProfileSummaries.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				Log.d("TEST - Item Click Listener", "on item click: " + pos);
-				Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
-				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
-				i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
-				startActivity(i);
-			}
-		});
+	
+	
 
-	}
 
 }

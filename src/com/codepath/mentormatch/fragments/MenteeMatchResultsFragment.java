@@ -2,12 +2,18 @@ package com.codepath.mentormatch.fragments;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -17,7 +23,8 @@ import com.parse.ParseUser;
 public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	// Results that a mentee should see - This retrieves the potential mentors
 	
-	//private MentorRequest request;
+	private MentorRequest request;
+	//protected MentorRequest request;
 	
 	public MenteeMatchResultsFragment() {
 		super();
@@ -26,8 +33,6 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	public static MenteeMatchResultsFragment newInstance(Skill skill, String requestId) {
 		MenteeMatchResultsFragment fragment = new MenteeMatchResultsFragment();
 		Bundle args = new Bundle();
-//		args.putSerializable(SKILL_ARG, skill);
-//		args.putString(REQUEST_ID_ARG, requestId);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -35,7 +40,6 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//requestId = getArguments().getString(REQUEST_ID_ARG);
 	}
 
 	private void getProfilesBySkill(String skill) {
@@ -64,6 +68,20 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 			    }
 			  }
 		});				
+	}
+	
+	
+	public void setListViewListeners() {
+		lvProfileSummaries.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+				Log.d("TEST - Item Click Listener", "on item click: " + pos);
+				Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
+				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
+				i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
+				startActivity(i);
+			}
+		});
 	}
 
 	// Callback for Query Results

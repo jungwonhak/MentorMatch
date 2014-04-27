@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.models.Skill;
+import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.ParseUser;
 
-public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
+public class MatchResultsAdapter extends ArrayAdapter {
 
 	//private static final int SWIPE_MIN_DISTANCE = 60;
     //private static final int SWIPE_THRESHOLD_VELOCITY = 100;
@@ -36,13 +36,22 @@ public class MatchResultsAdapter extends ArrayAdapter<ParseUser> {
     	LinearLayout llSkillImages;
     }
     
-	public MatchResultsAdapter(Context context, List<ParseUser> objects) {
+	public MatchResultsAdapter(Context context, List objects) {
 		super(context, 0, objects);
 	}
 
+	private void initializeUser(int position) {
+
+		if(getItem(position) instanceof MentorRequest) {
+			user = (User) ((MentorRequest)getItem(position)).getMentee();
+		} else {
+			user = (User) getItem(position);		
+		}
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		user = (User) getItem(position);
+		initializeUser(position);
 		ViewHolder viewHolder; // view lookup cache stored in tag
 		
 		if (convertView == null) {

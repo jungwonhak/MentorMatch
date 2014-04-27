@@ -110,7 +110,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 
 		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
-
+		if(user.getSkills() != null) {
 		for (String s : user.getSkills()) {
 			Log.d("DEBUG", "SKill: " + s);
 			ImageView iv = new ImageView(this);
@@ -121,6 +121,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 			iv.setMaxWidth(15);
 			iv.setImageResource(skill.getResourceId());
 			llSkillImages.addView(iv);
+		}
 		}
 
 		if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
@@ -143,9 +144,16 @@ public class ProfileDetailActivity extends FragmentActivity {
 		query.getInBackground(requestId, new GetCallback<MentorRequest>() {
 			public void done(MentorRequest object, ParseException e) {
 				if (e == null) {
-//					object.addMentorToRelation(user);
-					object.addMentorToList(userObjId);
-					object.saveInBackground();
+					User currentUser = (User) ParseUser.getCurrentUser();
+					if(currentUser.isMentor()) {
+						MatchRelationship relationship = new MatchRelationship(object);
+						relationship.setMentor(currentUser);
+						relationship.saveInBackground();
+						
+					} else {
+						object.addMentorToList(userObjId);
+						object.saveInBackground();
+					}
 					Log.d("DEBUG", "ADDING MENTOR TO REQUEST: " + requestId);
 					Intent i = new Intent(getBaseContext(), ConnectionsActivity.class);
 					startActivity(i);
