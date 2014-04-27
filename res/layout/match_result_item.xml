@@ -63,8 +63,16 @@
         android:layout_height="1dp"
         android:layout_below="@+id/rlUserInfo"
         android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
-
+        android:background="#00B6AA" />
+	<TextView
+        android:id="@+id/tvNumReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/rbRating"
+        android:typeface="monospace"
+        android:text="5 Reviews" />
+	
     <RatingBar
         android:id="@+id/rbRating"
         android:layout_width="wrap_content"
@@ -72,22 +80,13 @@
         android:layout_alignParentBottom="true"
         style = "?android:attr/ratingBarStyleSmall"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vwSeparator" />
+        android:layout_alignTop="@+id/llSkillImages" />
 
-    <TextView
-        android:id="@+id/tvNumReviews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/rbRating"
-        android:typeface="monospace"
-        android:text="5 Reviews" />
-   
     <LinearLayout
         android:id="@+id/llSkillImages"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:layout_alignRight="@+id/vwSeparator"
         android:layout_below="@+id/vwSeparator"
         android:orientation="horizontal" >          
