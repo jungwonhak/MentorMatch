@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.Fragments.DetailsFragment;
-import com.codepath.mentormatch.Fragments.SkillsFragment;
-import com.codepath.mentormatch.Fragments.AccountSelectionFragment;
-import com.codepath.mentormatch.Fragments.ProfileDetailsFragment;
+import com.codepath.mentormatch.fragments.AccountSelectionFragment;
+import com.codepath.mentormatch.fragments.DetailsFragment;
+import com.codepath.mentormatch.fragments.ProfileDetailsFragment;
+import com.codepath.mentormatch.fragments.SkillsFragment;
 import com.codepath.mentormatch.models.Skill;
 
 public class ProfileBuilderActivity extends FragmentActivity {

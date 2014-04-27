@@ -9,9 +9,9 @@ import android.view.MenuItem;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.core.MentorMatchApplication;
-import com.codepath.mentormatch.Fragments.DetailsFragment;
-import com.codepath.mentormatch.Fragments.MentorMatchResultsFragment;
-import com.codepath.mentormatch.Fragments.MatchResultsListFragment;
+import com.codepath.mentormatch.fragments.DetailsFragment;
+import com.codepath.mentormatch.fragments.MatchResultsListFragment;
+import com.codepath.mentormatch.fragments.MentorMatchResultsFragment;
 import com.codepath.mentormatch.models.Skill;
 import com.parse.ParseUser;
 

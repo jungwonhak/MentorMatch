@@ -1,4 +1,4 @@
-package com.codepath.mentormatch.Fragments;
+package com.codepath.mentormatch.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
