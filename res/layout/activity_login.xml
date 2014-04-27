@@ -2,81 +2,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#f9f5f0">
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/ivCompanyLogo"
-        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
-        android:layout_below="@+id/tvOr"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/loginfield"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/etEmail"
-        android:layout_alignRight="@+id/etEmail"
-        android:layout_below="@+id/etEmail"
-        android:background="@drawable/loginfield"
-        android:ems="10"
-        android:inputType="textPassword" >
-    </EditText>
     
-    <ImageView
-        android:id="@+id/ivCompanyLogo"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/company_logo"
-        android:src="@drawable/ic_profile_placeholder" />
-
-    <ImageButton
-        android:id="@+id/btnConnectWithLinkedIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"  
-        android:layout_below="@+id/tvCompanyMotto"      
-        android:layout_centerHorizontal="true"
-        android:background="@null"
-        android:onClick="handleLinkedInSignUp"
-        android:contentDescription="@string/linkedin_desc"
-        android:src="@drawable/linkedin_connect" />
     
-    <TextView
-        android:id="@+id/tvOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnConnectWithLinkedIn"
-        android:layout_centerHorizontal="true"
-        android:text="@string/or" />
 
-    <TextView
-        android:id="@+id/tvCompanyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivCompanyLogo"
-        android:layout_centerHorizontal="true"
-        android:text="@string/company_name" />
-
-    <TextView
-        android:id="@+id/tvCompanyMotto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ivCompanyLogo"
-        android:layout_marginTop="14dp"
-        android:gravity="center"
-        android:text="@string/company_motto" />
-
-    <Button
+    <!-- <Button
         android:id="@+id/btnAlreadyMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,19 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btnSignUp"
         android:textColor="#fff"
-        android:text="@string/already_a_member" />
-
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAlreadyMember"
-        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
-        android:layout_alignRight="@+id/etPassword"
-        android:layout_toLeftOf="@+id/etEmail"
-        android:onClick="handleRegularSignUp"
-        android:textColor="#fff"
-        android:text="@string/sign_up" />
+        android:text="@string/already_a_member" /> -->
 
     <TextView
         android:id="@+id/tvEmail"
@@ -104,7 +21,7 @@
         android:layout_height="200dp"
         android:layout_alignBottom="@+id/etEmail"
         android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
-        android:layout_below="@+id/tvOr"
+        android:layout_alignTop="@+id/etEmail"
         android:layout_toLeftOf="@+id/etEmail"
         android:background="@drawable/loginitems"
         android:drawableLeft="@drawable/ic_email"
@@ -119,13 +36,117 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etPassword"
         android:layout_alignLeft="@+id/btnSignUp"
-        android:layout_below="@+id/etEmail"
+        android:layout_alignTop="@+id/etPassword"
         android:layout_toLeftOf="@+id/etEmail"
         android:background="@drawable/loginitems"
         android:drawableLeft="@drawable/ic_lock"
         android:paddingLeft="5dp"
         android:paddingTop="2dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tvWidth"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text=" " />
+	 <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/tvWidth"
+        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
+        android:layout_below="@+id/tvOr"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/loginfield"
+        android:ems="10"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+    
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/etEmail"
+        android:layout_alignRight="@+id/btnSignUp"
+        android:layout_below="@+id/etEmail"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/loginfield"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+   
+
+    <ImageButton
+        android:id="@+id/btnConnectWithLinkedIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCompanyMotto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@null"
+        android:contentDescription="@string/linkedin_desc"
+        android:onClick="handleLinkedInSignUp"
+        android:src="@drawable/linkedin_connect" />
+
+    <TextView
+        android:id="@+id/ivCompanyLogo"
+        android:layout_width="175dp"
+        android:layout_height="125dp"
+        android:layout_alignLeft="@+id/tvCompanyName"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
+        android:gravity="center"
+        android:text="{ code.mentor }"
+        android:textColor="#00B6AA"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvCompanyMotto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ivCompanyLogo"
+        android:layout_marginTop="31dp"
+        android:gravity="center"
+        android:text="@string/company_motto" />
+
+    <TextView
+        android:id="@+id/tvCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvCompanyMotto"
+        android:layout_alignLeft="@+id/btnConnectWithLinkedIn"
+        android:layout_alignRight="@+id/btnConnectWithLinkedIn"
+        android:gravity="center"
+        android:text="Presented by Women Who Code"
+        android:textColor="#00B6AA"
+        android:textSize="18sp" />
+    
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnConnectWithLinkedIn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/or" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvEmail"
+        android:layout_alignRight="@+id/etEmail"
+        android:layout_below="@+id/tvPassword"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/connectbtn"
+        android:onClick="handleRegularSignUp"
+        android:text="@string/sign_up"
         android:textColor="#fff" />
 
 </RelativeLayout>
