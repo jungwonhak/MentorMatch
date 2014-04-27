@@ -218,7 +218,7 @@ public class ProfileDetailActivity extends FragmentActivity {
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-            	Toast.makeText(getBaseContext(), "page selected: " + position, Toast.LENGTH_SHORT).show();
+//            	Toast.makeText(getBaseContext(), "page selected: " + position, Toast.LENGTH_SHORT).show();
             }
 
             // This method will be invoked when the current page is scrolled

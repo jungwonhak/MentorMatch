@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="How is " />
+        android:text="@string/ratings_heading" />
 
     <Button
         android:id="@+id/btnSave"
@@ -23,8 +23,10 @@
         android:layout_below="@+id/etReview"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@drawable/connectbtn"
         android:onClick="saveRating"
-        android:text="Save" />
+        android:text="Save"
+        android:textColor="#fff" />
 
     <RatingBar
         android:id="@+id/rbRating"
@@ -32,16 +34,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvHeading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp" />
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:id="@+id/etReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="175dp"
         android:layout_alignLeft="@+id/rbRating"
         android:layout_alignRight="@+id/rbRating"
         android:layout_below="@+id/rbRating"
+        android:background="@drawable/editabout"
+        android:ellipsize="start"
         android:ems="10"
+        android:gravity="center"
         android:inputType="textMultiLine" />
 
     <TextView
@@ -49,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvHeading"
+        android:layout_below="@+id/btnSave"
         android:layout_centerVertical="true"
         android:text="Add Task" />
 
@@ -87,6 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvHeading"
         android:layout_toRightOf="@+id/tvName"
-        android:text=" doing?" />
+        android:text="@string/ratings_heading2" />
 
 </RelativeLayout>
