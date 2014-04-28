@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
+import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.ReviewDetailFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
@@ -161,7 +162,11 @@ public class ProfileDetailActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.viewprofile, menu);
+		if (((User) ParseUser.getCurrentUser()).isMentor()) {
+			getMenuInflater().inflate(R.menu.viewprofilementor, menu);
+		} else {
+			getMenuInflater().inflate(R.menu.viewprofile, menu);
+		}
 		return true;
 	}
 	
@@ -180,6 +185,12 @@ public class ProfileDetailActivity extends FragmentActivity {
 		Intent i = new Intent(this, ProfileBuilderActivity.class);
 		i.putExtra("foo", "details");
 		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void handleLogout(MenuItem item){
+		MentorMatchApplication.logoutUser();
+		Intent i = new Intent(this, LoginActivity.class);
 		startActivity(i);
 	}
 

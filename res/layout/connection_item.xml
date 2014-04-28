@@ -96,7 +96,8 @@
         android:layout_below="@+id/tvName"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:gravity="left"
-        android:text=" needs your help with "
+        android:layout_marginLeft="10dp"
+        android:text="needs your help with "
         android:typeface="monospace" />
 
 </RelativeLayout>

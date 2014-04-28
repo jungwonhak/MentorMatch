@@ -19,5 +19,12 @@
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_search"
         android:showAsAction="always"
-        android:title="Req"/>     
+        android:title="Req"/>
+      <item
+        android:id="@+id/miLogout"
+        android:onClick="handleLogout"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"/>     
 </menu>
