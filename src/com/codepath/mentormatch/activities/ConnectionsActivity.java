@@ -54,7 +54,7 @@ public class ConnectionsActivity extends Activity {
     		@Override
     		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
     			MatchRelationship requestId = requestAdapter.getItem(pos);
-				Intent i = new Intent(getBaseContext(), RatingsActivity.class);
+				Intent i = new Intent(getBaseContext(), ConnectionDetailActivity.class);//RatingsActivity.class);
 				i.putExtra(RatingsActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
 				startActivityForResult(i, RATING_REQUEST_CODE);
     		}

@@ -12,9 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
-import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.ParseUser;
 
