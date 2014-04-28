@@ -69,7 +69,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 			viewHolder.llSkillImages.removeAllViews();
 	    }
-		
+		Log.d("DEBUG", "Current user is: " + user.getObjectId() + " with profile image: " + user.getProfileImage());
 		if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
 			ImageLoader.getInstance().displayImage(user.getProfileImage(),
 					viewHolder.ivProfileImage);

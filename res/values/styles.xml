@@ -21,14 +21,13 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
     <style name="AppTheme.NoTitleBar">
         <item name="android:windowNoTitle">true</item>
     </style>
     
-    <style name="AppTheme.ActivityBackground">
+    <style name="ActivityBackground">
         <item name="android:background">#4d4d4d</item>
     </style>
     <style name="MediumText">
@@ -37,5 +36,11 @@
     <style name="TitleText">
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="DeleteTextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#ff0000</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    
     
 </resources>

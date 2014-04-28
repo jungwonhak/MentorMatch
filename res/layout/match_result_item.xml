@@ -1,94 +1,120 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_card"
     android:padding="8dp" >
 
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+
+        android:tag="back" >
+
+        <TextView
+            android:id="@+id/example_row_b_action_1"
+            android:layout_width="wrap_content"
+            style="@style/DeleteTextView"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Remove >" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rlUserInfo"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:padding="5dp" >
+        android:background="#ffffff"
+        android:padding="5dp"
+        android:tag="front" >
 
-        <ImageView
-            android:id="@+id/ivProfileImage"
+        <RelativeLayout
+            android:id="@+id/rlUserInfo2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/ivProfileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:background="@drawable/profileimage"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_profile_placeholder" />
+
+            <TextView
+                android:id="@+id/tvJobTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_below="@+id/tvName"
+                android:paddingLeft="8dp"
+                android:text="Job Title"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvName"
+                android:layout_below="@+id/tvJobTitle"
+                android:paddingLeft="8dp"
+                android:text="Location"
+                android:typeface="monospace" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ivProfileImage"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@+id/ivProfileImage"
+                android:paddingLeft="8dp"
+                android:text="Name"
+                android:typeface="monospace" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/vwSeparator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rlUserInfo2"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
+
+        <RatingBar
+            android:id="@+id/rbRating"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:scaleType="fitXY"
-            android:background="@drawable/profileimage"
-            android:src="@drawable/ic_profile_placeholder" />
+            android:layout_below="@+id/vwSeparator" />
 
         <TextView
-            android:id="@+id/tvJobTitle"
+            android:id="@+id/tvNumReviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvName"
-            android:layout_below="@+id/tvName"
-            android:paddingLeft="8dp"
-            android:typeface="monospace"
-            android:text="Job Title" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/rbRating"
+            android:text="5 Reviews"
+            android:typeface="monospace" />
 
-        <TextView
-            android:id="@+id/tvLocation"
+        <LinearLayout
+            android:id="@+id/llSkillImages"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvName"
-            android:layout_below="@+id/tvJobTitle"
-            android:paddingLeft="8dp"
-            android:typeface="monospace"
-            android:text="Location" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ivProfileImage"
-            android:layout_marginLeft="14dp"
-            android:layout_toRightOf="@+id/ivProfileImage"
-            android:paddingLeft="8dp"
-            android:typeface="monospace"
-            android:text="Name" />
-
+            android:layout_height="40dp"
+            android:layout_alignRight="@+id/vwSeparator"
+            android:layout_below="@+id/vwSeparator"
+            android:orientation="horizontal" >
+        </LinearLayout>
     </RelativeLayout>
 
-    <View
-        android:id="@+id/vwSeparator"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/rlUserInfo"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
-
-    <RatingBar
-        android:id="@+id/rbRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        style = "?android:attr/ratingBarStyleSmall"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/vwSeparator" />
-
-    <TextView
-        android:id="@+id/tvNumReviews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/rbRating"
-        android:typeface="monospace"
-        android:text="5 Reviews" />
-   
-    <LinearLayout
-        android:id="@+id/llSkillImages"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignRight="@+id/vwSeparator"
-        android:layout_below="@+id/vwSeparator"
-        android:orientation="horizontal" >          
-	</LinearLayout>
-</RelativeLayout>
+</FrameLayout>
