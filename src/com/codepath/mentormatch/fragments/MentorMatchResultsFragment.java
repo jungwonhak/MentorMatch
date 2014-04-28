@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.mentormatch.activities.MatchResultsActivity;
@@ -88,7 +89,7 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 		public void done(List<MentorRequest> requestList, ParseException e) {
 			if(e == null) {
 				profileAdapter.addAll(requestList);
-
+				pbLoading.setVisibility(ProgressBar.INVISIBLE);
 			} else {
 				Log.d("DEBUG", "Error - trying to find requests for mentor");
 				e.printStackTrace();

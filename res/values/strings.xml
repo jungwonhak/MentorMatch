@@ -47,6 +47,6 @@
     <string name="mentorshipJourney">Let\'s begin our mentorship journey!</string>
     <string name="capNext">NEXT</string>
     
-    <string name="ratings_heading">How is\ </string>
-    <string name="ratings_heading2">\ doing?</string>
+    <string name="ratings_heading">How is \ </string>
+    <string name="ratings_heading2">&#160;doing?</string>
 </resources>

@@ -139,7 +139,7 @@ public class MatchResultsAdapter extends ArrayAdapter {
 			if(e == null) {
 				Log.d("DEBUG", "relationship list: " + relationshipList.size());
 				ReviewsUtil reviewHelper = new ReviewsUtil(relationshipList);
-				List<Review> reviews = reviewHelper.getReviews(user.isMentor());
+				reviewHelper.getReviews(user.isMentor());
 				double avgRating = reviewHelper.getAverageRating();
 				viewHolder.rbRating.setRating((float) avgRating);
 				viewHolder.tvNumReviews.setText(reviewHelper.getTotalReviews() + " Reviews");
@@ -150,10 +150,6 @@ public class MatchResultsAdapter extends ArrayAdapter {
 		}
 	}
 
-
-	private float getAverageRating() {
-		return (float)Math.random() * 5; 
-	}
 /*
     private class GestureListener extends SimpleOnGestureListener {
         @Override
