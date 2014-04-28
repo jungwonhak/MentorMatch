@@ -12,12 +12,19 @@
         android:layout_centerVertical="true"
         android:visibility="invisible" />
 
-    <ListView
+    <com.fortysevendeg.swipelistview.SwipeListView
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lvProfileSummaries"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </ListView>
+        android:layout_height="match_parent"
+        android:listSelector="#00000000"
+        swipe:swipeFrontView="@+id/rlUserInfo"
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeActionRight="reveal"
+        swipe:swipeAnimationTime="50"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeMode="right"
+        swipe:swipeOffsetRight="200dp"
+        swipe:swipeOpenOnLongPress="false" />
 
 </RelativeLayout>
