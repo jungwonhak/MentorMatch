@@ -25,6 +25,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
+        android:typeface="monospace"
         android:ems="10" >
 
         <requestFocus />
