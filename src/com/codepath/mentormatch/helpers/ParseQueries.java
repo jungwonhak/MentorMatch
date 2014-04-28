@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.util.Log;
 
-import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.Status;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
@@ -29,6 +28,7 @@ public class ParseQueries {
 		
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
 		query.whereEqualTo(User.IS_MENTOR_KEY, true);
+		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.whereContainedIn(User.SKILLS_LIST_KEY, Arrays.asList(skillsList));
 		List<String> mentorList = new ArrayList<String>();
 		if(request.getMentorList() != null) {
@@ -45,6 +45,7 @@ public class ParseQueries {
 		ParseQuery<MentorRequest> query = ParseQuery.getQuery("MentorRequest");
 		query.whereContainedIn(MentorRequest.SKILL_KEY, mentorSkills);
 		query.whereNotEqualTo(MentorRequest.STATUS_KEY, Status.CLOSED.toString());
+		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.findInBackground(callBack);
 	}
 	
@@ -75,6 +76,7 @@ public class ParseQueries {
 		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
 		mainQuery.include(MatchRelationship.MENTOR_USER_ID_KEY);
 		mainQuery.include(MatchRelationship.MENTEE_USER_ID_KEY);
+		mainQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		mainQuery.findInBackground(callBack);
 		
 	}
@@ -89,22 +91,23 @@ public class ParseQueries {
 		}
 	}
 
-	public static void getReviewsForUser(String userId,
+	public static void getReviewsForUser(User user,
 			FindCallback<MatchRelationship> callBack) {
 		ParseQuery<MatchRelationship> mentorRating = ParseQuery
 				.getQuery("MatchRelationship");
 		mentorRating.whereEqualTo(MatchRelationship.MENTOR_USER_ID_KEY,
-				ParseUser.getCurrentUser());
+				user);
 
 		ParseQuery<MatchRelationship> menteeRating = ParseQuery
 				.getQuery("MatchRelationship");
 		menteeRating.whereEqualTo(MatchRelationship.MENTEE_USER_ID_KEY,
-				ParseUser.getCurrentUser());
+				user);
 		List<ParseQuery<MatchRelationship>> queries = new ArrayList<ParseQuery<MatchRelationship>>();
 		queries.add(mentorRating);
 		queries.add(menteeRating);
 
 		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
+		mainQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		mainQuery.findInBackground(callBack);
 	}
 
@@ -127,6 +130,7 @@ public class ParseQueries {
 		queries.add(mentorRelationship);
 
 		ParseQuery<MatchRelationship> mainQuery = ParseQuery.or(queries);
+		mainQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		mainQuery.orderByDescending(MatchRelationship.CREATED_AT_KEY);
 		mainQuery.findInBackground(callBack);
 	}

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
@@ -20,7 +21,6 @@ import com.codepath.mentormatch.adapters.ConnectionsAdapter;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
-import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -31,12 +31,15 @@ public class ConnectionsActivity extends Activity {
 	ListView lvConnections;
 	ArrayList<MatchRelationship> requestList;
 	ConnectionsAdapter requestAdapter;
+	ProgressBar pbLoading;
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connections);
+		pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
+		pbLoading.setVisibility(ProgressBar.VISIBLE);
 		lvConnections = (ListView) findViewById(R.id.lvConnections);
 		requestList = new ArrayList<MatchRelationship>();
 		requestAdapter = new ConnectionsAdapter(this, requestList);
@@ -102,6 +105,7 @@ public class ConnectionsActivity extends Activity {
 		public void done(List<MatchRelationship> relationsList, ParseException e) {
 			// TODO Auto-generated method stub
 	        if (e == null) {
+	        	pbLoading.setVisibility(ProgressBar.INVISIBLE);
 	            Log.d("DEBUG", "Retrieved " + relationsList.size() + " relationships");
 	            for(MatchRelationship obj : relationsList) {
 	            	requestAdapter.add(obj);

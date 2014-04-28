@@ -8,7 +8,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ViewProfileActivity" >
-    
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="120dp"
@@ -17,10 +25,9 @@
         android:layout_alignTop="@+id/vpPager"
         android:adjustViewBounds="true"
         android:background="@drawable/profileimage"
-        android:contentDescription="Pusheen"
-        android:scaleType="fitXY"
         android:src="@drawable/ic_profile_placeholder"
-        android:color="#fff" />
+        android:contentDescription="Pusheen" />
+        
     
 	<TextView
 	    android:id="@+id/tvName"
@@ -91,13 +98,14 @@
         android:id="@+id/llSkillImages"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tvLocation"
         android:layout_alignLeft="@+id/rbRating"
         android:layout_alignRight="@+id/vpPager"
         android:layout_below="@+id/rbRating"
+        android:adjustViewBounds="true"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter">
+        android:scaleType="fitCenter" >
 
     </LinearLayout>
     
@@ -138,6 +146,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvName"
         android:layout_below="@+id/tvName"
-        android:numStars="5" />
+        android:orientation="horizontal" />
 
 </RelativeLayout>

@@ -46,4 +46,7 @@
     <string name="sign_up_success_body">, thank you for signing up to be a mentor.  We\'ll show you a list of people looking for mentors just like you.  Check back later to see your matches.</string>
     <string name="mentorshipJourney">Let\'s begin our mentorship journey</string>
     <string name="capNext">NEXT</string>
+    
+    <string name="ratings_heading">How is \ </string>
+    <string name="ratings_heading2">&#160;doing?</string>
 </resources>

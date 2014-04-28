@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:background="#f9f5f0" >
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
     <ListView
         android:id="@+id/lvProfileSummaries"
         android:layout_width="match_parent"
