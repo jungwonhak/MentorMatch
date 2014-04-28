@@ -31,14 +31,26 @@ public class ParseQueries {
 		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.whereContainedIn(User.SKILLS_LIST_KEY, Arrays.asList(skillsList));
 		List<String> mentorList = new ArrayList<String>();
+		List<String> rejectedMentorList = new ArrayList<String>();
 		if(request.getMentorList() != null) {
 			mentorList = request.getMentorList();
 		}
+		if(request.getRejectedMentorList() != null) {
+			rejectedMentorList = request.getRejectedMentorList();
+		}
 		query.whereNotContainedIn("objectId", mentorList);
+		query.whereNotContainedIn("objectId", rejectedMentorList);
 		query.findInBackground(callBack);
 
 	}
 
+	public static void getMostRecentMentorRequestFromUser(User user, GetCallback<MentorRequest> callback) {
+		ParseQuery<MentorRequest> q = ParseQuery.getQuery("MentorRequest");
+		q.whereEqualTo(MentorRequest.MENTEE_USER_ID_KEY, user);
+		q.addDescendingOrder("createdAt");
+		q.getFirstInBackground(callback);
+	}
+	
 	public static void getMenteesLookingForMySkills(List<String> mentorSkills,
 			FindCallback<MentorRequest> callBack) {
 
@@ -56,6 +68,7 @@ public class ParseQueries {
 		query.whereContainedIn(MentorRequest.REQUESTED_MENTORS_RELATION_KEY,
 				Arrays.asList(mentorList));
 		query.whereNotEqualTo(MentorRequest.STATUS_KEY, Status.CLOSED.toString());
+		query.whereNotContainedIn(MentorRequest.REJECTED_MENTORS_RELATION_KEY, Arrays.asList(mentorList));
 		query.findInBackground(callBack);
 	}
 

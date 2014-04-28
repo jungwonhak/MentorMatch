@@ -12,6 +12,17 @@
         android:layout_centerVertical="true"
         android:visibility="invisible" />
 
+    <TextView
+        android:id="@+id/tvEmptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <com.fortysevendeg.swipelistview.SwipeListView
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lvProfileSummaries"
@@ -20,11 +31,13 @@
         android:listSelector="#00000000"
         swipe:swipeFrontView="@+id/rlUserInfo"
         swipe:swipeBackView="@+id/back"
+        swipe:swipeActionLeft="reveal"
         swipe:swipeActionRight="reveal"
-        swipe:swipeAnimationTime="50"
+        swipe:swipeAnimationTime="75"
         swipe:swipeCloseAllItemsWhenMoveList="true"
-        swipe:swipeMode="right"
-        swipe:swipeOffsetRight="200dp"
+        swipe:swipeMode="both"
+        swipe:swipeOffsetLeft="500dp"
+        swipe:swipeOffsetRight="500dp"
         swipe:swipeOpenOnLongPress="false" />
 
 </RelativeLayout>

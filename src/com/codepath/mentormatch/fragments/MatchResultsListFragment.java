@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.MatchResultsAdapter;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
 
@@ -23,13 +26,16 @@ public abstract class MatchResultsListFragment extends Fragment{
 	protected List usersList;
 	protected SwipeListView lvProfileSummaries;
 	protected ProgressBar pbLoading;
+	protected TextView tvEmptyList; 
 	
 	public static final String USER_EXTRA = "user";
 	public static final String REQUEST_ID_EXTRA = "requestId";
 	
 	public abstract void fetchProfiles();
-	public abstract void setListViewListeners();
-		
+	//public abstract void setListViewListeners();
+	protected abstract void handleItemClick(int position);
+	protected abstract void handleDeleteItem(User user);
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,13 +52,26 @@ public abstract class MatchResultsListFragment extends Fragment{
 		lvProfileSummaries = (SwipeListView) view.findViewById(R.id.lvProfileSummaries);
 		pbLoading = (ProgressBar) view.findViewById(R.id.pbLoading);
 		pbLoading.setVisibility(ProgressBar.VISIBLE);
+		tvEmptyList = (TextView) view.findViewById(R.id.tvEmptyList);
 		lvProfileSummaries.setAdapter(profileAdapter);
 		lvProfileSummaries.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
             public void onOpened(int position, boolean toRight) {
-            	Log.d("DEBUG", "Opened");
-            	profileAdapter.remove(profileAdapter.getItem(position));
-            	lvProfileSummaries.closeOpenedItems();
+        		Log.d("DEBUG", "Opened");
+
+            	if (toRight) {
+            		handleItemClick(position);
+            	} else {
+            		User user;
+            		lvProfileSummaries.closeOpenedItems();
+            		if(profileAdapter.getItem(position) instanceof MentorRequest) {
+            			user = (User) ((MentorRequest)profileAdapter.getItem(position)).getMentee();
+            		} else {
+            			user = (User) profileAdapter.getItem(position);		
+            		}
+            		handleDeleteItem(user);
+            		profileAdapter.remove(profileAdapter.getItem(position));
+            	}
             }
 
             @Override
@@ -81,17 +100,17 @@ public abstract class MatchResultsListFragment extends Fragment{
             @Override
             public void onClickFrontView(int position) {
                 Log.d("swipe", String.format("onClickFrontView %d", position));
+                handleItemClick(position);
             }
 
             @Override
             public void onClickBackView(int position) {
                 Log.d("swipe", String.format("onClickBackView %d", position));
+                handleItemClick(position);
             }
-
-
         });
         
-		setListViewListeners();
+		//setListViewListeners();
 		return view;
 	}
 	

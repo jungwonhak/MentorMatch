@@ -25,6 +25,7 @@ public class MentorRequest extends ParseObject implements Serializable {
 	public static final String DESCRIPTION_KEY = "description";
 	public static final String STATUS_KEY = "status";
 	public static final String REQUESTED_MENTORS_RELATION_KEY = "requestedMentors";
+	public static final String REJECTED_MENTORS_RELATION_KEY = "rejectedMentors";
 
 	public MentorRequest() {
 		super();
@@ -57,6 +58,14 @@ public class MentorRequest extends ParseObject implements Serializable {
 		put(REQUESTED_MENTORS_RELATION_KEY, value);
 	}
 
+	public List<String> getRejectedMentorList() {
+		return getList(REJECTED_MENTORS_RELATION_KEY);
+	}
+
+	public void setRejectedMentorList(List<String> value) {
+		put(REJECTED_MENTORS_RELATION_KEY, value);
+	}
+
 	public void addMentorToList(String objId) {
 		List<String> mentorList = getMentorList();
 		if (mentorList == null) {
@@ -68,6 +77,42 @@ public class MentorRequest extends ParseObject implements Serializable {
 
 		mentorList.add(objId);
 		setMentorList(mentorList);
+	}
+
+	public void addRejectedMentorToList(String objId) {
+		List<String> mentorList = getRejectedMentorList();
+		if (mentorList == null) {
+			mentorList = new ArrayList<String>();
+		}
+		if (mentorList.contains(objId)) {
+			return;
+		}
+
+		mentorList.add(objId);
+		setRejectedMentorList(mentorList);
+	}
+
+	public ParseRelation<ParseUser> getRejectedMentorRelation() {
+		return getRelation(REJECTED_MENTORS_RELATION_KEY);
+	}
+
+	public void addRejectedMentorToRelation(ParseUser objId) {
+		// List<String> mentorList = getMentorList();
+		try {
+			ParseRelation<ParseUser> relation = getRejectedMentorRelation();
+			ParseQuery<ParseUser> query = relation.getQuery();
+			for (ParseUser user : query.find()) {
+				if (user.equals(objId)) {
+					return;
+				}
+			}
+
+			relation.add(objId);
+			this.save();
+		} catch (Exception e) {
+			Log.d("DEBUG", "ERROR - getting Requested Mentors List");
+			e.printStackTrace();
+		}
 	}
 
 	public ParseRelation<ParseUser> getMentorRelation() {

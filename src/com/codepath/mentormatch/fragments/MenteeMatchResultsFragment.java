@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
@@ -19,12 +21,14 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	// Results that a mentee should see - This retrieves the potential mentors
 	
 	private MentorRequest request;
 	//protected MentorRequest request;
+	private User rejectedUser;
 	
 	public MenteeMatchResultsFragment() {
 		super();
@@ -71,7 +75,14 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 	}
 	
 
-	
+	protected void handleItemClick(int pos) {
+		Log.d("TEST - Item Click Listener", "on item click: " + pos);
+		Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
+		i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
+		i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
+		startActivityForResult(i, ProfileDetailActivity.PROFILE_DETAIL_REQUEST_CODE);		
+	}
+	/*
 	public void setListViewListeners() {
 		lvProfileSummaries.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -84,7 +95,7 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 			}
 		});
 	}
-	
+	*/
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == ProfileDetailActivity.PROFILE_DETAIL_REQUEST_CODE) {
@@ -99,12 +110,39 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 		public void done(List<ParseUser> mentorsList, ParseException e) {
 
 	        if (e == null) {
-	            Log.d("DEBUG", "FindMentorsWithSkillCallback: " + mentorsList.size());
+	            Log.d("DEBUG", "FindMentorsWithSkillCallback: " + mentorsList.size());				
 				profileAdapter.addAll(mentorsList);
+				pbLoading.setVisibility(ProgressBar.INVISIBLE);
+				if(profileAdapter.isEmpty()) {
+					tvEmptyList.setText(getActivity().getResources().getString(R.string.match_results_empty_list));
+					tvEmptyList.setVisibility(View.VISIBLE);
+				}
 	        } else {
 	            Log.d("DEBUG", "Error: " + e.getMessage());
 	        }
 		}
+	}
+
+	@Override
+	protected void handleDeleteItem(User user) {
+		rejectedUser = user;
+		User currentUser = (User)ParseUser.getCurrentUser();
+		ParseQueries.getMostRecentMentorRequestFromUser(currentUser, new GetCallbackClass());
+		
+	}
+
+	private class GetCallbackClass extends GetCallback<MentorRequest> {
+		@Override
+		public void done(MentorRequest mr, ParseException e) {
+	        if (e != null || mr == null) {
+	        	e.printStackTrace();
+	        } else {
+		    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
+		    	mr.addRejectedMentorToList(rejectedUser.getObjectId());
+		    	mr.saveInBackground();
+	        }
+		}
+		
 	}
 
 }

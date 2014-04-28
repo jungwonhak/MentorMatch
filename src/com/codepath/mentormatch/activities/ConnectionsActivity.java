@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
@@ -111,6 +112,10 @@ public class ConnectionsActivity extends Activity {
 	            	requestAdapter.add(obj);
 	            }
 	            requestAdapter.notifyDataSetChanged();
+	            if(relationsList.size() == 0) {
+	            	TextView tvEmptyList = (TextView) findViewById(R.id.tvEmptyList);
+	            	tvEmptyList.setText(getBaseContext().getResources().getString(R.string.connections_empty_list));
+	            }
 	        } else {
 	            Log.d("DEBUG", "Error: " + e.getMessage());
 	        }
