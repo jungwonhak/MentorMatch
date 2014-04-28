@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
@@ -108,8 +110,13 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 		public void done(List<ParseUser> mentorsList, ParseException e) {
 
 	        if (e == null) {
-	            Log.d("DEBUG", "FindMentorsWithSkillCallback: " + mentorsList.size());
+	            Log.d("DEBUG", "FindMentorsWithSkillCallback: " + mentorsList.size());				
 				profileAdapter.addAll(mentorsList);
+				pbLoading.setVisibility(ProgressBar.INVISIBLE);
+				if(profileAdapter.isEmpty()) {
+					tvEmptyList.setText(getActivity().getResources().getString(R.string.match_results_empty_list));
+					tvEmptyList.setVisibility(View.VISIBLE);
+				}
 	        } else {
 	            Log.d("DEBUG", "Error: " + e.getMessage());
 	        }

@@ -52,6 +52,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 	private TextView tvName;
 	private TextView tvJobInfo;
 	private TextView tvLocation;
+	private TextView tvPlus;
 	private Button btnContact;
 	private RatingBar rbRating;
 	private ImageView ivProfileImage;
@@ -80,8 +81,6 @@ public class ProfileDetailActivity extends FragmentActivity {
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
-		
-//		btnContact = (Button) findViewById(R.id.btnContact);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);		
 		rbRating.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
@@ -89,10 +88,12 @@ public class ProfileDetailActivity extends FragmentActivity {
 			}
 		});
 		rbRating.setFocusable(false);
-//		if (requestId == null) {
-//		// hide connection button
-//			btnContact.setVisibility(View.GONE);
-//		}
+		if (userObjId.equals(ParseUser.getCurrentUser().getObjectId())) {
+			btnContact = (Button) findViewById(R.id.btnContact);
+			btnContact.setVisibility(View.GONE);
+			tvPlus = (TextView) findViewById(R.id.tvPlus);
+			tvPlus.setVisibility(View.GONE);
+		}
 	}
 	
 	private class GetUserCallback extends GetCallback<ParseUser> {
