@@ -48,15 +48,15 @@
         </activity>
         <activity
             android:name="com.codepath.mentormatch.activities.ProfileDetailActivity"
-            android:label="@string/title_activity_view_profile" >
+            android:label="@string/title_activity_mentor_match" >
         </activity>
         <activity
             android:name="com.codepath.mentormatch.activities.ConnectionsActivity"
-            android:label="@string/title_activity_connections" >
+            android:label="@string/title_activity_mentor_match" >
         </activity>
         <activity
             android:name="com.codepath.mentormatch.activities.RatingsActivity"
-            android:label="@string/title_activity_rating" >
+            android:label="@string/title_activity_mentor_match" >
         </activity>
     </application>
 

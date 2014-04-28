@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -88,10 +89,10 @@ public class ProfileDetailActivity extends FragmentActivity {
 			}
 		});
 		rbRating.setFocusable(false);
-		//if (requestId == null) {
-		// hide connection button
-		//	btnContact.setVisibility(View.GONE);
-		//}
+//		if (requestId == null) {
+//		// hide connection button
+//			btnContact.setVisibility(View.GONE);
+//		}
 	}
 	
 	private class GetUserCallback extends GetCallback<ParseUser> {
@@ -159,8 +160,26 @@ public class ProfileDetailActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.viewprofile, menu);
 		return true;
+	}
+	
+	public void viewConnections(MenuItem item) {
+		Intent i = new Intent(this, ConnectionsActivity.class);
+		startActivity(i);
+	}
+	
+	public void goHome(MenuItem item) {
+		Intent i = new Intent(this, MatchResultsActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewRequests(MenuItem item) {
+		//Intent i = new Intent(this, PendingRequestActivity.class);
+		Intent i = new Intent(this, ProfileBuilderActivity.class);
+		i.putExtra("foo", "details");
+		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
 	}
 
 	public void createMentorRequest(View view) {

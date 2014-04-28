@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.R.drawable;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,6 +28,7 @@ public class ProfileDetailsFragment extends Fragment{
 	private EditText etProfileCompany;
 	private EditText etLocation; 
 	private ImageView ivProfileImage;
+	private int drawableID;
 	
 	public static final String PROFILE_PAGE_EXTRA = "foo";
 	public static final String NAME_EXTRA = "profile_name";
@@ -43,9 +45,15 @@ public class ProfileDetailsFragment extends Fragment{
 		etProfileCompany = (EditText) v.findViewById(R.id.etProfileCompany);
 		etLocation = (EditText) v.findViewById(R.id.etLocation);
 		profileNext = (Button) v.findViewById(R.id.btnProfileNext);
+		drawableID = (int) R.drawable.ic_profile_placeholder;
+		
 		User currentUser = (User) ParseUser.getCurrentUser();
 		if (currentUser != null) {
 			ImageLoader.getInstance().displayImage(currentUser.getProfileImage(), ivProfileImage);
+			
+			if (currentUser.getProfileImage() == null) {
+				ivProfileImage.setImageResource(drawableID);
+			}
 			etLocation.setText(currentUser.getLocation());
 			etProfileName.setText(currentUser.getFullName());
 			etProfileJob.setText(currentUser.getJobTitle());

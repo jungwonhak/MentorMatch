@@ -63,6 +63,7 @@
         android:layout_marginTop="17dp"
         android:background="@drawable/loginfield"
         android:ems="10"
+        android:typeface="monospace"
         android:inputType="textEmailAddress" >
 
         <requestFocus />
@@ -78,9 +79,8 @@
         android:layout_marginTop="17dp"
         android:background="@drawable/loginfield"
         android:ems="10"
+        android:typeface="monospace"
         android:inputType="textPassword" />
-
-   
 
     <ImageButton
         android:id="@+id/btnConnectWithLinkedIn"
