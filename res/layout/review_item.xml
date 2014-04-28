@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <RatingBar
-        android:id="@+id/rbRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
-
-    <TextView
-        android:id="@+id/tvReviewContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/rbRating"
-        android:text="Review" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="bottom"
+    android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/tvReviewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvReviewContent"
-        android:layout_marginTop="15dp"
-        android:text="Reviewer" />
+        android:layout_marginBottom="106dp"
+        android:text="Reviewer"
+        android:typeface="monospace" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvReviewContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rbRating"
+        android:layout_marginTop="10dp"
+        android:text="Review"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/tvReviewDate"
@@ -34,7 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvReviewer"
         android:layout_alignBottom="@+id/tvReviewer"
-        android:layout_alignParentRight="true"
-        android:text="Date" />
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/rbRating"
+        android:text="Date"
+        android:typeface="monospace" />
 
 </RelativeLayout>

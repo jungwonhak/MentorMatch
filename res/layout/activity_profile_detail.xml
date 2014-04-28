@@ -9,13 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ViewProfileActivity" >
 
-    <ProgressBar
-        android:id="@+id/pbLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible" />
+    
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -127,27 +121,29 @@
         android:textColor="#FFF"
         android:textStyle="bold" />
 
-    <FrameLayout
-        android:id="@+id/frReviewData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vpPager"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/pbLoading"
-        android:layout_marginTop="32dp" >
-
-    </FrameLayout>
-
     <TextView
         android:id="@+id/tvAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/frReviewData"
         android:layout_alignLeft="@+id/vpPager"
         android:layout_alignRight="@+id/vpPager"
+        android:layout_below="@+id/btnContact"
         android:gravity="center"
         android:text="TextView"
         android:textSize="16sp"
         android:typeface="monospace" />
 
+    <FrameLayout
+        android:id="@+id/frReviewData"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
 </RelativeLayout>
