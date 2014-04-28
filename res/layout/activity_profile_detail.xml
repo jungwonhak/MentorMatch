@@ -129,7 +129,7 @@
         android:layout_alignRight="@+id/vpPager"
         android:layout_below="@+id/btnContact"
         android:gravity="center"
-        android:text="TextView"
+        android:text=""
         android:textSize="16sp"
         android:typeface="monospace" />
 
