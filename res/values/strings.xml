@@ -7,7 +7,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="learningLanguageString">"Most importantly,\nwhat do you want to learn?"</string>
     <string name="teachingLanguageString">"What languages do you know?"</string>   
-    <string name="aboutMeHeader">Lastly, briefly describe your programming experience and goals.</string>
+    <string name="aboutMeHeader">Lastly, tell us about yourself and your coding goals.</string>
     <string name="details_mentor_header">Lastly, tell us a little bit about why you\'d like to be a mentor.</string>
     <string name="details_mentor_button">Be a mentor!</string>
     <string name="profileDetails">Filling out this info will help us find the best mentors for you</string>
@@ -23,7 +23,7 @@
     <string name="title_activity_view_profile">ViewProfileActivity</string>
     <string name="city_prompt">Location</string>
     <string name="company_name">code.mentor</string>
-    <string name="company_motto">The best way for would be mentors and apprentices to get connected.</string>
+    <string name="company_motto">The best way for would be mentors and apprentices to get connected</string>
     <string name="linked_in_connect">Connect with LinkedIn</string>
     <string name="or">or</string>
     <string name="ok">OK</string>
@@ -34,16 +34,16 @@
     <string name="already_a_member">Already a member?</string>
     <string name="find_a_mentor">Find a Mentor</string>
     <string name="be_a_mentor">Be a Mentor</string>
-    <string name="welcome">Welcome!</string>
+    <string name="welcome">Welcome to code.mentor</string>
     <string name="mentor_mentee_question">Do you want to find a mentor or are you interested in mentoring?</string>
-    <string name="title_activity_connections">ConnectionsActivity</string>
+    <string name="title_activity_connections">Connections</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_pending_request">PendingRequestActivity</string>
+    <string name="title_activity_pending_request">Pending Requests</string>
     <string name="title_activity_rating">RatingActivity</string>
     <string name="linkedin_desc">LinkedIn Connect</string>
     <string name="mentor_profile_details_title">Thank you for being a mentor!</string>
     <string name="sign_up_success_title">Welcome to the club!</string>
     <string name="sign_up_success_body">, thank you for signing up to be a mentor.  We\'ll show you a list of people looking for mentors just like you.  Check back later to see your matches.</string>
-    <string name="mentorshipJourney">Let\'s begin our mentorship journey!</string>
+    <string name="mentorshipJourney">Let\'s begin our mentorship journey</string>
     <string name="capNext">NEXT</string>
 </resources>

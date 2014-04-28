@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,11 +17,13 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.ConnectionsAdapter;
+import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 
 public class ConnectionsActivity extends Activity {
 	public static final int RATING_REQUEST_CODE = 100;
@@ -65,8 +68,27 @@ public class ConnectionsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.viewconnections, menu);
 		return true;
+	}
+	
+	public void viewRequests(MenuItem item) {
+		//Intent i = new Intent(this, PendingRequestActivity.class);
+		Intent i = new Intent(this, ProfileBuilderActivity.class);
+		i.putExtra("foo", "details");
+		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void viewMyProfile(MenuItem item) {
+		Intent i = new Intent(this, ProfileDetailActivity.class);
+		i.putExtra(MatchResultsListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void goHome(MenuItem item) {
+		Intent i = new Intent(this, MatchResultsActivity.class);
+		startActivity(i);
 	}
 	
 	private void retrieveConnections() {

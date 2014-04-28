@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivCompanyLogo"
         android:text="@string/sign_up_success_body"
+        android:textSize="18sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp" />
 
@@ -19,6 +20,9 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tvSignupBody"
+        android:background="@drawable/connectbtn"
+        android:textColor="#FFF"
+        android:textStyle="bold"
         android:text="@string/ok" />
 
 </RelativeLayout>

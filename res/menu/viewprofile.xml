@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+     <item
+        android:id="@+id/miHome"
+        android:onClick="goHome"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_home"
+        android:showAsAction="always"
+        android:title="Home"/>
+    <item
+        android:id="@+id/miConnections"
+        android:onClick="viewConnections"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_connections"
+        android:showAsAction="always"
+        android:title="Cons"/>
+    <item
+        android:id="@+id/miRequests"
+        android:onClick="viewRequests"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="always"
+        android:title="Req"/>     
+</menu>
