@@ -14,12 +14,11 @@ import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.MatchResultsActivity;
+import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -106,33 +105,34 @@ public class DetailsFragment extends Fragment{
 		} else {
 			Log.d("DEBUG", "Detected user is a mentee");
 			// Get latest mentee request from server
-			ParseQuery<ParseObject> q = ParseQuery.getQuery("MentorRequest");
-			q.whereEqualTo(MentorRequest.MENTEE_USER_ID_KEY, user);
-			q.addDescendingOrder("createdAt");
-			q.getFirstInBackground(new GetCallback<ParseObject>() {
-				@Override  
-				public void done(ParseObject object, ParseException e) {
-				    if (object == null) {
-				    	Log.d("DEBUG", "Could not find mentor request in backend");
-				    } else {
-				    	MentorRequest mr = (MentorRequest)object;
-				    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
-				    	mr.setDescription(description);
-				    	mr.saveInBackground(new SaveCallback() {
-							
-							@Override
-							public void done(ParseException e) {
-						    	if (e == null) {
-						    		goToNextPage();	
-						    	} else {
-						    		Log.d("DEBUG", "Unable to save mentor request with description");
-						    	}
-						    	
-							}
-						});
-				    }
-				  }
-			});			
+			ParseQueries.getMostRecentMentorRequestFromUser(user, new GetCallbackClass());			
 		}
 	}
+	
+	private class GetCallbackClass extends GetCallback<MentorRequest> {
+		@Override
+		public void done(MentorRequest mr, ParseException e) {
+	        if (e != null || mr == null) {
+	        	e.printStackTrace();
+	        } else {
+		    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
+		    	mr.setDescription(etDescription.getText().toString());
+		    	mr.saveInBackground(new SaveCallback() {
+					
+					@Override
+					public void done(ParseException e) {
+				    	if (e == null) {
+				    		goToNextPage();	
+				    	} else {
+				    		Log.d("DEBUG", "Unable to save mentor request with description");
+				    	}
+				    	
+					}
+				});
+	        	
+	        }
+		}
+		
+	}
+
 }

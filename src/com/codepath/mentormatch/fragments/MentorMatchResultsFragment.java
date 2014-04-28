@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.codepath.mentormatch.activities.MatchResultsActivity;
 import com.codepath.mentormatch.activities.ProfileDetailActivity;
@@ -18,6 +15,7 @@ import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -25,7 +23,7 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 	// Results that a mentor should see - This retrieves the mentees that have requested this person as a mentor
 	
 	private boolean firstUse;
-
+	
 	public static MentorMatchResultsFragment newInstance(Skill skill, String requestId, boolean isFirstUse) {
 		MentorMatchResultsFragment fragment = new MentorMatchResultsFragment();
 		Bundle args = new Bundle();
@@ -98,6 +96,40 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 	}
 
 	@Override
+	protected void handleItemClick(int pos) {
+		Log.d("TEST - Item Click Listener", "on item click: " + pos);
+		MentorRequest request = (MentorRequest) profileAdapter.getItem(pos);
+		Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
+		i.putExtra(USER_EXTRA, request.getMentee().getObjectId());
+		i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
+		startActivity(i);
+	}
+
+	
+	@Override
+	protected void handleDeleteItem(User user) {
+		ParseQueries.getMostRecentMentorRequestFromUser(user, new GetCallbackClass());
+		
+	}
+
+	private class GetCallbackClass extends GetCallback<MentorRequest> {
+		User currentUser = (User)ParseUser.getCurrentUser();
+
+		@Override
+		public void done(MentorRequest mr, ParseException e) {
+	        if (e != null || mr == null) {
+	        	e.printStackTrace();
+	        } else {
+		    	Log.d("DEBUG", "Mentor Request - Created at:" + mr.getCreatedAt() + " Object Id: " + mr.getObjectId() + " Skill: " + mr.getSkill());
+		    	mr.addRejectedMentorToList(currentUser.getObjectId());
+		    	mr.saveInBackground();
+	        }
+		}
+		
+	}
+
+	/*
+	@Override
 	public void setListViewListeners() {
 		lvProfileSummaries.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -110,5 +142,5 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 				startActivity(i);
 			}
 		});		
-	}
+	} */
 }

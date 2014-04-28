@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.MatchResultsAdapter;
+import com.codepath.mentormatch.models.parse.MentorRequest;
+import com.codepath.mentormatch.models.parse.User;
 import com.fortysevendeg.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.swipelistview.SwipeListView;
 
@@ -28,8 +30,10 @@ public abstract class MatchResultsListFragment extends Fragment{
 	public static final String REQUEST_ID_EXTRA = "requestId";
 	
 	public abstract void fetchProfiles();
-	public abstract void setListViewListeners();
-		
+	//public abstract void setListViewListeners();
+	protected abstract void handleItemClick(int position);
+	protected abstract void handleDeleteItem(User user);
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -50,9 +54,21 @@ public abstract class MatchResultsListFragment extends Fragment{
 		lvProfileSummaries.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
             public void onOpened(int position, boolean toRight) {
-            	Log.d("DEBUG", "Opened");
-            	profileAdapter.remove(profileAdapter.getItem(position));
-            	lvProfileSummaries.closeOpenedItems();
+        		Log.d("DEBUG", "Opened");
+
+            	if (toRight) {
+            		handleItemClick(position);
+            	} else {
+            		User user;
+            		lvProfileSummaries.closeOpenedItems();
+            		if(profileAdapter.getItem(position) instanceof MentorRequest) {
+            			user = (User) ((MentorRequest)profileAdapter.getItem(position)).getMentee();
+            		} else {
+            			user = (User) profileAdapter.getItem(position);		
+            		}
+            		handleDeleteItem(user);
+            		profileAdapter.remove(profileAdapter.getItem(position));
+            	}
             }
 
             @Override
@@ -81,17 +97,19 @@ public abstract class MatchResultsListFragment extends Fragment{
             @Override
             public void onClickFrontView(int position) {
                 Log.d("swipe", String.format("onClickFrontView %d", position));
+                handleItemClick(position);
             }
 
             @Override
             public void onClickBackView(int position) {
                 Log.d("swipe", String.format("onClickBackView %d", position));
+                handleItemClick(position);
             }
 
 
         });
         
-		setListViewListeners();
+		//setListViewListeners();
 		return view;
 	}
 	

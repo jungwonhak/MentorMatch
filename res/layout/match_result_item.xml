@@ -4,26 +4,19 @@
     android:background="@drawable/bg_card"
     android:padding="8dp" >
 
-	<LinearLayout
+    <LinearLayout
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:tag="back" >
-
-        <TextView
-            android:id="@+id/example_row_b_action_1"
-            android:layout_width="wrap_content"
-            style="@style/DeleteTextView"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Remove >" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rlUserInfo"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:background="#ffffff"
         android:padding="5dp"
         android:tag="front" >
@@ -88,32 +81,31 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-	        android:id="@+id/tvNumReviews"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="2dp"
-	        android:layout_below="@+id/rbRating"
-	        android:typeface="monospace"
-	        android:text="5 Reviews" />
-	
-    	<RatingBar
-	        android:id="@+id/rbRating"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-	        style = "?android:attr/ratingBarStyleSmall"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignTop="@+id/vwSeparator" />
+            android:id="@+id/tvNumReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rbRating"
+            android:layout_marginTop="2dp"
+            android:text="5 Reviews"
+            android:typeface="monospace" />
+
+        <RatingBar
+            android:id="@+id/rbRating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/vwSeparator" />
 
         <LinearLayout
-	         android:id="@+id/llSkillImages"
-	         android:layout_width="wrap_content"
-	         android:layout_height="50dp"
-	         android:layout_alignRight="@+id/vwSeparator"
-	         android:layout_below="@+id/vwSeparator"
-	         android:orientation="horizontal" >
+            android:id="@+id/llSkillImages"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignRight="@+id/vwSeparator"
+            android:layout_below="@+id/vwSeparator"
+            android:orientation="horizontal" >
         </LinearLayout>
-	
-</RelativeLayout>
+    </RelativeLayout>
 
 </FrameLayout>
