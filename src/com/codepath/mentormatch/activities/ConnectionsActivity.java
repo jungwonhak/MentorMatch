@@ -115,6 +115,7 @@ public class ConnectionsActivity extends Activity {
 	            if(relationsList.size() == 0) {
 	            	TextView tvEmptyList = (TextView) findViewById(R.id.tvEmptyList);
 	            	tvEmptyList.setText(getBaseContext().getResources().getString(R.string.connections_empty_list));
+	            	tvEmptyList.setVisibility(View.VISIBLE);
 	            }
 	        } else {
 	            Log.d("DEBUG", "Error: " + e.getMessage());
