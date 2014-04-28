@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -13,6 +14,7 @@
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:scaleType="fitXY"
+        android:background="@drawable/profileimage"
         android:src="@drawable/ic_profile_placeholder" />
 
     <TextView
@@ -21,31 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:text="Name" />
-
-    <TextView
-        android:id="@+id/tvJobTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvName"
-        android:layout_below="@+id/tvName"
-        android:text="Job Title" />
-
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvName"
-        android:layout_below="@+id/tvJobTitle"
-        android:text="Location" />
-
-    <TextView
-        android:id="@+id/tvBlurb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvName"
-        android:text=" needs your help with " />
+        android:text="Name"
+        android:layout_marginLeft="10dp"
+        android:typeface="monospace" />
 
     <ImageView
         android:id="@+id/ivSkill"
@@ -63,16 +43,60 @@
         android:id="@+id/tvAboutMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/ivProfileImage"
+        android:layout_alignRight="@+id/ivSkill"
         android:layout_below="@+id/tvLocation"
+        android:typeface="monospace"
+        android:paddingTop="10dp"
         android:text="About me..." />
 
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvAboutMe"
+        android:layout_alignLeft="@+id/tvAboutMe"
+        android:layout_alignRight="@+id/vwSeparator"
         android:layout_below="@+id/tvAboutMe"
-        android:text="Message" />
+        android:text="Message"
+        android:typeface="monospace" />
+
+    <View
+        android:id="@+id/vwSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignTop="@+id/tvAboutMe"
+        android:layout_alignLeft="@+id/ivProfileImage"
+        android:background="#00B6AA" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvJobTitle"
+        android:layout_below="@+id/tvJobTitle"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Location"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/tvJobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ivProfileImage"
+        android:layout_below="@+id/ivProfileImage"
+        android:text="Job Title"
+        android:layout_marginTop="5dp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/tvBlurb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_toRightOf="@+id/ivProfileImage"
+        android:gravity="left"
+        android:text=" needs your help with "
+        android:typeface="monospace" />
 
 </RelativeLayout>
