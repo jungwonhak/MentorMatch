@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.MatchResultsActivity;
 import com.codepath.mentormatch.activities.ProfileDetailActivity;
 import com.codepath.mentormatch.helpers.ParseQueries;
@@ -66,6 +67,7 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 		MentorSignupSuccessDialog signupSuccessDialog = MentorSignupSuccessDialog.newInstance(firstName);
 		signupSuccessDialog.show(fm, "fragment_dialog_mentor_signup_success");
 	}
+
 	// Get the most recently created mentor request to find skill and then
 	// find all mentors that have that skill.  Look at consolidating this
 	// into a single parse query later
@@ -90,6 +92,10 @@ public class MentorMatchResultsFragment extends MatchResultsListFragment {
 			if(e == null) {
 				profileAdapter.addAll(requestList);
 				pbLoading.setVisibility(ProgressBar.INVISIBLE);
+				if(profileAdapter.isEmpty()) {
+					tvEmptyList.setText(getActivity().getResources().getString(R.string.match_results_empty_list));
+					tvEmptyList.setVisibility(View.VISIBLE);
+				}
 			} else {
 				Log.d("DEBUG", "Error - trying to find requests for mentor");
 				e.printStackTrace();

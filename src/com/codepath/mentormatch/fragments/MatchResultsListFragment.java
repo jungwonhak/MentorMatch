@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.MatchResultsAdapter;
@@ -23,6 +24,7 @@ public abstract class MatchResultsListFragment extends Fragment{
 	protected List usersList;
 	protected SwipeListView lvProfileSummaries;
 	protected ProgressBar pbLoading;
+	protected TextView tvEmptyList; 
 	
 	public static final String USER_EXTRA = "user";
 	public static final String REQUEST_ID_EXTRA = "requestId";
@@ -46,6 +48,7 @@ public abstract class MatchResultsListFragment extends Fragment{
 		lvProfileSummaries = (SwipeListView) view.findViewById(R.id.lvProfileSummaries);
 		pbLoading = (ProgressBar) view.findViewById(R.id.pbLoading);
 		pbLoading.setVisibility(ProgressBar.VISIBLE);
+		tvEmptyList = (TextView) view.findViewById(R.id.tvEmptyList);
 		lvProfileSummaries.setAdapter(profileAdapter);
 		lvProfileSummaries.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
@@ -87,8 +90,6 @@ public abstract class MatchResultsListFragment extends Fragment{
             public void onClickBackView(int position) {
                 Log.d("swipe", String.format("onClickBackView %d", position));
             }
-
-
         });
         
 		setListViewListeners();
