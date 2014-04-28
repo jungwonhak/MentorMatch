@@ -8,30 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RatingsActivity" >
 
-    <TextView
-        android:id="@+id/tvHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/ratings_heading" />
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvHeading"
-        android:layout_toRightOf="@+id/tvHeading"
-        android:text="Name" />
-
-    <TextView
-        android:id="@+id/tvHeading2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvHeading"
-        android:layout_toRightOf="@+id/tvName"
-        android:text="@string/ratings_heading2" />
-
     <RatingBar
         android:id="@+id/rbRating"
         android:layout_width="wrap_content"
@@ -51,18 +27,50 @@
         android:ellipsize="start"
         android:ems="10"
         android:gravity="center"
+        android:typeface="monospace"
         android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etReview"
+        android:layout_alignRight="@+id/etReview"
         android:layout_below="@+id/etReview"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/connectbtn"
-
-        android:text="Save"
+        android:text="SAVE"
         android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tvHeading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rbRating"
+        android:layout_alignRight="@+id/rbRating"
+        android:textSize="18sp"
+        android:text="@string/ratings_heading2" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvHeading2"
+        android:layout_alignBottom="@+id/tvHeading2"
+        android:layout_toLeftOf="@+id/tvHeading2"
+        android:layout_toRightOf="@+id/tvHeading"
+        android:text="Name"
+        android:gravity="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rbRating"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:text="@string/ratings_heading" />
 
 </RelativeLayout>

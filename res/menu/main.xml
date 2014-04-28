@@ -25,6 +25,7 @@
         android:id="@+id/miLogout"
         android:onClick="handleLogout"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_logout"
         android:title="Logout"/>
 </menu>
