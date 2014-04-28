@@ -1,6 +1,5 @@
 package com.codepath.mentormatch.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -19,9 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
@@ -44,6 +43,8 @@ import com.parse.ParseUser;
 
 public class ProfileDetailActivity extends FragmentActivity {
 
+	public static final int PROFILE_DETAIL_REQUEST_CODE = 1234;
+	
 	private String userObjId;
 	private String requestId;
 	private User user;
@@ -56,12 +57,15 @@ public class ProfileDetailActivity extends FragmentActivity {
 	private LinearLayout llSkillImages;
 	private ViewPager vpPager;
 	private MyPagerAdapter adapterViewPager;
+	private ProgressBar pbLoading;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile_detail);
+		pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
+		pbLoading.setVisibility(ProgressBar.VISIBLE);
 		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
 		setupViews();
@@ -93,7 +97,8 @@ public class ProfileDetailActivity extends FragmentActivity {
 	private class GetUserCallback extends GetCallback<ParseUser> {
 		@Override
 		public void done(ParseUser object, ParseException e) {
-			if (e == null) {
+			pbLoading.setVisibility(ProgressBar.INVISIBLE);
+			if (e == null) {				
 				Log.d("DEBUG", "found user");
 				user = (User) object;
 				setViewValues();
@@ -170,13 +175,19 @@ public class ProfileDetailActivity extends FragmentActivity {
 						relationship.saveInBackground();
 						object.setStatus(Status.CLOSED);
 						object.saveInBackground();
+						Intent i = new Intent(getBaseContext(), ConnectionsActivity.class);
+						startActivity(i);
+
 					} else {
 						object.addMentorToList(userObjId);
 						object.saveInBackground();
+						Log.d("DEBUG", "ADDING MENTOR TO REQUEST: " + requestId);
+
+						Intent data = new Intent();
+						setResult(RESULT_OK, data);
+						finish();
 					}
-					Log.d("DEBUG", "ADDING MENTOR TO REQUEST: " + requestId);
-					Intent i = new Intent(getBaseContext(), ConnectionsActivity.class);
-					startActivity(i);
+
 				} else {
 					Log.d("DEBUG", "ERROR IN ADDING MENTOR TO REQUEST: "
 							+ requestId);
