@@ -70,6 +70,7 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 		});				
 	}
 	
+
 	
 	public void setListViewListeners() {
 		lvProfileSummaries.setOnItemClickListener(new OnItemClickListener() {
@@ -79,15 +80,24 @@ public class MenteeMatchResultsFragment extends MatchResultsListFragment {
 				Intent i = new Intent(getActivity(), ProfileDetailActivity.class);
 				i.putExtra(USER_EXTRA, ((User) profileAdapter.getItem(pos)).getObjectId());
 				i.putExtra(REQUEST_ID_EXTRA, request.getObjectId());
-				startActivity(i);
+				startActivityForResult(i, ProfileDetailActivity.PROFILE_DETAIL_REQUEST_CODE);
 			}
 		});
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == ProfileDetailActivity.PROFILE_DETAIL_REQUEST_CODE) {
+			profileAdapter.clear();
+			getProfilesBySkill(request.getSkill());	
+		}
 	}
 
 	// Callback for Query Results
 	private class FindMentorsWithSkillCallback extends FindCallback<ParseUser> {
 		@Override
 		public void done(List<ParseUser> mentorsList, ParseException e) {
+
 	        if (e == null) {
 	            Log.d("DEBUG", "FindMentorsWithSkillCallback: " + mentorsList.size());
 				profileAdapter.addAll(mentorsList);
