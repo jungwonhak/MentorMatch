@@ -38,6 +38,7 @@ public class MatchResultsActivity extends FragmentActivity {
 		} else {
 			ft.replace(R.id.flMentorSearchResults, MenteeMatchResultsFragment.newInstance(skill, requestId));
 		}
+		Log.d("DEBUG", "Match results: " + MentorMatchApplication.getUserReviews().size());
 		ft.commit();
 	}
 

@@ -1,5 +1,7 @@
 package com.codepath.mentormatch.adapters;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -15,15 +17,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.helpers.ParseQueries;
+import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.helpers.ReviewsUtil;
-import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 
 public class MatchResultsAdapter extends ArrayAdapter {
@@ -129,8 +132,17 @@ public class MatchResultsAdapter extends ArrayAdapter {
 	}
 	
 	private void retrieveReviews() {
-		Log.d("DEBUG", "Match Results Reviews: Retrieving Reviews for: " + user);
-		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
+		HashMap<String, Object> reviewInfo = MentorMatchApplication.getUserReviews().get(user.getObjectId());
+		double avg = 0.0;
+		int numReviews = 0;
+		if(reviewInfo != null) {
+			avg = (Double) reviewInfo.get("average");
+			numReviews = (Integer) reviewInfo.get("reviews");
+
+		}
+		viewHolder.rbRating.setRating((float)avg);
+		
+		viewHolder.tvNumReviews.setText(String.valueOf(numReviews));
 	}
 	
 	private class FindReviewsCallback extends FindCallback<MatchRelationship> {
@@ -151,6 +163,65 @@ public class MatchResultsAdapter extends ArrayAdapter {
 	}
 
 /*
+ * 		Log.d("DEBUG", "Match Results Reviews: Retrieving Reviews for: " + user);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getObjectId());
+
+		if(user.isMentor()) {
+			ParseCloud.callFunctionInBackground("averageStarsForMentor", params, new FunctionCallback<Object>() {
+				public void done(Object ratings, ParseException e) {
+					if (e == null) {
+
+						if(ratings instanceof HashMap) {
+							Object avg = ((HashMap)ratings).get("average");
+							Object totalReviews = ((HashMap) ratings).get("");
+							if(avg == null || avg.toString().equals("null")) {
+								
+							} else {
+								Log.d("Debug", "done calling cloud code: " + avg);
+								viewHolder.rbRating.setRating(new BigDecimal(avg.toString()).floatValue());
+
+//								viewHolder.rbRating.setRating(new BigDecimal(avg).floatValue());
+							}
+							if(totalReviews != null) {
+//								int reviews = Integer.valueOf(()).intValue();
+								viewHolder.tvNumReviews.setText(totalReviews.toString());
+							}
+						}
+
+//						viewHolder.rbRating.setRating((float) ratings);
+
+						
+//						viewHolder.rbRating.setRating((float) ratings);
+						if(ratings != null) {
+							Log.d("Debug", "done calling cloud code: " + ratings);
+//							(JSONObject) ratings
+//							viewHolder.rbRating.setRating();
+						}
+				    }
+				}
+			});			
+		} else {
+			ParseCloud.callFunctionInBackground("averageStarsForMentee", params, new FunctionCallback<Object>() {
+				public void done(Object ratings, ParseException e) {
+					if (e == null) {
+						if(ratings instanceof HashMap) {
+							String avg = (String) ((HashMap) ratings).get("average");
+							if(avg == null || avg.equals("null")) {
+								
+							} else {
+								viewHolder.rbRating.setRating(new BigDecimal(avg).floatValue());
+							}
+						}
+						Log.d("Debug", "done calling cloud code: " + ratings);
+//						viewHolder.rbRating.setRating((float) ratings);
+				    }
+				}
+			});			
+			
+		}
+//		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
+ * 
     private class GestureListener extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
