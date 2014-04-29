@@ -221,10 +221,12 @@
         android:id="@+id/btnSkillNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvProfileDetails"
+        android:layout_alignLeft="@+id/languageGrid"
         android:layout_alignRight="@+id/tvProfileDetails"
         android:layout_below="@+id/languageGrid"
         android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/connectbtn"
         android:text="@string/capNext"
         android:textColor="#fff" />

@@ -4,52 +4,43 @@
     android:layout_height="match_parent" 
     android:background="#f9f5f0">
 
-    <TextView
+<!--     <TextView
         android:id="@+id/backgroundBox"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_above="@+id/btnProfileNext"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/signupbackbox" />
-
-    <EditText
-        android:id="@+id/etProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@+id/ivProfileImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/signupboxes"
-        android:ems="10"
-        android:paddingLeft="5dp"
-        android:typeface="monospace"
-        android:hint="Name" />
+        android:background="@drawable/signupbackbox" /> -->
     
     <EditText
         android:id="@+id/etProfileJob"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/etProfileName"
         android:layout_alignRight="@+id/etProfileName"
         android:layout_below="@+id/etProfileName"
         android:background="@drawable/signupboxes"
         android:typeface="monospace"
         android:ems="10"
+        android:gravity="left"
         android:hint="Job"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp" />
 
     <EditText
         android:id="@+id/etProfileCompany"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/etProfileJob"
         android:layout_alignRight="@+id/etProfileJob"
         android:layout_below="@+id/etProfileJob"
         android:background="@drawable/signupboxes"
         android:typeface="monospace"
         android:ems="10"
+        android:gravity="left"
         android:hint="Company"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp" />
 
     <EditText
         android:id="@+id/etLocation"
@@ -61,39 +52,58 @@
         android:background="@drawable/signupboxes"
         android:typeface="monospace"
         android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:gravity="left"
         android:hint="Location" />
-
-    <Button
-        android:id="@+id/btnProfileNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ivProfileImage"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ivProfileImage"
-        android:background="@drawable/connectbtn"
-        android:text="@string/capNext"
-        android:layout_marginTop="20dp"
-        android:textColor="#fff" />
-
-    <ImageView
-        android:id="@+id/ivProfileImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignTop="@+id/tvProfileDetails"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/profileimage"
-        android:src="@drawable/ic_profile_placeholder" />
 
     <TextView
         android:id="@+id/tvProfileDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/backgroundBox"
+        android:layout_alignLeft="@+id/etProfileName"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/etProfileName"
         android:layout_marginTop="19dp"
         android:gravity="center"
         android:text="@string/mentorshipJourney"
         android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tvProfileDetails"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/profileimage"
+        android:src="@drawable/ic_profile_placeholder" />
+
+    <Button
+        android:id="@+id/btnProfileNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etLocation"
+        android:layout_alignRight="@+id/etLocation"
+        android:layout_below="@+id/etLocation"
+        android:background="@drawable/connectbtn"
+        android:text="@string/capNext"
+        android:textColor="#fff" />
+
+    <EditText
+        android:id="@+id/etProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/signupboxes"
+        android:ems="10"
+        android:gravity="left"
+        android:hint="Name"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:typeface="monospace" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

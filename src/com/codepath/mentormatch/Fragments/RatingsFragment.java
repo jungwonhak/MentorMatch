@@ -82,12 +82,12 @@ public class RatingsFragment extends Fragment {
 
 	private void populateExistingData() {
 		if(((User) ParseUser.getCurrentUser()).isMentor()) {
-			tvName.setText(mentee.getFullName());
+			tvName.setText(mentee.getFullName() + "?");
 			rbRating.setRating((float) relationship.getMenteeRating());
 			etReview.setText(relationship.getCommentForMentee());
 			
 		} else {			
-			tvName.setText(mentor.getFullName());
+			tvName.setText(mentor.getFullName() + "?");
 			rbRating.setRating((float) relationship.getMentorRating());
 			etReview.setText(relationship.getCommentForMentor());
 		}

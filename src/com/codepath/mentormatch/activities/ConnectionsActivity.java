@@ -19,9 +19,13 @@ import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.ConnectionsAdapter;
+import com.codepath.mentormatch.core.MentorMatchApplication;
+import com.codepath.mentormatch.fragments.DetailsFragment;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
+import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -72,7 +76,11 @@ public class ConnectionsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.viewconnections, menu);
+		if (((User) ParseUser.getCurrentUser()).isMentor()) {
+			getMenuInflater().inflate(R.menu.viewconnectionsmentor, menu);
+		} else {
+			getMenuInflater().inflate(R.menu.viewconnections, menu);
+		}
 		return true;
 	}
 	
@@ -92,6 +100,12 @@ public class ConnectionsActivity extends Activity {
 	
 	public void goHome(MenuItem item) {
 		Intent i = new Intent(this, MatchResultsActivity.class);
+		startActivity(i);
+	}
+	
+	public void handleLogout(MenuItem item){
+		MentorMatchApplication.logoutUser();
+		Intent i = new Intent(this, LoginActivity.class);
 		startActivity(i);
 	}
 	

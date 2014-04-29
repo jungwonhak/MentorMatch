@@ -4,9 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.core.MentorMatchApplication;
+import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.Task;
@@ -68,8 +72,37 @@ public class RatingsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		if (((User) ParseUser.getCurrentUser()).isMentor()) {
+			getMenuInflater().inflate(R.menu.main_mentor, menu);
+		} else {
+			getMenuInflater().inflate(R.menu.main, menu);
+		}
 		return true;
+	}
+	
+	public void handleLogout(MenuItem item){
+		MentorMatchApplication.logoutUser();
+		Intent i = new Intent(this, LoginActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewConnections(MenuItem item) {
+		Intent i = new Intent(this, ConnectionsActivity.class);
+		startActivity(i);
+	}
+	
+	public void viewRequests(MenuItem item) {
+		//Intent i = new Intent(this, PendingRequestActivity.class);
+		Intent i = new Intent(this, ProfileBuilderActivity.class);
+		i.putExtra("foo", "details");
+		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void viewMyProfile(MenuItem item) {
+		Intent i = new Intent(this, ProfileDetailActivity.class);
+		i.putExtra(MatchResultsListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
 	}
 
 	public void saveRating(View view) {

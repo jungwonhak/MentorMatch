@@ -45,7 +45,11 @@ public class MatchResultsActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		if (((User) ParseUser.getCurrentUser()).isMentor()) {
+			getMenuInflater().inflate(R.menu.main_mentor, menu);
+		} else {
+			getMenuInflater().inflate(R.menu.main, menu);
+		}
 		return true;
 	}
 
