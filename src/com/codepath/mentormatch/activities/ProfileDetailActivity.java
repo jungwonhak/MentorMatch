@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.adapters.SmartFragmentStatePagerAdapter;
+import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.ReviewDetailFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
@@ -53,6 +54,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 	private TextView tvJobInfo;
 	private TextView tvLocation;
 	private TextView tvPlus;
+	private TextView tvAbout;
 	private Button btnContact;
 	private RatingBar rbRating;
 	private ImageView ivProfileImage;
@@ -71,7 +73,6 @@ public class ProfileDetailActivity extends FragmentActivity {
 		userObjId = getIntent().getStringExtra(MatchResultsListFragment.USER_EXTRA);
 		requestId = getIntent().getStringExtra(MatchResultsListFragment.REQUEST_ID_EXTRA);
 		setupViews();
-//		getUser();
 		ParseQueries.getUserById(userObjId, new GetUserCallback());
 	}
 	
@@ -79,6 +80,7 @@ public class ProfileDetailActivity extends FragmentActivity {
 		tvName = (TextView) findViewById(R.id.tvName);
 		tvJobInfo = (TextView) findViewById(R.id.tvJobInfo);
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
+		tvAbout = (TextView) findViewById(R.id.tvAbout);
 		ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 		llSkillImages = (LinearLayout) findViewById(R.id.llSkillImages);
 		rbRating = (RatingBar) findViewById(R.id.rbRating);		
@@ -111,30 +113,15 @@ public class ProfileDetailActivity extends FragmentActivity {
 			}
 		}
 	}
-/*
-	private void getUser() {
-		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		query.getInBackground(userObjId, new GetCallback<ParseUser>() {
-			public void done(ParseUser object, ParseException e) {
-				if (e == null) {
-					Log.d("DEBUG", "found user");
-					user = (User) object;
-					setViewValues();
-					retrieveReviews();
-				} else {
-					// something went wrong
-					Log.d("DEBUG",
-							"ERROR - PROFILE ACTIVITY - COULD NOT FIND USER");
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
+
 	private void setViewValues() {
 		tvName.setText(user.getFullName());
 		tvJobInfo.setText(user.getJobTitle() + " at " + user.getCompany());
 		tvLocation.setText(user.getLocation());
+		String aboutMe = user.getDescription();
+		if(user.isMentor() && aboutMe != null) {
+			tvAbout.setText(aboutMe);
+		}
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 
@@ -161,7 +148,11 @@ public class ProfileDetailActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.viewprofile, menu);
+		if (((User) ParseUser.getCurrentUser()).isMentor()) {
+			getMenuInflater().inflate(R.menu.viewprofilementor, menu);
+		} else {
+			getMenuInflater().inflate(R.menu.viewprofile, menu);
+		}
 		return true;
 	}
 	
@@ -180,6 +171,12 @@ public class ProfileDetailActivity extends FragmentActivity {
 		Intent i = new Intent(this, ProfileBuilderActivity.class);
 		i.putExtra("foo", "details");
 		//i.putExtra(ProfileSummaryListFragment.USER_EXTRA, ParseUser.getCurrentUser().getObjectId());
+		startActivity(i);
+	}
+	
+	public void handleLogout(MenuItem item){
+		MentorMatchApplication.logoutUser();
+		Intent i = new Intent(this, LoginActivity.class);
 		startActivity(i);
 	}
 

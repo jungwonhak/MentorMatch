@@ -58,6 +58,10 @@
             android:name="com.codepath.mentormatch.activities.RatingsActivity"
             android:label="@string/title_activity_mentor_match" >
         </activity>
+        <activity
+            android:name="com.codepath.mentormatch.activities.ConnectionDetailActivity"
+            android:label="@string/title_activity_mentor_match" >
+        </activity>
     </application>
 
 </manifest>

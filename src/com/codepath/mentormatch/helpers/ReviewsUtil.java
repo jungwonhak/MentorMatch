@@ -60,6 +60,9 @@ public class ReviewsUtil {
 	}
 	
 	public double getAverageRating() {
+		if(totalReviews == 0) {
+			return 0;
+		}
 		return ratingValueTotal/totalReviews;
 	}
 

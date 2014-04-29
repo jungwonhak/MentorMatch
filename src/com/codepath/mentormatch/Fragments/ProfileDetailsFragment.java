@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.R.drawable;
 import com.codepath.mentormatch.activities.ProfileBuilderActivity;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;

@@ -8,13 +8,6 @@
         android:showAsAction="always"
         android:title="Home"/>
     <item
-        android:id="@+id/miMyProfile"
-        android:onClick="viewMyProfile"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:icon="@drawable/ic_action_profile"
-        android:title="Profile"/>
-    <item
         android:id="@+id/miConnections"
         android:onClick="viewConnections"
         android:orderInCategory="100"
@@ -27,6 +20,6 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/ic_logout"
-        android:title="Logout"/>
+        android:title="Logout"/>   
 
 </menu>

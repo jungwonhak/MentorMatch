@@ -6,7 +6,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="learningLanguageString">"Most importantly,\nwhat do you want to learn?"</string>
-    <string name="teachingLanguageString">"What languages do you know?"</string>   
+    <string name="teachingLanguageString">"What languages do you know?"</string>
     <string name="aboutMeHeader">Lastly, tell us about yourself and your coding goals.</string>
     <string name="details_mentor_header">Lastly, tell us a little bit about why you\'d like to be a mentor.</string>
     <string name="details_mentor_button">Be a mentor!</string>
@@ -46,10 +46,10 @@
     <string name="sign_up_success_body">, thank you for signing up to be a mentor.  We\'ll show you a list of people looking for mentors just like you.  Check back later to see your matches.</string>
     <string name="mentorshipJourney">Let\'s begin our mentorship journey</string>
     <string name="capNext">NEXT</string>
-    
     <string name="ratings_heading">How is \ </string>
     <string name="ratings_heading2">&#160;doing?</string>
-    
     <string name="connections_empty_list">You currently have no connections. Click search to find mentors and mentees and start working together!</string>
     <string name="match_results_empty_list">You currently have no requests pending.</string>
+    <string name="title_activity_connection_detail">ConnectionDetailActivity</string>
+
 </resources>

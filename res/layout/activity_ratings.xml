@@ -44,31 +44,7 @@
         android:typeface="monospace"
         android:inputType="textMultiLine" />
 
-    <EditText
-        android:id="@+id/etTaskDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnSave"
-        android:layout_alignRight="@+id/btnSave"
-        android:layout_below="@+id/tvAddTaskLabel"
-        android:layout_marginTop="16dp"
-        android:ems="10" >
 
-    </EditText>
-
-    <Button
-        android:id="@+id/btnAddTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etTaskDescription"
-        android:layout_alignRight="@+id/etTaskDescription"
-        android:layout_below="@+id/etTaskDescription"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/connectbtn"
-        android:onClick="onAddTask"
-        android:textStyle="bold"
-        android:text="Add Task"
-        android:textColor="#fff" />
 
     <TextView
         android:id="@+id/tvHeading2"

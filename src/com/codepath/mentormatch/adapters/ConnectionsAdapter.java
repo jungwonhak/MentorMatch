@@ -12,16 +12,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
-import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
 
 public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 
 	private MatchRelationship matchRelationship;
 	private User mentee;
+	private int drawableID;
 	TextView tvName;
 	TextView tvJobTitle;
 	TextView tvLocation;
@@ -51,13 +51,17 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		ivSkill = (ImageView) convertView.findViewById(R.id.ivSkill);
 		tvMessage = (TextView) convertView.findViewById(R.id.tvMessage);
 		tvBlurb = (TextView) convertView.findViewById(R.id.tvBlurb);
+		drawableID = (int) R.drawable.ic_profile_placeholder;
+		
 		User currentUser = (User) ParseUser.getCurrentUser();
-		String name = "", jobTitle = "", location = "", description = "", blurb = "";
+		String name = "", jobTitle = "", location = "", description = "", blurb = "", image= "";
 		if(currentUser.isMentor()) {
 			mentee = (User) matchRelationship.getMentee();
 			name = mentee.getFullName();
 			jobTitle = mentee.getJobTitle() + " @ " + mentee.getCompany();
 			location = mentee.getLocation();
+			image = mentee.getProfileImage();
+//			skill = req.getSkill().getResourceId();
 			description = matchRelationship.getMentorRequestId().getDescription();
 			blurb = "needs your help with ";
 		} else {
@@ -65,8 +69,9 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 			name = mentor.getFullName();
 			jobTitle = mentor.getJobTitle() + " @ " + mentor.getCompany();
 			location = mentor.getLocation();
+			image = mentor.getProfileImage();
 			description = mentor.getDescription();
-			blurb = " is helping you with ";
+			blurb = "is helping you with ";
 		}
 
 		
@@ -76,6 +81,13 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		tvLocation.setText(location);
 		tvMessage.setText(description);
 		tvBlurb.setText(blurb);
+		
+		if (image.isEmpty()) {
+			ivProfileImage.setImageResource(drawableID);
+		} else {
+		ImageLoader.getInstance().displayImage(image,
+					ivProfileImage);
+		}
 //		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
 		return convertView;
 	}
