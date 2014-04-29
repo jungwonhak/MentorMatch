@@ -92,7 +92,7 @@
         android:background="@null"
         android:contentDescription="@string/linkedin_desc"
         android:onClick="handleLinkedInSignUp"
-        android:src="@drawable/linkedin_connect" />
+        android:src="@drawable/connect_linkedin3" />
 
     <TextView
         android:id="@+id/ivCompanyLogo"
