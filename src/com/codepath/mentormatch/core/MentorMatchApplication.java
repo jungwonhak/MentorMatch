@@ -1,13 +1,10 @@
 package com.codepath.mentormatch.core;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,9 +19,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.FindCallback;
-import com.parse.FunctionCallback;
 import com.parse.Parse;
-import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -76,21 +71,19 @@ public class MentorMatchApplication extends com.activeandroid.app.Application {
     private static RetrieveReviewsTask retrieveReviewsTask;
     private static FindReviewsCallback callback;
     
-    public static void getAllUserReviews() {
+    public static void retrieveUserReviews() {
     	if(userReviews == null) {
-    	userReviews = new HashMap<String, HashMap<String, Object>>();
-    	retrieveReviewsTask = new RetrieveReviewsTask();
-    	retrieveReviewsTask.execute();
+    		userReviews = new HashMap<String, HashMap<String, Object>>();
+    		retrieveReviewsTask = new RetrieveReviewsTask();
+    		retrieveReviewsTask.execute();
     	}
     }
 
 	public static Map<String, HashMap<String, Object>> getUserReviews() {
+		retrieveUserReviews();
 		return userReviews;
 	}
 
-	public void setUserReviews(Map<String, HashMap<String, Object>> userReviews) {
-		this.userReviews = userReviews;
-	}
     
 	private static class RetrieveReviewsTask extends AsyncTask<String, Void, Boolean> {
 
@@ -113,7 +106,6 @@ public class MentorMatchApplication extends com.activeandroid.app.Application {
 							Log.d("DEBUG", "Error retrieving all users");
 							e.printStackTrace();
 						}
-						
 					}
 				});
 				return Boolean.TRUE;
@@ -124,45 +116,13 @@ public class MentorMatchApplication extends com.activeandroid.app.Application {
 		}
 
 		protected void onPostExecute(Boolean bool) {
-//			BitmapDrawable backgroundDrawable = new BitmapDrawable(getBaseContext().getResources(), bitmap);
-//			ivBackgroundImage.setBackgroundDrawable(backgroundDrawable);
 		}
 	}
 	
 	public static void getFetchReviewsFromParse(User user) {
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", user.getObjectId());
-
-		String parseCloudFunction = "averageStarsForMentee";
-		if(user.isMentor()) {
-			parseCloudFunction = "averageStarsForMentor";
-		}
 
 		callback = new FindReviewsCallback(user);
-		ParseQueries.getReviewsForUser(user, callback);
-		/*
-		ParseCloud.callFunctionInBackground(parseCloudFunction, params, new FunctionCallback<Object>() {
-			public void done(Object ratings, ParseException e) {
-				if (e == null) {
-					if(ratings instanceof HashMap) {
-						Object avg = ((HashMap)ratings).get("average");
-						Object totalReviews = ((HashMap) ratings).get("");
-						if(avg == null || avg.toString().equals("null")) {
-								
-						}else {
-								Log.d("Debug", "done calling cloud code: " + avg);
-							}
-							if(totalReviews != null) {
-							}
-						}
-
-						if(ratings != null) {
-							Log.d("Debug", "done calling cloud code: " + ratings);
-						}
-				    }
-				}
-			});			
-*/			
+		ParseQueries.getReviewsForUser(user, callback);		
 		
 	}
 	
@@ -189,37 +149,4 @@ public class MentorMatchApplication extends com.activeandroid.app.Application {
 		}
 	}
 	
-	public void processRatingsFromParse() {
-		
-	}
-	/*
-     * new RetrieveBitMapTask().execute(user.getBackgroundImageUrl());
-     * 		
-		
-		
-     * 
-	private class RetrieveReviewsTask extends AsyncTask<String, Void, Bitmap> {
-
-		// Cannot use network capabilities on main thread, so need to retrieve image in background
-		protected Bitmap doInBackground(String... arg0) {
-			try {
-				HttpGet httpRequest = new HttpGet(URI.create(user.getBackgroundImageUrl()));
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpResponse response = (HttpResponse) httpclient.execute(httpRequest);
-				HttpEntity entity = response.getEntity();
-				BufferedHttpEntity bufHttpEntity = new BufferedHttpEntity(entity);
-				Bitmap bitmap = BitmapFactory.decodeStream(bufHttpEntity.getContent());
-				return bitmap;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-
-		protected void onPostExecute(Bitmap bitmap) {
-			BitmapDrawable backgroundDrawable = new BitmapDrawable(getBaseContext().getResources(), bitmap);
-			ivBackgroundImage.setBackgroundDrawable(backgroundDrawable);
-		}
-	}    
-	*/
 }

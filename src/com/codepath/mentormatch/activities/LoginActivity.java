@@ -32,7 +32,8 @@ public class LoginActivity extends OAuthLoginActivity<LinkedInClient> {
 		setContentView(R.layout.activity_login);
 		etEmail = (EditText) findViewById(R.id.etEmail);
 		etPassword = (EditText) findViewById(R.id.etPassword);
-		MentorMatchApplication.getAllUserReviews();
+		// Create map of user reviews
+		MentorMatchApplication.retrieveUserReviews();
 	}
 	// Click listener for LinkedIn connect button
 	public void handleLinkedInSignUp(View view) {

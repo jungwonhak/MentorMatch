@@ -1,6 +1,5 @@
 package com.codepath.mentormatch.adapters;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,8 +24,6 @@ import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
-import com.parse.FunctionCallback;
-import com.parse.ParseCloud;
 import com.parse.ParseException;
 
 public class MatchResultsAdapter extends ArrayAdapter {
@@ -92,42 +89,22 @@ public class MatchResultsAdapter extends ArrayAdapter {
 		viewHolder.tvJobTitle.setText(user.getJobTitle() + " @ " + user.getCompany());
 		viewHolder.tvLocation.setText(user.getLocation());
 		Log.d("DEBUG", "Name: " + user.getFullName());
-//		viewHolder.rbRating.setRating(getAverageRating());
 		retrieveReviews();
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 		
 		if(user.getSkills() != null) {
-		for (String s : user.getSkills()) {
-			Log.d("DEBUG", "SKill: " + s);
-			ImageView iv = new ImageView(convertView.getContext());
-			iv.setScaleType(ScaleType.FIT_XY);
-			iv.setLayoutParams(params);
-			Skill skill = Skill.fromValue(s);
-			iv.setMaxHeight(15);
-			iv.setMaxWidth(15);
-			iv.setImageResource(skill.getResourceId());
-			viewHolder.llSkillImages.addView(iv);				
-		}
-	}
-		
-/*		convertView.setOnClickListener(new OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), ViewProfileActivity.class);
-				i.putExtra(ProfileSummaryListFragment.USER_EXTRA, user.getObjectId());
-				v.getContext().startActivity(i);
+			for (String s : user.getSkills()) {
+				Log.d("DEBUG", "SKill: " + s);
+				ImageView iv = new ImageView(convertView.getContext());
+				iv.setScaleType(ScaleType.FIT_XY);
+				iv.setLayoutParams(params);
+				Skill skill = Skill.fromValue(s);
+				iv.setMaxHeight(15);
+				iv.setMaxWidth(15);
+				iv.setImageResource(skill.getResourceId());
+				viewHolder.llSkillImages.addView(iv);				
 			}
-		});
-	*/	
-/*        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
-        convertView.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(final View view, final MotionEvent event) {
-                gdt.onTouchEvent(event);
-                Log.d("DEBUG", "Touch");
-                return true;
-            }
-        });*/
+		}
 		return convertView;
 	}
 	
@@ -145,6 +122,26 @@ public class MatchResultsAdapter extends ArrayAdapter {
 		viewHolder.tvNumReviews.setText(String.valueOf(numReviews));
 	}
 	
+	
+	/*		convertView.setOnClickListener(new OnClickListener() {		
+	@Override
+	public void onClick(View v) {
+		Intent i = new Intent(v.getContext(), ViewProfileActivity.class);
+		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, user.getObjectId());
+		v.getContext().startActivity(i);
+	}
+});
+*/	
+/*        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
+convertView.setOnTouchListener(new OnTouchListener() {
+    @Override
+    public boolean onTouch(final View view, final MotionEvent event) {
+        gdt.onTouchEvent(event);
+        Log.d("DEBUG", "Touch");
+        return true;
+    }
+});*/
+
 	private class FindReviewsCallback extends FindCallback<MatchRelationship> {
 		@Override
 		public void done(List<MatchRelationship> relationshipList, ParseException e) {
@@ -161,85 +158,4 @@ public class MatchResultsAdapter extends ArrayAdapter {
 			}
 		}
 	}
-
-/*
- * 		Log.d("DEBUG", "Match Results Reviews: Retrieving Reviews for: " + user);
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", user.getObjectId());
-
-		if(user.isMentor()) {
-			ParseCloud.callFunctionInBackground("averageStarsForMentor", params, new FunctionCallback<Object>() {
-				public void done(Object ratings, ParseException e) {
-					if (e == null) {
-
-						if(ratings instanceof HashMap) {
-							Object avg = ((HashMap)ratings).get("average");
-							Object totalReviews = ((HashMap) ratings).get("");
-							if(avg == null || avg.toString().equals("null")) {
-								
-							} else {
-								Log.d("Debug", "done calling cloud code: " + avg);
-								viewHolder.rbRating.setRating(new BigDecimal(avg.toString()).floatValue());
-
-//								viewHolder.rbRating.setRating(new BigDecimal(avg).floatValue());
-							}
-							if(totalReviews != null) {
-//								int reviews = Integer.valueOf(()).intValue();
-								viewHolder.tvNumReviews.setText(totalReviews.toString());
-							}
-						}
-
-//						viewHolder.rbRating.setRating((float) ratings);
-
-						
-//						viewHolder.rbRating.setRating((float) ratings);
-						if(ratings != null) {
-							Log.d("Debug", "done calling cloud code: " + ratings);
-//							(JSONObject) ratings
-//							viewHolder.rbRating.setRating();
-						}
-				    }
-				}
-			});			
-		} else {
-			ParseCloud.callFunctionInBackground("averageStarsForMentee", params, new FunctionCallback<Object>() {
-				public void done(Object ratings, ParseException e) {
-					if (e == null) {
-						if(ratings instanceof HashMap) {
-							String avg = (String) ((HashMap) ratings).get("average");
-							if(avg == null || avg.equals("null")) {
-								
-							} else {
-								viewHolder.rbRating.setRating(new BigDecimal(avg).floatValue());
-							}
-						}
-						Log.d("Debug", "done calling cloud code: " + ratings);
-//						viewHolder.rbRating.setRating((float) ratings);
-				    }
-				}
-			});			
-			
-		}
-//		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
- * 
-    private class GestureListener extends SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Right to left
-            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                Log.d("DEBUG", "SWIPE RIGHT!!!");
-                
-                return false; // Left to right
-            }
-
-            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Bottom to top
-            }  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Top to bottom
-            }
-            return false;
-        }
-    }
-   */
 }
