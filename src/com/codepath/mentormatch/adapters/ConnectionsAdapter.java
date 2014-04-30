@@ -65,7 +65,7 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 			location = mentee.getLocation();
 			image = mentee.getProfileImage();
 			description = mentorRequest.getDescription();
-			blurb = getContext().getResources().getString(R.string.connections_mentor_text);
+			blurb = getContext().getResources().getString(R.string.connections_mentee_text);
 		} else {
 			User mentor = (User) matchRelationship.getMentor();
 			name = mentor.getFullName();
@@ -73,14 +73,14 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 			location = mentor.getLocation();
 			image = mentor.getProfileImage();
 			description = mentor.getDescription();
-			blurb = getContext().getResources().getString(R.string.connections_mentee_text);
+			blurb = getContext().getResources().getString(R.string.connections_mentor_text);
 		}
 		Skill skill = Skill.fromValue(mentorRequest.getSkill());
 		tvName.setText(name);
 		tvJobTitle.setText(jobTitle);
 		tvLocation.setText(location);
 		tvMessage.setText(description);
-		tvBlurb.setText(blurb + skill.toString());
+		tvBlurb.setText(skill.toString() + blurb);
 		if (image != null && !image.isEmpty()) {
 			ImageLoader.getInstance().displayImage(image,
 					ivProfileImage);
