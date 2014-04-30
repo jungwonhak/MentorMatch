@@ -1,9 +1,10 @@
 package com.codepath.mentormatch.adapters;
 
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import android.text.format.DateUtils;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,13 @@ public class TasksAdapter extends ArrayAdapter<Task> {
 		
 		tvTaskDescr.setText(task.getDescription());
 		tvCreatedBy.setText(task.getCreatedBy().getFullName());
-		tvCreateDate.setText(		DateUtils.getRelativeDateTimeString(getContext(), task.getLocalizedCreateDate().getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0).toString()); 
+		Date taskDate = task.getLocalizedCreateDate();
+		java.text.DateFormat timeFormat = DateFormat.getTimeFormat(getContext());
+		String time = timeFormat.format(taskDate);
+		java.text.DateFormat dateFormat = DateFormat.getDateFormat(getContext());
+		String date = dateFormat.format(taskDate);
+//		dateFormat.format(task.getLocalizedCreateDate());
+		tvCreateDate.setText(date + " " + time); //DateUtils.getRelativeDateTimeString(getContext(), task.getLocalizedCreateDate().t.getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0).toString()); 
 		
 		return convertView;
 	}

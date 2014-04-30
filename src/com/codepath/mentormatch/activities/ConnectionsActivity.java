@@ -22,6 +22,7 @@ import com.codepath.mentormatch.adapters.ConnectionsAdapter;
 import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.fragments.DetailsFragment;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
+import com.codepath.mentormatch.fragments.RatingsFragment;
 import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
@@ -59,7 +60,7 @@ public class ConnectionsActivity extends Activity {
     		public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
     			MatchRelationship requestId = requestAdapter.getItem(pos);
 				Intent i = new Intent(getBaseContext(), ConnectionDetailActivity.class);//RatingsActivity.class);
-				i.putExtra(RatingsActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
+				i.putExtra(ConnectionDetailActivity.RELATIONSHIP_ID_EXTRA, requestId.getObjectId());
 				startActivityForResult(i, RATING_REQUEST_CODE);
     		}
     	});
