@@ -107,7 +107,8 @@ public class ConnectionDetailActivity extends FragmentActivity {
 		Tab tab1 = actionBar
 			.newTab()
 //			.setText("Ratings")
-			.setIcon(R.drawable.ic_rating)
+//			.setIcon(R.drawable.ic_rating)
+			.setCustomView(R.layout.tab_background)
 			.setTag("RatingsFragment")
 			.setTabListener(
 				new FragmentTabListener<RatingsFragment>(R.id.flFrameContainer, this, "ratings",
@@ -118,7 +119,8 @@ public class ConnectionDetailActivity extends FragmentActivity {
 		Tab tab2 = actionBar
 			.newTab()
 //			.setText("Goals")
-			.setIcon(R.drawable.ic_goal)
+//			.setIcon(R.drawable.ic_goal)
+			.setCustomView(R.layout.tab_background_task)
 			.setTag("GoalsFragment")
 			.setTabListener(
 			    new FragmentTabListener<GoalsFragment>(R.id.flFrameContainer, this, "goals",
