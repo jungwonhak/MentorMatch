@@ -53,8 +53,7 @@
         android:layout_alignRight="@+id/tvHeading"
         android:layout_below="@+id/tvHeading"
         android:gravity="center"
-        android:text=""
-        android:textSize="18sp" />
+        android:text="" />
 
     <RatingBar
         android:id="@+id/rbRating"
