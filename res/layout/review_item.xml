@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvReviewer"
         android:layout_alignBottom="@+id/tvReviewer"
-        android:layout_marginLeft="22dp"
+        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/rbRating"
         android:text="Date"
         android:typeface="monospace" />
