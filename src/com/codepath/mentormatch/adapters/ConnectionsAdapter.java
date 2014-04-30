@@ -12,7 +12,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
+import com.codepath.mentormatch.models.parse.MentorRequest;
 import com.codepath.mentormatch.models.parse.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
@@ -20,16 +22,16 @@ import com.parse.ParseUser;
 public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 
 	private MatchRelationship matchRelationship;
-	private User mentee;
 	private int drawableID;
-	TextView tvName;
-	TextView tvJobTitle;
-	TextView tvLocation;
-	TextView tvMessage;
-	TextView tvBlurb;
-	ImageView ivProfileImage;
-	RatingBar rbRating;
-	ImageView ivSkill;
+	private TextView tvName;
+	private TextView tvJobTitle;
+	private TextView tvLocation;
+	private TextView tvMessage;
+	private TextView tvBlurb;
+	private ImageView ivProfileImage;
+	private RatingBar rbRating;
+	private ImageView ivSkill;
+
 	
 	public ConnectionsAdapter(Context context, List<MatchRelationship> mentorRequests) {
 		super(context, 0, mentorRequests);
@@ -55,15 +57,15 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		
 		User currentUser = (User) ParseUser.getCurrentUser();
 		String name = "", jobTitle = "", location = "", description = "", blurb = "", image= "";
+		MentorRequest mentorRequest = matchRelationship.getMentorRequestId();
 		if(currentUser.isMentor()) {
-			mentee = (User) matchRelationship.getMentee();
+			User mentee = (User) matchRelationship.getMentee();
 			name = mentee.getFullName();
 			jobTitle = mentee.getJobTitle() + " @ " + mentee.getCompany();
 			location = mentee.getLocation();
 			image = mentee.getProfileImage();
-//			skill = req.getSkill().getResourceId();
-			description = matchRelationship.getMentorRequestId().getDescription();
-			blurb = "needs your help with ";
+			description = mentorRequest.getDescription();
+			blurb = getContext().getResources().getString(R.string.connections_mentor_text);
 		} else {
 			User mentor = (User) matchRelationship.getMentor();
 			name = mentor.getFullName();
@@ -71,16 +73,14 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 			location = mentor.getLocation();
 			image = mentor.getProfileImage();
 			description = mentor.getDescription();
-			blurb = "is helping you with ";
+			blurb = getContext().getResources().getString(R.string.connections_mentee_text);
 		}
-
-		
-		
+		Skill skill = Skill.fromValue(mentorRequest.getSkill());
 		tvName.setText(name);
 		tvJobTitle.setText(jobTitle);
 		tvLocation.setText(location);
 		tvMessage.setText(description);
-		tvBlurb.setText(blurb);
+		tvBlurb.setText(blurb + skill.toString());
 		if (image != null && !image.isEmpty()) {
 			ImageLoader.getInstance().displayImage(image,
 					ivProfileImage);
@@ -88,7 +88,8 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		} else {
 			ivProfileImage.setImageResource(drawableID);
 		}
-//		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
+		
+		ivSkill.setImageResource(skill.getResourceId());
 		return convertView;
 	}
 	

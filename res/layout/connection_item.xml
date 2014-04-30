@@ -26,13 +26,13 @@
         android:text="Name"
         android:layout_marginLeft="10dp"
         android:typeface="monospace" />
-
-    <ImageView
+    
+        <ImageView
         android:id="@+id/ivSkill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvBlurb"
-        android:layout_toRightOf="@+id/tvBlurb"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
         android:maxHeight="15dp"
         android:maxWidth="15dp"
@@ -99,5 +99,7 @@
         android:layout_marginLeft="10dp"
         android:text="needs your help with "
         android:typeface="monospace" />
+
+
 
 </RelativeLayout>
