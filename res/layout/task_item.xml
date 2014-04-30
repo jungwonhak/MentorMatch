@@ -10,7 +10,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:text="TextView"
+		android:textSize="12sp"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/tvCreatedBy"
@@ -19,7 +21,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvTaskDescr"
         android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+		android:textSize="10sp"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/tvCreateDate"
@@ -29,6 +32,7 @@
         android:layout_alignBottom="@+id/tvCreatedBy"
         android:layout_alignParentRight="true"
         android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+		android:textSize="10sp"
+        android:typeface="monospace" />
 
 </RelativeLayout>

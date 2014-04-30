@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
+import com.codepath.mentormatch.models.Status;
 import com.codepath.mentormatch.models.parse.Task;
 
 public class TasksAdapter extends ArrayAdapter<Task> {
@@ -36,6 +38,9 @@ public class TasksAdapter extends ArrayAdapter<Task> {
 		tvCreateDate = (TextView) convertView.findViewById(R.id.tvCreateDate);
 		
 		tvTaskDescr.setText(task.getDescription());
+		if(Status.CLOSED.equals(task.getStatus())) {
+			tvTaskDescr.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+		}
 		tvCreatedBy.setText(task.getCreatedBy().getFullName());
 		Date taskDate = task.getLocalizedCreateDate();
 		java.text.DateFormat timeFormat = DateFormat.getTimeFormat(getContext());

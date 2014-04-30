@@ -9,46 +9,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ViewProfileActivity" >
 
-    
-
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_alignLeft="@+id/vpPager"
-        android:layout_alignTop="@+id/vpPager"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:adjustViewBounds="true"
         android:background="@drawable/profileimage"
-        android:src="@drawable/ic_profile_placeholder"
-        android:contentDescription="Pusheen" />
-        
-    
-	<TextView
-	    android:id="@+id/tvName"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignRight="@+id/vpPager"
-	    android:layout_alignTop="@+id/ivProfileImage"
-	    android:layout_marginLeft="5dp"
-	    android:layout_toRightOf="@+id/ivProfileImage"
-	    android:text="Full Name"
-	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textSize="20sp"
-	    android:textStyle="bold"
-	    android:typeface="monospace" />
-	
+        android:contentDescription="Pusheen"
+        android:src="@drawable/ic_profile_placeholder" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignTop="@+id/ivProfileImage"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/ivProfileImage"
+        android:text="Full Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
     <TextView
         android:id="@+id/tvJobInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vpPager"
-        android:layout_alignRight="@+id/tvName"
+		android:layout_centerHorizontal="true"
         android:layout_below="@+id/ivProfileImage"
-        android:text="Job Title @ Company"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Job Title @ Company"
+        android:textSize="16sp"
         android:typeface="monospace" />
 
     <TextView
@@ -57,8 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tvJobInfo"
         android:layout_alignLeft="@+id/rbRating"
-        android:layout_alignRight="@+id/vpPager"
-        android:layout_marginLeft="5dp"
+		android:layout_alignBaseline="@+id/ivProfileImage"
         android:text="Location"
         android:textSize="16sp"
         android:typeface="monospace" />
@@ -69,17 +64,17 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tvLocation"
         android:layout_alignLeft="@+id/rbRating"
-        android:layout_alignRight="@+id/vpPager"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/rbRating"
         android:adjustViewBounds="true"
         android:orientation="horizontal"
         android:padding="10dp"
         android:scaleType="fitCenter" >
-
     </LinearLayout>
-    
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vpPager"
+        android:layout_below="@+id/tvReviewLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </android.support.v4.view.ViewPager>
@@ -89,6 +84,7 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        
         android:layout_alignLeft="@+id/tvName"
         android:layout_below="@+id/tvName"
         android:orientation="horizontal" />
@@ -98,7 +94,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btnContact"
-        android:layout_alignLeft="@+id/vpPager"
+        android:layout_alignLeft="@+id/ivProfileImage"
         android:layout_below="@+id/tvJobInfo"
         android:background="@drawable/contactitem"
         android:drawableTop="@drawable/ic_plus"
@@ -110,33 +106,59 @@
         android:id="@+id/btnContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/vpPager"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/tvJobInfo"
+        android:layout_marginBottom="10dp"
         android:layout_toRightOf="@+id/tvPlus"
         android:background="@drawable/profilecontactbtn"
         android:onClick="createMentorRequest"
         android:paddingRight="40dp"
-        android:layout_marginBottom="10dp"
         android:text="CONTACT"
         android:textColor="#FFF"
         android:textStyle="bold" />
 
+        <TextView
+        android:id="@+id/tvAboutMeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnContact"
+        android:gravity="left"
+        android:text="About me..."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+    
     <TextView
         android:id="@+id/tvAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vpPager"
-        android:layout_alignRight="@+id/vpPager"
-        android:layout_below="@+id/btnContact"
-        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvAboutMeLabel"
+        android:gravity="left"
+        android:layout_marginTop="5dp"
         android:text=""
         android:textSize="16sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/tvReviewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvAbout"
+        android:layout_below="@+id/tvAbout"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="@string/profile_reviews_label"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:typeface="monospace" />
 
     <FrameLayout
         android:id="@+id/frReviewData"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvReviewLabel" >
     </FrameLayout>
 
     <ProgressBar
@@ -146,4 +168,5 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="invisible" />
+
 </RelativeLayout>

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:gravity="bottom"
-    android:layout_margin="5dp">
-
-    <TextView
-        android:id="@+id/tvReviewer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="106dp"
-        android:text="Reviewer"
-        android:typeface="monospace" />
+    android:layout_height="fill_parent"
+    android:layout_margin="5dp"
+    android:gravity="top" >
 
     <RatingBar
         android:id="@+id/rbRating"
@@ -20,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/tvReviewContent"
@@ -39,8 +31,19 @@
         android:layout_alignBaseline="@+id/tvReviewer"
         android:layout_alignBottom="@+id/tvReviewer"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/rbRating"
+        android:layout_below="@+id/tvReviewContent"
+        android:layout_marginTop="10dp"
         android:text="Date"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/tvReviewer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvReviewContent"
+        android:layout_marginTop="10dp"
+        android:text="Reviewer"
         android:typeface="monospace" />
 
 </RelativeLayout>

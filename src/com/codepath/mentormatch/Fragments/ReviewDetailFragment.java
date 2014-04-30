@@ -2,6 +2,7 @@ package com.codepath.mentormatch.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,6 @@ public class ReviewDetailFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 //		return super.onCreateView(inflater, parent, savedInstanceState);
 		View view = inflater.inflate(R.layout.review_item, null);	
 		rbRating = (RatingBar) view.findViewById(R.id.rbRating);
@@ -57,7 +57,12 @@ public class ReviewDetailFragment extends Fragment{
 		rbRating.setRating((float)review.getRating());
 		tvReviewContent.setText(review.getContent());
 		tvReviewer.setText(review.getReviewer());
+		tvReviewDate.setText(formatReviewDate());
 	}
 
-
+	private String formatReviewDate() {
+		java.text.DateFormat dateFormat = DateFormat.getDateFormat(this.getActivity());
+		return dateFormat.format(review.getReviewDate());
+	}
+	
 }
