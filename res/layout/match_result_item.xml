@@ -109,30 +109,6 @@
             android:orientation="horizontal" >
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivLeftArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/rlUserInfo2"
-            android:layout_marginTop="24dp"
-            android:adjustViewBounds="true"
-            android:maxHeight="20dp"
-            android:maxWidth="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_left_arrow" />
-        
-        <ImageView
-            android:id="@+id/ivRightArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="24dp"
-            android:adjustViewBounds="true"
-            android:maxHeight="20dp"
-            android:maxWidth="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_right_arrow" />
 
     </RelativeLayout>
 
