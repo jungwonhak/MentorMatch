@@ -1,5 +1,7 @@
 package com.codepath.mentormatch.fragments;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -69,6 +71,14 @@ public class RatingsFragment extends Fragment {
 				}
 				relationship.saveInBackground();	
 				Toast.makeText(getActivity(), "Review Saved", Toast.LENGTH_SHORT).show();
+				Activity activity = getActivity();
+				ActionBar actionbar = activity.getActionBar();
+				actionbar.selectTab(actionbar.getTabAt(0));//.selectTab();
+				/*
+				Intent i = new Intent(getActivity(), ConnectionDetailActivity.class);//RatingsActivity.class);
+				i.putExtra(ConnectionDetailActivity.RELATIONSHIP_ID_EXTRA, relationship.getObjectId());
+				startActivity(i);
+				*/
 			}
 		});
 	}

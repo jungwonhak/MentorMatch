@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ConnectionDetailActivity;
@@ -23,13 +22,11 @@ import com.codepath.mentormatch.helpers.ParseQueries;
 import com.codepath.mentormatch.models.Status;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.Task;
-import com.codepath.mentormatch.models.parse.User;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 public class GoalsFragment extends Fragment {
 
@@ -49,7 +46,6 @@ public class GoalsFragment extends Fragment {
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		taskList = new ArrayList<Task>();
 		tasksAdapter = new TasksAdapter(getActivity(), taskList);
@@ -88,13 +84,12 @@ public class GoalsFragment extends Fragment {
 	private void retrieveTasks(){
 		ParseQuery<Task> query = ParseQuery.getQuery("Task");
 		query.whereEqualTo(Task.RELATIONSHIP_KEY, relationship);
+		query.addDescendingOrder(Task.CREATED_AT_KEY);
 		query.findInBackground(new FindCallback<Task>() {
 
 			@Override
 			public void done(List<Task> list, ParseException e) {
-				// TODO Auto-generated method stub
 				if(e == null) {
-					Toast.makeText(getActivity(), "Tasks found: " + list.size(), Toast.LENGTH_LONG).show();
 					tasksAdapter.clear();
 					tasksAdapter.addAll(list);
 				} else {
