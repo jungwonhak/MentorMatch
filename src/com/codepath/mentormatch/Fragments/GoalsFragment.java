@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
 import com.codepath.mentormatch.activities.ConnectionDetailActivity;
@@ -79,6 +83,29 @@ public class GoalsFragment extends Fragment {
 				tasksAdapter.add(task);
 			}
 		});
+		
+		lvTasks.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+				Log.d("DEBUG", "onclick of todo item: " + pos);
+				Task task = tasksAdapter.getItem(pos);
+				Status status = task.getStatus();
+				TextView tvTaskDescr = (TextView) view.findViewById(R.id.tvTaskDescr);
+				if(Status.CLOSED.equals(status)) {
+					task.setStatus(Status.OPEN);
+					tvTaskDescr.setPaintFlags( tvTaskDescr.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+				} else {
+					task.setStatus(Status.CLOSED);
+					tvTaskDescr.setPaintFlags( tvTaskDescr.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				}
+				try {
+					task.save();
+				} catch(Exception e) {
+					Log.d("DEBUG", "error updating task: " + task);
+					e.printStackTrace();
+				}
+			}
+		});		
 	}
 	
 	private void retrieveTasks(){
