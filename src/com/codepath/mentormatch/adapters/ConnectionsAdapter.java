@@ -81,12 +81,12 @@ public class ConnectionsAdapter extends ArrayAdapter<MatchRelationship>{
 		tvLocation.setText(location);
 		tvMessage.setText(description);
 		tvBlurb.setText(blurb);
-		
-		if (image.isEmpty()) {
-			ivProfileImage.setImageResource(drawableID);
-		} else {
-		ImageLoader.getInstance().displayImage(image,
+		if (image != null && !image.isEmpty()) {
+			ImageLoader.getInstance().displayImage(image,
 					ivProfileImage);
+
+		} else {
+			ivProfileImage.setImageResource(drawableID);
 		}
 //		ivSkill.setImageResource(Skill.fromValue(req.getSkill()).getResourceId());
 		return convertView;

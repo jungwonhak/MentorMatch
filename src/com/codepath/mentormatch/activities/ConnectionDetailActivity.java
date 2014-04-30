@@ -1,8 +1,5 @@
 package com.codepath.mentormatch.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
@@ -14,16 +11,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.adapters.TasksAdapter;
 import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.fragments.GoalsFragment;
 import com.codepath.mentormatch.fragments.MatchResultsListFragment;
 import com.codepath.mentormatch.fragments.RatingsFragment;
 import com.codepath.mentormatch.helpers.FragmentTabListener;
-import com.codepath.mentormatch.models.parse.Task;
 import com.codepath.mentormatch.models.parse.User;
 import com.parse.ParseUser;
 
@@ -119,8 +113,7 @@ public class ConnectionDetailActivity extends FragmentActivity {
 				new FragmentTabListener<RatingsFragment>(R.id.flFrameContainer, this, "ratings",
 						RatingsFragment.class));
 
-		actionBar.addTab(tab1);
-		actionBar.selectTab(tab1);
+
 
 		Tab tab2 = actionBar
 			.newTab()
@@ -132,6 +125,8 @@ public class ConnectionDetailActivity extends FragmentActivity {
 			    		GoalsFragment.class));
 
 		actionBar.addTab(tab2);
+		actionBar.selectTab(tab2);
+		actionBar.addTab(tab1);
 	}
 
 	private static class ConnectionDetailPagerAdapter extends FragmentPagerAdapter {

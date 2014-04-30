@@ -2,7 +2,6 @@ package com.codepath.mentormatch.models.parse;
 
 import java.util.Date;
 
-import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.codepath.mentormatch.models.Status;
@@ -17,6 +16,7 @@ public class Task extends ParseObject {
 	public static final String DUE_DATE_KEY = "dueDate";
 	public static final String CREATED_BY_KEY = "createdBy";
 	public static final String STATUS_KEY = "status";
+	public static final String CREATED_AT_KEY = "createdAt";
 
 	public Task() {
 		super();

@@ -1,5 +1,6 @@
 package com.codepath.mentormatch.adapters;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -15,9 +16,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.mentormatch.R;
-import com.codepath.mentormatch.helpers.ParseQueries;
+import com.codepath.mentormatch.core.MentorMatchApplication;
 import com.codepath.mentormatch.helpers.ReviewsUtil;
-import com.codepath.mentormatch.models.Review;
 import com.codepath.mentormatch.models.Skill;
 import com.codepath.mentormatch.models.parse.MatchRelationship;
 import com.codepath.mentormatch.models.parse.MentorRequest;
@@ -89,50 +89,59 @@ public class MatchResultsAdapter extends ArrayAdapter {
 		viewHolder.tvJobTitle.setText(user.getJobTitle() + " @ " + user.getCompany());
 		viewHolder.tvLocation.setText(user.getLocation());
 		Log.d("DEBUG", "Name: " + user.getFullName());
-//		viewHolder.rbRating.setRating(getAverageRating());
 		retrieveReviews();
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65);
 		
 		if(user.getSkills() != null) {
-		for (String s : user.getSkills()) {
-			Log.d("DEBUG", "SKill: " + s);
-			ImageView iv = new ImageView(convertView.getContext());
-			iv.setScaleType(ScaleType.FIT_XY);
-			iv.setLayoutParams(params);
-			Skill skill = Skill.fromValue(s);
-			iv.setMaxHeight(15);
-			iv.setMaxWidth(15);
-			iv.setImageResource(skill.getResourceId());
-			viewHolder.llSkillImages.addView(iv);				
-		}
-	}
-		
-/*		convertView.setOnClickListener(new OnClickListener() {		
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), ViewProfileActivity.class);
-				i.putExtra(ProfileSummaryListFragment.USER_EXTRA, user.getObjectId());
-				v.getContext().startActivity(i);
+			for (String s : user.getSkills()) {
+				Log.d("DEBUG", "SKill: " + s);
+				ImageView iv = new ImageView(convertView.getContext());
+				iv.setScaleType(ScaleType.FIT_XY);
+				iv.setLayoutParams(params);
+				Skill skill = Skill.fromValue(s);
+				iv.setMaxHeight(15);
+				iv.setMaxWidth(15);
+				iv.setImageResource(skill.getResourceId());
+				viewHolder.llSkillImages.addView(iv);				
 			}
-		});
-	*/	
-/*        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
-        convertView.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(final View view, final MotionEvent event) {
-                gdt.onTouchEvent(event);
-                Log.d("DEBUG", "Touch");
-                return true;
-            }
-        });*/
+		}
 		return convertView;
 	}
 	
 	private void retrieveReviews() {
-		Log.d("DEBUG", "Match Results Reviews: Retrieving Reviews for: " + user);
-		ParseQueries.getReviewsForUser(user, new FindReviewsCallback());
+		HashMap<String, Object> reviewInfo = MentorMatchApplication.getUserReviews().get(user.getObjectId());
+		double avg = 0.0;
+		int numReviews = 0;
+		if(reviewInfo != null) {
+			avg = (Double) reviewInfo.get("average");
+			numReviews = (Integer) reviewInfo.get("reviews");
+
+		}
+		viewHolder.rbRating.setRating((float)avg);
+		
+		viewHolder.tvNumReviews.setText(String.valueOf(numReviews));
 	}
 	
+	
+	/*		convertView.setOnClickListener(new OnClickListener() {		
+	@Override
+	public void onClick(View v) {
+		Intent i = new Intent(v.getContext(), ViewProfileActivity.class);
+		i.putExtra(ProfileSummaryListFragment.USER_EXTRA, user.getObjectId());
+		v.getContext().startActivity(i);
+	}
+});
+*/	
+/*        final GestureDetector gdt = new GestureDetector(convertView.getContext(), new GestureListener());
+convertView.setOnTouchListener(new OnTouchListener() {
+    @Override
+    public boolean onTouch(final View view, final MotionEvent event) {
+        gdt.onTouchEvent(event);
+        Log.d("DEBUG", "Touch");
+        return true;
+    }
+});*/
+
 	private class FindReviewsCallback extends FindCallback<MatchRelationship> {
 		@Override
 		public void done(List<MatchRelationship> relationshipList, ParseException e) {
@@ -149,26 +158,4 @@ public class MatchResultsAdapter extends ArrayAdapter {
 			}
 		}
 	}
-
-/*
-    private class GestureListener extends SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Right to left
-            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                Log.d("DEBUG", "SWIPE RIGHT!!!");
-                
-                return false; // Left to right
-            }
-
-            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Bottom to top
-            }  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Top to bottom
-            }
-            return false;
-        }
-    }
-   */
 }
