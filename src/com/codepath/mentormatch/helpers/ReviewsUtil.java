@@ -29,24 +29,23 @@ public class ReviewsUtil {
 		for (MatchRelationship relation : relationships) {
 			Review newReview;
 			if (isForMentor) {
-
-				User mentor = (User) relation.getMentor();
+				User mentee = (User) relation.getMentee();
 				double rating = relation.getMentorRating();
 				String comment = relation.getCommentForMentor();
 				if (rating > 0 || (comment != null && comment.length() > 0)) {
-					newReview = new Review(mentor.getFullName(),
-							relation.getCreatedAt(), comment, rating);
+					newReview = new Review(mentee.getFullName(),
+							relation.getUpdatedAt(), comment, rating);
 					reviews.add(newReview);
 					ratingValueTotal += rating;
 					totalReviews++;
 				}
 			} else {
-				User mentee = (User) relation.getMentee();
+				User mentor = (User) relation.getMentor();
 				double rating = relation.getMenteeRating();
 				String comment = relation.getCommentForMentee();
 				if (rating > 0 || (comment != null && comment.length() > 0)) {
-					newReview = new Review(mentee.getFullName(),
-							relation.getCreatedAt(), comment, rating);
+					newReview = new Review(mentor.getFullName(),
+							relation.getUpdatedAt(), comment, rating);
 					reviews.add(newReview);
 					ratingValueTotal += rating;
 					totalReviews++;
